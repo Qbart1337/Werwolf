@@ -5,8 +5,8 @@ room::room()
 
 }
 void room::SetRoomName(std::string raumName){
-    this->raumName = raumName;
+    this->room_name = raumName;
 }
 std::string room::GetRoomeName(){
-    return raumName;
+    return room_name;
 }

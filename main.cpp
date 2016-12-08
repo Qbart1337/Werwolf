@@ -16,14 +16,14 @@ Wenn ich nur & von der Variable übergebe, kann ich sie auch ändern in der Meth
 void ChangeInt(int &number)
 {
     number++;
-
 }
 */
+// TODO: eventuell play/ask mit Ref als Parameter
 
 using namespace std;
 struct data{
-    person peopleList[5];
-    room roomList[5];
+    person peoplelist[5];
+    room roomlist[5];
 };
 
 struct data CreateGame(int game){
@@ -38,27 +38,27 @@ struct data CreateGame(int game){
     //Room One
     room eins;
     eins.SetRoomName("Kueche");
-    z.roomList[0] = eins;
+    z.roomlist[0] = eins;
 
     //Room Two
     room zwei;
     zwei.SetRoomName("Badezimmer");
-    z.roomList[1] = zwei;
+    z.roomlist[1] = zwei;
 
     //Raum Three
     room drei;
     drei.SetRoomName("Wohnzimmer");
-    z.roomList[2] = drei;
+    z.roomlist[2] = drei;
 
     //Raum Four
     room vier;
     vier.SetRoomName("Flur");
-    z.roomList[3] = vier;
+    z.roomlist[3] = vier;
 
     //Raum Five
     room funf;
     funf.SetRoomName("Schlafzimmer");
-    z.roomList[4] = funf;
+    z.roomlist[4] = funf;
 
     cout << initialize_rooms_end << endl;
     cout << initialize_person_start << endl;
@@ -120,16 +120,16 @@ struct data CreateGame(int game){
         five.SetDialog("###", "###", "###");
     }
 
-    z.peopleList[0] = one;
-    z.peopleList[1] = two;
-    z.peopleList[2] = three;
-    z.peopleList[3] = four;
-    z.peopleList[4] = five;
+    z.peoplelist[0] = one;
+    z.peoplelist[1] = two;
+    z.peoplelist[2] = three;
+    z.peoplelist[3] = four;
+    z.peoplelist[4] = five;
     cout << initialize_person_end << endl;
     return z;
 }
 
-int play(struct game)
+int Play(struct data game)
 {
     // Einführung
     printXEmptyLines(2);
@@ -145,7 +145,7 @@ int play(struct game)
         cout << choose_werwolf_intro << endl;
         for(int j=0; j<5; j++)
         {
-            cout << j << ": " <<game.roomList[j].GetRoomeName() << endl;
+            cout << j << ": " <<game.roomlist[j].GetRoomeName() << endl;
         }
         cout << choose_room;
         int raumnummer;
@@ -157,10 +157,10 @@ int play(struct game)
         }
         system("cls");
 
-        string go_to_room = "Du bist in " + game.roomList[raumnummer].GetRoomeName() + " gegangen";
+        string go_to_room = "Du bist in " + game.roomlist[raumnummer].GetRoomeName() + " gegangen";
         cout << go_to_room << endl;
 
-        string people_in_room = "In diesem Raum ist: " + game.peopleList[raumnummer].GetName();
+        string people_in_room = "In diesem Raum ist: " + game.peoplelist[raumnummer].GetName();
         cout << people_in_room <<endl;
         printXEmptyLines(2);
 
@@ -176,9 +176,9 @@ int play(struct game)
             if(interactionnumer != 3)
             {
                 system("cls");
-                string people_Answer_Intro = game.peopleList[raumnummer].GetName() + " sagt:";
+                string people_Answer_Intro = game.peoplelist[raumnummer].GetName() + " sagt:";
                 cout << people_Answer_Intro << endl;
-                string people_Answer = game.peopleList[raumnummer].GetAnswer(interactionnumer) ;
+                string people_Answer = game.peoplelist[raumnummer].GetAnswer(interactionnumer) ;
                 cout << people_Answer << endl;
                 printXEmptyLines(2);
                 Sleep(5000);
@@ -193,18 +193,18 @@ int play(struct game)
     return 0;
 }
 
-int ask(struct game)
+int Ask(struct data game)
 {
     cout << choose_werwolf << endl;
     for(int i=0; i<5; i++)
     {
-        cout << i << ". "<< game.peopleList[i].GetName()<< endl;
+        cout << i << ". "<< game.peoplelist[i].GetName()<< endl;
     }
 
     cout << choose_people_to_kill << endl;
     int finalchoose;
     cin >> finalchoose;
-    string result = game.peopleList[finalchoose].GetFinalInformation();
+    string result = game.peoplelist[finalchoose].GetFinalInformation();
 
     printSpecialText(result);
     return 0;
@@ -223,21 +223,21 @@ int main()
     // struct data game = CreateGame(4);
 
     bool allGames = true;
+    int counter = 0;
     while (allGames)
     {
-        int counter;
-        int gamenumber = counter;
         // Exeption
-        struct data game = CreateGame(gamenumber);
-        play(&game);
-        ask(&game);
+        struct data game = CreateGame(counter);
+        Play(game);
+        Ask(game);
         // END
         counter ++;
-        if( counter >= 4 )
+        if( counter >= 2 )
         {
             allGames = false;
         }
     }
+    // TODO! - Ausgabe wie viele er gewonnen hat. -CLASS
     // Befragung abgeschlossen
     // Finales verdächtigen
     system("cls");

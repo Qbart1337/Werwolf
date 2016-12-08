@@ -1,5 +1,6 @@
 #include <Windows.h>
 #include <string>
+
 std::string GetXTimesTheSameString(std::string singlestring, int value){
     std::string tmp = "";
     for(int i=0; i<value; i++){

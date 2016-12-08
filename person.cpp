@@ -2,7 +2,8 @@
 person::person()
 {
     bewohnerstatus = Dorfbewohner;
-    counter = 0;
+    //
+    ask_Counter = 0;
 }
 
 std::string person::GetName(){
@@ -15,22 +16,22 @@ whoami person::GetPersonenStatus(){
     return bewohnerstatus;
 }
 void person::SetDialog(std::string ask_neutral, std::string ask_skeptic, std::string answer_random){
-    this->ask_neutral = ask_neutral;
-    this->ask_skeptic = ask_skeptic;
+    this->answer_neutral = ask_neutral;
+    this->answer_sceptic = ask_skeptic;
     this->answer_random = answer_random;
 }
 std::string person::GetAnswer(int answer_choose){
-    if(counter >= 2)
+    if(ask_Counter >= 2)
     {
         return answer_random;
     }
     else
     {
-        counter++;
+        ask_Counter++;
         switch(answer_choose)
         {
-            case(1): return ask_neutral;
-            case(2): return ask_skeptic;
+            case(1): return answer_neutral;
+            case(2): return answer_sceptic;
         }
     }
 }

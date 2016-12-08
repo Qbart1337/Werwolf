@@ -6,10 +6,12 @@
 
 class room
 {
+private:
+    std::string room_name;
+
 public:
-    std::string raumName;
     room();
-    void SetRoomName(std::string raumName);
+    void SetRoomName(std::string room_name);
     std::string GetRoomeName();
 };
 

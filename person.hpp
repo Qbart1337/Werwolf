@@ -8,25 +8,22 @@ class person
 {
 private:
     whoami bewohnerstatus;
-    int counter;
+    int ask_Counter;
     std::string name;
-    std::string ask_neutral;
-    std::string ask_skeptic;
+    std::string answer_neutral;
+    std::string answer_sceptic;
     std::string answer_random;
 public:
     person();
 
     whoami GetPersonenStatus();
 
-
     std::string GetName();
     std::string GetAnswer(int answer_choose);
     std::string GetFinalInformation();
 
-    int GetID();
-
     void SetWerwolf();
-    void SetDialog(std::string ask_neutral, std::string ask_skeptic, std::string answer_random);
+    void SetDialog(std::string answer_neutral, std::string answer_sceptic, std::string answer_random);
     void SetName(std::string name);
 };
 
