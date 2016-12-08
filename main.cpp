@@ -29,12 +29,11 @@ struct data{
 struct data CreateGame(int game){
     struct data z;
     //Erstelle Räume
+    //TODO: Besseres Naming bspw. room_one, room_two, person_one, person_two
 
     cout << initialize_rooms_start << endl;
-    /*
-    Flur, Schlafzimmer
-    */
 
+    //TODO: Alle am Ende Adden
     //Room One
     room eins;
     eins.SetRoomName("Kueche");
@@ -66,6 +65,8 @@ struct data CreateGame(int game){
     //Number One
     person one;
     one.SetName("Anne");
+    //TODO: Switch-Case statt If-Schachtelungen
+    //TODO: Runde 2-4 Texte kreieren
     if(game == 1)
     {
         one.SetDialog("Ich war mit einer Freundin einkauen", "Ich habe Anna gesehen", "Nerv mich nicht!");
