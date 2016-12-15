@@ -29,103 +29,99 @@ struct data{
 struct data CreateGame(int game){
     struct data z;
     //Erstelle Räume
-    //TODO: Besseres Naming bspw. room_one, room_two, person_one, person_two
 
     cout << initialize_rooms_start << endl;
 
-    //TODO: Alle am Ende Adden
-    //Room One
-    room eins;
-    eins.SetRoomName("Kueche");
-    z.roomlist[0] = eins;
+    room room_one;
+    room_one.SetRoomName("Kueche");
 
-    //Room Two
-    room zwei;
-    zwei.SetRoomName("Badezimmer");
-    z.roomlist[1] = zwei;
+    room roome_two;
+    roome_two.SetRoomName("Badezimmer");
 
-    //Raum Three
-    room drei;
-    drei.SetRoomName("Wohnzimmer");
-    z.roomlist[2] = drei;
+    room room_three;
+    room_three.SetRoomName("Wohnzimmer");
 
-    //Raum Four
-    room vier;
-    vier.SetRoomName("Flur");
-    z.roomlist[3] = vier;
+    room room_four;
+    room_four.SetRoomName("Flur");
 
-    //Raum Five
-    room funf;
-    funf.SetRoomName("Schlafzimmer");
-    z.roomlist[4] = funf;
+    room room_five;
+    room_five.SetRoomName("Schlafzimmer");
+
+
+    z.roomlist[0] = room_one;
+    z.roomlist[1] = roome_two;
+    z.roomlist[2] = room_three;
+    z.roomlist[3] = room_four;
+    z.roomlist[4] = room_five;
+
 
     cout << initialize_rooms_end << endl;
     cout << initialize_person_start << endl;
 
-    //Number One
-    person one;
-    one.SetName("Anne");
+    person person_one;
+    person_one.SetName("Anne");
     //TODO: Switch-Case statt If-Schachtelungen
     //TODO: Runde 2-4 Texte kreieren
+    //TODO: Text auslagern?
     if(game == 1)
     {
-        one.SetDialog("Ich war mit einer Freundin einkauen", "Ich habe Anna gesehen", "Nerv mich nicht!");
+        person_one.SetDialog("Ich war mit einer Freundin einkauen", "Ich habe Anna gesehen", "Nerv mich nicht!");
     }
     else if(game == 2)
     {
-        one.SetDialog("###", "###", "###");
-    }
-    //Number Two
-    person two;
-    two.SetName("Anja");
-    if(game == 1)
-    {
-        two.SetDialog("Ich war mit einem Freund im Kino", "Nein", "Nerv mich nicht!");
-    }
-    else if(game == 2)
-    {
-        two.SetDialog("###", "###", "###!");
-    }
-    //Number Three
-    person three;
-    three.SetName("Antoine");
-    if(game == 1)
-    {
-        three.SetWerwolf();
-        three.SetDialog("Ich habe mir einen Film angeschaut", "Ich habe Anne gesehen", "Nerv mich nicht!");
-    }
-    else if(game == 2)
-    {
-        three.SetDialog("###", "###", "###!");
-    }
-    //Number Four
-    person four;
-    four.SetName("Anton");
-    if(game == 1)
-    {
-        four.SetDialog("Ich habe mir einen Film angeschaut", "Ich habe Anja gesehen", "Nerv mich nicht!");
-    }
-    else if(game == 2)
-    {
-        four.SetDialog("###", "###", "###");
-    }
-    //Number Five
-    person five;
-    five.SetName("Anna");
-    if(game == 1)
-    {
-        five.SetDialog("Ich habe mir ein Kleid gekauft", "Ich habe Anne gesehen", "Nerv mich nicht!");
-    }
-    else if(game == 2)
-    {
-        five.SetDialog("###", "###", "###");
+        person_one.SetDialog("###", "###", "###");
     }
 
-    z.peoplelist[0] = one;
-    z.peoplelist[1] = two;
-    z.peoplelist[2] = three;
-    z.peoplelist[3] = four;
-    z.peoplelist[4] = five;
+    person person_two;
+    person_two.SetName("Anja");
+    if(game == 1)
+    {
+        person_two.SetDialog("Ich war mit einem Freund im Kino", "Nein", "Nerv mich nicht!");
+    }
+    else if(game == 2)
+    {
+        person_two.SetDialog("###", "###", "###!");
+    }
+
+    person person_three;
+    person_three.SetName("Antoine");
+    if(game == 1)
+    {
+        person_three.SetWerwolf();
+        person_three.SetDialog("Ich habe mir einen Film angeschaut", "Ich habe Anne gesehen", "Nerv mich nicht!");
+    }
+    else if(game == 2)
+    {
+        person_three.SetDialog("###", "###", "###!");
+    }
+
+    person person_four;
+    person_four.SetName("Anton");
+    if(game == 1)
+    {
+        person_four.SetDialog("Ich habe mir einen Film angeschaut", "Ich habe Anja gesehen", "Nerv mich nicht!");
+    }
+    else if(game == 2)
+    {
+        person_four.SetDialog("###", "###", "###");
+    }
+
+    person person_five;
+    person_five.SetName("Anna");
+    if(game == 1)
+    {
+        person_five.SetDialog("Ich habe mir ein Kleid gekauft", "Ich habe Anne gesehen", "Nerv mich nicht!");
+    }
+    else if(game == 2)
+    {
+        person_five.SetDialog("###", "###", "###");
+    }
+
+    z.peoplelist[0] = person_one;
+    z.peoplelist[1] = person_two;
+    z.peoplelist[2] = person_three;
+    z.peoplelist[3] = person_four;
+    z.peoplelist[4] = person_five;
     cout << initialize_person_end << endl;
     return z;
 }
