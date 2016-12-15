@@ -12,6 +12,17 @@ bei Settern wenn möglich 'const &' von der Variable übergeben
 
 Wenn ich nur & von der Variable übergebe, kann ich sie auch ändern in der Methode -> siehe bsp
 
+Anforderungen:
+-Bewegung durch Räume bzw. Szenen basierend auf Textein- und ausgabe
+-Interaktion mit Spielwelt, inkl. Zustandsänderung /z.B. Schalter, Türe, LP
+-Einfache Inventarverwaltung z.B. Gegenstand aufnehmen, später benutzen
+-Teilprozesse z.B. Unterhaltung/Dialog, Kampf, schrittweises Rätsel etc.
+
+
+
+
+
+
 
 void ChangeInt(int &number)
 {
@@ -19,6 +30,16 @@ void ChangeInt(int &number)
 }
 */
 // TODO: eventuell play/ask mit Ref als Parameter
+
+/*
+TODO:
+Std::list -> Inventar
+Energy-Skala // Essen 3 Hunger Balken
+Bewegung und Verzweigung der Räume
+Zustandsänderungen erhöhen
+Kommentieren wer was gemacht hat
+
+*/
 
 using namespace std;
 struct data{
