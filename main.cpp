@@ -19,32 +19,80 @@ Anforderungen:
 -Teilprozesse z.B. Unterhaltung/Dialog, Kampf, schrittweises Rätsel etc.
 
 
-
-
-
-
-
-void ChangeInt(int &number)
-{
-    number++;
-}
-*/
-// TODO: eventuell play/ask mit Ref als Parameter
-
-/*
 TODO:
-Std::list -> Inventar
-Energy-Skala // Essen 3 Hunger Balken
+Std::list -> Inventar // Inventar hat fest 3 Plätze
 Bewegung und Verzweigung der Räume
-Zustandsänderungen erhöhen
+Zustandsänderungen erhöhen ((Interatkion mit Inventar)
 Kommentieren wer was gemacht hat
 
 */
 
 using namespace std;
+enum inventartyp { Key, Sheriffsstern, Sonstiges, Notizen};
+struct inventar{
+    int count = 0;
+    inventarelement Liste[5];
+    bool Check(std::string name){
+        if(count == 0){
+            return false;
+        }
+        else{
+            for(int i=0;i<count; i++){
+                if(Liste[i].name == name){
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
+
+    void Add(inventarelement elem)
+    {
+        if(count >=4)
+        {
+            //Inventar voll
+        }
+        else{
+            Liste[count] = elem;
+            count++;
+        }
+    }
+    void Delete(){
+        ListAll();
+        int deletenumber;
+        cin >> deletenumber;
+        if(count == deletenumber)
+        {
+            Liste[deletenumber] = null;
+            count --;
+        }
+        else{
+            for(deletenumber;deletenumber<count;deletenumber++){
+                inventarelement tmp = Liste[deletenumber];
+                Liste[deletenumber] = Liste[deletenumber+1];
+                Liste[deletenumber+1] = tmp;
+            }
+            Liste[deletenumber] = null;
+            count --;
+        }
+    }
+    void ListAll(){
+        for(int i=0;i<=count;i++){
+            cout << i << " "<< Liste[i].name <<endl;
+        }
+    }
+
+};
+struct inventarelement{
+    string name;
+    inventartyp typ;
+    bool beweisstueck;
+};
+
 struct data
 {
     person peoplelist[5];
+    inventar inventar;
 };
 
 void CreateGame(struct data *z)
@@ -56,17 +104,14 @@ void CreateGame(struct data *z)
     person person_four;
     person person_five;
 
-    z ->peoplelist[0].SetName("Anne");
-    z ->peoplelist[1].SetName("Anja");
-    z ->peoplelist[2].SetName("Antoine");
-    z ->peoplelist[3].SetName("Anton");
-    z ->peoplelist[4].SetName("Anna");
+    person_one.SetName("Anne");
+    person_two.SetName("Anja");
+    person_three.SetName("Antoine");
+    person_four.SetName("Anton");
+    person_five.SetName("Anna");
 
-
-    //TODO: Switch-Case statt If-Schachtelungen
-    //TODO: Runde 2-4 Texte kreieren
-    //TODO: SetDialoge(set); auslagern mit 'int set';
-
+    inventar inv;
+    z ->inventar = inv;
 
     z ->peoplelist[0] = person_one;
     z ->peoplelist[1] = person_two;
@@ -74,7 +119,7 @@ void CreateGame(struct data *z)
     z ->peoplelist[3] = person_four;
     z ->peoplelist[4] = person_five;
     cout << initialize_person_end << endl;
-    //return z;
+
 }
 
 void SetDialog(int set, struct data* z)
@@ -99,16 +144,104 @@ void SetDialog(int set, struct data* z)
     cout << "SetDialoge Erfolgreich" << endl;
 }
 
-/*
-int Play(struct data game)
+
+void Play(struct data* game)
 {
+    int set = 1;
     // Einführung
     printXEmptyLines(2);
     printTextSmoothly(gamerules);
     printXEmptyLines(2);
 
-    // Spiel beginnt
+    SetDialog(set,data_ptr);
 
+    printTextSmoothly(introduction);
+
+    bool ready_for_final_question = false;
+    while(!ready_for_final_question)
+    {
+        print("Du bist auf dem Marktplatz, wohin willst du gehen?");
+        print("1. Kirche \n2.Mensa \n3.Tatort \n4.Aufenthaltsraum \n5.Scheune");
+        int roomnumber;
+        cin >> roomnumber;
+        cleanconsole();
+        switch(roomnumber){
+        case 1:
+            //Kirche
+            bool stayinchurch = true;
+            while(stayinchurch){
+                print("Du bist gerade in die Kirche gegangen");
+                print("In der Kirche brennen ein paar Kerzen für den Verstorbenen");
+                print("Du hast folgende Interaktionsmöglichkeiten:");
+                print("1. Mit dem Pfarrer sprechen\n2. Zum Beichstuhl gehen\n3. Zur Tür hinter dem Altar gehen");
+                int interactionnumber;
+                cin >> interactionnumber;
+                switch(interactionnumber){
+                case 1:
+                    //Mit dem Pfarrer reden
+                    break;
+                case 2:
+                    //Zum Beichtstuhl gehen
+                    //Sollte man hier hingehen bevor man beim Sheriff war, so findet man den Täter dort und er liefert starke Indizien für seine Tat
+                    break;
+                case 3:
+                    //Tür hinter dem Altar
+                    if(game ->inventar.Check("Kirchen-Key")){
+                        // enter room
+                    }
+                    else{
+                        print("Du hast leider keinen passenden Schlüssel dabei");
+                    }
+                    break;
+                }
+            }
+            break;
+        case 2:
+            //Mensa
+            /*
+             * Essen
+             * Reden mit P1
+             * Reden mit P2
+             * -> Hat von einem versteckten Raum gehört den der getötete in der Scheune aufgesucht hat
+             * Küche
+             *  -> P3 (Koch)
+             */
+            break;
+        case 3:
+            //Tatort
+            /*
+             * Reden mit dem Sheriff
+             * Option Mission anzunehmen oder zu warten ("Bist du schon bereit dafür?")
+             * Ja -> Sheriffstern
+             * Ja -> SetDialoge(2)
+             */
+            break;
+        case 4:
+            //Aufenthaltsraum
+            /*
+             * Spieler 4 bei den Hausaufgaben helfen
+             * Ja + richtige Antwort -> "Unbekannter Schlüssel"
+             */
+            break;
+        case 5:
+            //Scheune
+            /*
+             * Geheimer Raum nur bekannt wenn man die Info von P2 hat.
+             */
+
+            break;
+        case 6:
+            //Friedhof
+            break;
+        }
+
+        system("cls");
+
+    }
+
+
+    // Spiel beginnt
+    /*
     bool not_ready_for_final_question = true;
     while(not_ready_for_final_question)
     {
@@ -160,10 +293,10 @@ int Play(struct data game)
                 continue_asking = false;
             }
         }
-    }
-    return 0;
-}
+    }*/
 
+}
+/*
 int Ask(struct data game)
 {
     cout << choose_werwolf << endl;
@@ -182,13 +315,14 @@ int Ask(struct data game)
 }
 */
 int main()
-{    
+{
     struct data gamedata;
     struct data *data_ptr = &gamedata;
     CreateGame(data_ptr);
-    SetDialog(1,data_ptr);
-    cout <<gamedata.peoplelist[0].GetName()<<endl;
-    cout <<gamedata.peoplelist[0].GetAnswer(1);
+
+
+    //cout <<gamedata.peoplelist[0].GetName()<<endl;
+    //cout <<gamedata.peoplelist[0].GetAnswer(1);
     cout << "Erfolgreiche Main" << endl;
 /*
     bool startedGame = false;

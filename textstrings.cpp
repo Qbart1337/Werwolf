@@ -13,3 +13,4 @@ std::string choose_interaction_with_people = "Moegliche Interaktionen: \n1. Freu
 std::string choose_interaction = "Bitte Interaktion auswaehlen: ";
 std::string choose_werwolf = "Du musst dich entscheiden wer der Werwolf ist" ;
 std::string choose_people_to_kill = "Wen moechtest du umbringen?";
+std::string introduction = "blablablabla";

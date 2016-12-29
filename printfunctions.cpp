@@ -1,5 +1,8 @@
 #include <Windows.h>
 #include <string>
+void cleanconsole(){
+    system("cls");
+}
 
 std::string GetXTimesTheSameString(std::string singlestring, int value){
     std::string tmp = "";
@@ -40,4 +43,7 @@ void printXEmptyLines(int value){
     for(int i=0; i<value; i++){
         std::cout << std::endl;
     }
+}
+void print(std::string AusgabeString){
+    cout<<AusgabeString<<endl;
 }
