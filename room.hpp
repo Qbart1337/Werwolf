@@ -9,6 +9,7 @@ class room
 private:
     std::string room_name;
 
+
 public:
     room();
     void SetRoomName(std::string room_name);

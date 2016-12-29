@@ -42,111 +42,64 @@ Kommentieren wer was gemacht hat
 */
 
 using namespace std;
-struct data{
+struct data
+{
     person peoplelist[5];
-    room roomlist[5];
 };
 
-struct data CreateGame(int game){
-    struct data z;
-    //Erstelle Räume
-
-    cout << initialize_rooms_start << endl;
-
-    room room_one;
-    room_one.SetRoomName("Kueche");
-
-    room roome_two;
-    roome_two.SetRoomName("Badezimmer");
-
-    room room_three;
-    room_three.SetRoomName("Wohnzimmer");
-
-    room room_four;
-    room_four.SetRoomName("Flur");
-
-    room room_five;
-    room_five.SetRoomName("Schlafzimmer");
-
-
-    z.roomlist[0] = room_one;
-    z.roomlist[1] = roome_two;
-    z.roomlist[2] = room_three;
-    z.roomlist[3] = room_four;
-    z.roomlist[4] = room_five;
-
-
-    cout << initialize_rooms_end << endl;
+void CreateGame(struct data *z)
+{
     cout << initialize_person_start << endl;
-
     person person_one;
-    person_one.SetName("Anne");
+    person person_two;
+    person person_three;
+    person person_four;
+    person person_five;
+
+    z ->peoplelist[0].SetName("Anne");
+    z ->peoplelist[1].SetName("Anja");
+    z ->peoplelist[2].SetName("Antoine");
+    z ->peoplelist[3].SetName("Anton");
+    z ->peoplelist[4].SetName("Anna");
+
+
     //TODO: Switch-Case statt If-Schachtelungen
     //TODO: Runde 2-4 Texte kreieren
-    //TODO: Text auslagern?
-    if(game == 1)
-    {
-        person_one.SetDialog("Ich war mit einer Freundin einkauen", "Ich habe Anna gesehen", "Nerv mich nicht!");
-    }
-    else if(game == 2)
-    {
-        person_one.SetDialog("###", "###", "###");
-    }
+    //TODO: SetDialoge(set); auslagern mit 'int set';
 
-    person person_two;
-    person_two.SetName("Anja");
-    if(game == 1)
-    {
-        person_two.SetDialog("Ich war mit einem Freund im Kino", "Nein", "Nerv mich nicht!");
-    }
-    else if(game == 2)
-    {
-        person_two.SetDialog("###", "###", "###!");
-    }
 
-    person person_three;
-    person_three.SetName("Antoine");
-    if(game == 1)
-    {
-        person_three.SetWerwolf();
-        person_three.SetDialog("Ich habe mir einen Film angeschaut", "Ich habe Anne gesehen", "Nerv mich nicht!");
-    }
-    else if(game == 2)
-    {
-        person_three.SetDialog("###", "###", "###!");
-    }
-
-    person person_four;
-    person_four.SetName("Anton");
-    if(game == 1)
-    {
-        person_four.SetDialog("Ich habe mir einen Film angeschaut", "Ich habe Anja gesehen", "Nerv mich nicht!");
-    }
-    else if(game == 2)
-    {
-        person_four.SetDialog("###", "###", "###");
-    }
-
-    person person_five;
-    person_five.SetName("Anna");
-    if(game == 1)
-    {
-        person_five.SetDialog("Ich habe mir ein Kleid gekauft", "Ich habe Anne gesehen", "Nerv mich nicht!");
-    }
-    else if(game == 2)
-    {
-        person_five.SetDialog("###", "###", "###");
-    }
-
-    z.peoplelist[0] = person_one;
-    z.peoplelist[1] = person_two;
-    z.peoplelist[2] = person_three;
-    z.peoplelist[3] = person_four;
-    z.peoplelist[4] = person_five;
+    z ->peoplelist[0] = person_one;
+    z ->peoplelist[1] = person_two;
+    z ->peoplelist[2] = person_three;
+    z ->peoplelist[3] = person_four;
+    z ->peoplelist[4] = person_five;
     cout << initialize_person_end << endl;
-    return z;
+    //return z;
 }
 
+void SetDialog(int set, struct data* z)
+{
+    switch(set){
+    case 1:
+        z ->peoplelist[0].SetDialog("Ich war mit einer Freundin einkauen", "Ich habe Anna gesehen", "Nerv mich nicht!");
+        z ->peoplelist[1].SetDialog("Ich war mit einem Freund im Kino", "Nein", "Nerv mich nicht!");
+        z ->peoplelist[2].SetWerwolf();
+        z ->peoplelist[2].SetDialog("Ich habe mir einen Film angeschaut", "Ich habe Anne gesehen", "Nerv mich nicht!");
+        z ->peoplelist[3].SetDialog("Ich habe mir einen Film angeschaut", "Ich habe Anja gesehen", "Nerv mich nicht!");
+        z ->peoplelist[4].SetDialog("Ich habe mir ein Kleid gekauft", "Ich habe Anne gesehen", "Nerv mich nicht!");
+        break;
+    case 2:
+        z ->peoplelist[0].SetDialog("###", "###", "###");
+        z ->peoplelist[1].SetDialog("###", "###", "###");
+        z ->peoplelist[2].SetDialog("###", "###", "###");
+        z ->peoplelist[3].SetDialog("###", "###", "###");
+        z ->peoplelist[4].SetDialog("###", "###", "###");
+        break;
+    }
+    cout << "SetDialoge Erfolgreich" << endl;
+}
+
+/*
 int Play(struct data game)
 {
     // Einführung
@@ -227,32 +180,36 @@ int Ask(struct data game)
     printSpecialText(result);
     return 0;
 }
-
+*/
 int main()
 {    
-    // Standard User anlegen
-
-    // Stefan Nonn angelegt
-    // int gamenumber = 2;
-    // struct data game = CreateGame(gamenumber);
-    // OTHER angelegt
-    // struct data game = CreateGame(3);
-    // OTHER_2 Nonn angelegt
-    // struct data game = CreateGame(4);
-
-    bool allGames = true;
-    int counter = 0;
-    while (allGames)
+    struct data gamedata;
+    struct data *data_ptr = &gamedata;
+    CreateGame(data_ptr);
+    SetDialog(1,data_ptr);
+    cout <<gamedata.peoplelist[0].GetName()<<endl;
+    cout <<gamedata.peoplelist[0].GetAnswer(1);
+    cout << "Erfolgreiche Main" << endl;
+/*
+    bool startedGame = false;
+    int set = 0;
+    while (startedGame)
     {
         // Exeption
-        struct data game = CreateGame(counter);
-        Play(game);
-        Ask(game);
+        struct data game = CreateGame(); // Setzt Spielzustand _ INTRO
+        struct data game_1;
+        CreateGame(&game_1);
+        bool started = false;
+        SetDialoge(started);
+
+        SetDialoge(started);
+        Play(&game);
+        Ask(&game);
         // END
         counter ++;
         if( counter >= 2 )
         {
-            allGames = false;
+            startedGame = false;
         }
     }
     // TODO! - Ausgabe wie viele er gewonnen hat. -CLASS
@@ -264,6 +221,26 @@ int main()
     getchar();
     system("cls");
     printSpecialText("Programm erfolgreich beendet");
-
+*/
     return 0;
 }
+
+//
+/* Räume
+
+cout << initialize_rooms_start << endl;
+
+room room_one;
+room_one.SetRoomName("Kueche");
+
+room roome_two;
+roome_two.SetRoomName("Badezimmer");
+
+room room_three;
+room_three.SetRoomName("Wohnzimmer");
+
+room room_four;
+room_four.SetRoomName("Flur");
+
+room room_five;
+room_five.SetRoomName("Schlafzimmer"); */
