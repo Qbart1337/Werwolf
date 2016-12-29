@@ -161,7 +161,8 @@ void Play(struct data* game)
     while(!ready_for_final_question)
     {
         print("Du bist auf dem Marktplatz, wohin willst du gehen?");
-        print("1. Kirche \n2.Mensa \n3.Tatort \n4.Aufenthaltsraum \n5.Scheune");
+        print("1. Kirche \n2.Mensa \n3.Tatort \n4.Aufenthaltsraum \n5.Scheune\n6.Friedhof\n");
+        //falls das Bool "erlaubeGericht" freigeschaltet wurde, wird hier auch der Raum 7 "Gerichtsgebäude" angeboten, da man einen Schlüssel bekommt
         int roomnumber;
         cin >> roomnumber;
         cleanconsole();
@@ -169,9 +170,9 @@ void Play(struct data* game)
         case 1:
             //Kirche
             bool stayinchurch = true;
+            print("Du bist gerade in die Kirche gegangen");
+            print("In der Kirche brennen ein paar Kerzen für den Verstorbenen");
             while(stayinchurch){
-                print("Du bist gerade in die Kirche gegangen");
-                print("In der Kirche brennen ein paar Kerzen für den Verstorbenen");
                 print("Du hast folgende Interaktionsmöglichkeiten:");
                 print("1. Mit dem Pfarrer sprechen\n2. Zum Beichstuhl gehen\n3. Zur Tür hinter dem Altar gehen");
                 int interactionnumber;
@@ -197,6 +198,10 @@ void Play(struct data* game)
             }
             break;
         case 2:
+            bool stayinmensa = true;
+            while(stayinmensa){
+
+            }
             //Mensa
             /*
              * Essen
@@ -208,15 +213,24 @@ void Play(struct data* game)
              */
             break;
         case 3:
+            bool stayintatort = true;
+            while(stayintatort){
+
+            }
             //Tatort
             /*
              * Reden mit dem Sheriff
              * Option Mission anzunehmen oder zu warten ("Bist du schon bereit dafür?")
              * Ja -> Sheriffstern
              * Ja -> SetDialoge(2)
+             * bool erlaubeAnklage auf true setzen lassen, dadurch schaltet sich das Gericht frei
              */
             break;
         case 4:
+            bool stayinaufenthaltsraum = true;
+            while(stayinaufenthaltsraum){
+
+            }
             //Aufenthaltsraum
             /*
              * Spieler 4 bei den Hausaufgaben helfen
@@ -224,6 +238,10 @@ void Play(struct data* game)
              */
             break;
         case 5:
+            bool stayinscheune = true;
+            while(stayinscheune){
+
+            }
             //Scheune
             /*
              * Geheimer Raum nur bekannt wenn man die Info von P2 hat.
@@ -231,6 +249,10 @@ void Play(struct data* game)
 
             break;
         case 6:
+            bool stayinfriedhof = true;
+            while(stayinfriedhof){
+
+            }
             //Friedhof
             break;
         }
@@ -296,9 +318,14 @@ void Play(struct data* game)
     }*/
 
 }
-/*
-int Ask(struct data game)
+
+void Ask(struct data* game)
 {
+    //Final Question
+    //Man muss mindestens zwei Beweise/Indizien haben
+
+
+    /*
     cout << choose_werwolf << endl;
     for(int i=0; i<5; i++)
     {
@@ -312,14 +339,16 @@ int Ask(struct data game)
 
     printSpecialText(result);
     return 0;
+    */
 }
-*/
+
 int main()
 {
     struct data gamedata;
     struct data *data_ptr = &gamedata;
     CreateGame(data_ptr);
-
+    Play(data_ptr);
+    Ask(data_ptr);
 
     //cout <<gamedata.peoplelist[0].GetName()<<endl;
     //cout <<gamedata.peoplelist[0].GetAnswer(1);
