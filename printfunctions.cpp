@@ -45,5 +45,5 @@ void printXEmptyLines(int value){
     }
 }
 void print(std::string AusgabeString){
-    cout<<AusgabeString<<endl;
+    std::cout<<AusgabeString<<std::endl;
 }

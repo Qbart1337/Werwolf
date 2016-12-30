@@ -28,10 +28,12 @@ Kommentieren wer was gemacht hat
 */
 
 using namespace std;
+/*
 enum inventartyp { Key, Sheriffsstern, Sonstiges, Notizen};
+
 struct inventar{
     int count = 0;
-    inventarelement Liste[5];
+    struct inventarelement Liste[5];
     bool Check(std::string name){
         if(count == 0){
             return false;
@@ -88,11 +90,11 @@ struct inventarelement{
     inventartyp typ;
     bool beweisstueck;
 };
-
+*/
 struct data
 {
     person peoplelist[5];
-    inventar inventar;
+    //inventar inventar_;
 };
 
 void CreateGame(struct data *z)
@@ -110,8 +112,8 @@ void CreateGame(struct data *z)
     person_four.SetName("Anton");
     person_five.SetName("Anna");
 
-    inventar inv;
-    z ->inventar = inv;
+    //inventar inv;
+    //z ->inventar = inv;
 
     z ->peoplelist[0] = person_one;
     z ->peoplelist[1] = person_two;
@@ -148,20 +150,28 @@ void SetDialog(int set, struct data* z)
 void Play(struct data* game)
 {
     int set = 1;
+    bool activatedgame = false;
+    bool knowlegdeOfHiddenRoom = false;
     // Einführung
     printXEmptyLines(2);
     printTextSmoothly(gamerules);
     printXEmptyLines(2);
 
-    SetDialog(set,data_ptr);
+    SetDialog(set,game);
 
     printTextSmoothly(introduction);
 
     bool ready_for_final_question = false;
     while(!ready_for_final_question)
     {
+        bool stayinchurch = true;
+        bool stayinmensa = true;
+        bool stayintatort = true;
+        bool stayinaufenthaltsraum = true;
+        bool stayinscheune = true;
+        bool stayinfriedhof = true;
         print("Du bist auf dem Marktplatz, wohin willst du gehen?");
-        print("1. Kirche \n2.Mensa \n3.Tatort \n4.Aufenthaltsraum \n5.Scheune\n6.Friedhof\n");
+        print("1.Kirche \n2.Mensa \n3.Tatort \n4.Aufenthaltsraum \n5.Scheune\n6.Friedhof\n");
         //falls das Bool "erlaubeGericht" freigeschaltet wurde, wird hier auch der Raum 7 "Gerichtsgebäude" angeboten, da man einen Schlüssel bekommt
         int roomnumber;
         cin >> roomnumber;
@@ -169,7 +179,7 @@ void Play(struct data* game)
         switch(roomnumber){
         case 1:
             //Kirche
-            bool stayinchurch = true;
+
             print("Du bist gerade in die Kirche gegangen");
             print("In der Kirche brennen ein paar Kerzen für den Verstorbenen");
             while(stayinchurch){
@@ -187,18 +197,18 @@ void Play(struct data* game)
                     break;
                 case 3:
                     //Tür hinter dem Altar
-                    if(game ->inventar.Check("Kirchen-Key")){
+                    /*if(game ->inventar.Check("Kirchen-Key")){
                         // enter room
                     }
                     else{
                         print("Du hast leider keinen passenden Schlüssel dabei");
-                    }
+                    }*/
                     break;
                 }
             }
             break;
         case 2:
-            bool stayinmensa = true;
+
             while(stayinmensa){
 
             }
@@ -213,21 +223,59 @@ void Play(struct data* game)
              */
             break;
         case 3:
-            bool stayintatort = true;
-            while(stayintatort){
+            cleanconsole();
+            print("Du betrittst den Tatort, in diesem Raum befindet sich eine Leiche und der Sheriff");
 
+            while(stayintatort){
+                print("Du hast folgende Interaktionsmöglichkeiten: \n1. Mit dem Sheriff reden \n2. Die Leiche genauer anschauen \n3. Den Raum verlassen");
+                int interactionnumber;
+                cin >> interactionnumber;
+                switch(interactionnumber){
+                case 1:
+                    //Mit Sheriff reden
+                    print("Gestern Nacht wurde Herr Müller von einem Werwolf angegriffen und auf bösartige Art und Weiße getötet");
+                    printXEmptyLines(1);
+                    if(!activatedgame){
+                        print("Du hast folgende Interaktionsmöglichkeiten: \n1. Ihm sagen, dass der Bürgermeister dich beauftragt hat den Fall zu lösen\n2. Dein Beileid bekunden und zurück in den Raum gehen");
+                    }
+                    else{
+                        print("Du hast folgende Interaktionsmöglichkeiten: \n1. Ihm sagen, dass du genug Indizien hast um den Schuldigen anzuklagen\n2. Ihn nach Tipps für die Ermittlung fragen");
+                    }
+
+                    cin >> interactionnumber;
+                    switch(interactionnumber){
+                    case 1:
+                        if(!activatedgame){
+                            print("Der Sheriff übergibt dir einen Sheriffstern um dich als auserordentlicher Ermittler in dieser Sache zu kennzeichen und erteilt dir die Erlaubnis Nachforschungen anzustellen");
+                            //game->inventar_.Add(); //Add Sheriffsstern
+                            set = 2;
+                            SetDialog(set, game);
+                        }
+                        else{
+                            print("Der Sheriff gibt dir den Schlüssel für das Gerichtsgebäude");
+                            //game->inventar_.Add(); // Add Gerichtsschlüssel
+                        }
+                        break;
+                    case 2:
+                        if(activatedgame){
+                            print("Der Sheriff rät dir mit wirklich allen Personen im Dorf zu sprechen, vielleicht hat jemand ja etwas beobachtet");
+                        }
+                    }
+
+                    break;
+                case 2:
+                    //Ggf. findet man hier einen Hinweis
+                    //Leiche anschauen
+                    break;
+                case 3:
+                    stayintatort = false;
+                    print("Du verlässt den Tatort");
+                    break;
+                }
             }
-            //Tatort
-            /*
-             * Reden mit dem Sheriff
-             * Option Mission anzunehmen oder zu warten ("Bist du schon bereit dafür?")
-             * Ja -> Sheriffstern
-             * Ja -> SetDialoge(2)
-             * bool erlaubeAnklage auf true setzen lassen, dadurch schaltet sich das Gericht frei
-             */
             break;
         case 4:
-            bool stayinaufenthaltsraum = true;
+
             while(stayinaufenthaltsraum){
 
             }
@@ -238,7 +286,7 @@ void Play(struct data* game)
              */
             break;
         case 5:
-            bool stayinscheune = true;
+
             while(stayinscheune){
 
             }
@@ -249,13 +297,18 @@ void Play(struct data* game)
 
             break;
         case 6:
-            bool stayinfriedhof = true;
+
             while(stayinfriedhof){
 
             }
             //Friedhof
             break;
+        case 7:
+            //Gerichtsgebäude -> du willst das Rätsel lösen
+            ready_for_final_question = true;
+            break;
         }
+
 
         system("cls");
 
