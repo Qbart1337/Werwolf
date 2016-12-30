@@ -179,7 +179,6 @@ void Play(struct data* game)
         switch(roomnumber){
         case 1:
             //Kirche
-
             print("Du bist gerade in die Kirche gegangen");
             print("In der Kirche brennen ein paar Kerzen für den Verstorbenen");
             while(stayinchurch){
@@ -210,6 +209,18 @@ void Play(struct data* game)
         case 2:
 
             while(stayinmensa){
+                int interactionnumber;
+                cin >> interactionnumber;
+                switch (interactionnumber) {
+                case 1:
+
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    knowlegdeOfHiddenRoom = true;
+                    break;
+                }
 
             }
             //Mensa
@@ -218,6 +229,7 @@ void Play(struct data* game)
              * Reden mit P1
              * Reden mit P2
              * -> Hat von einem versteckten Raum gehört den der getötete in der Scheune aufgesucht hat
+             *
              * Küche
              *  -> P3 (Koch)
              */
