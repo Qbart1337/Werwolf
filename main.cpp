@@ -287,8 +287,27 @@ void Play(struct data* game)
             }
             break;
         case 4:
-
+            print("Du bist in den Aufenthaltsraum gegangen");
             while(stayinaufenthaltsraum){
+                print("In diesem Raum sitzen P4 und P5 und machen Hausaufgaben");
+                print("Du hast in diesem Raum folgende Interaktionsmöglichkeiten: \n1. Zu P4 gehen \n. Zu P5 gehen \n.6. Den Raum wieder verlassen");
+                int interactionsnumber;
+                cin >> interactionsnumber;
+                switch (interactionsnumber) {
+                case 1:
+                    //P4
+
+                    break;
+                case 2:
+                    //P5
+                    break;
+                case 3:
+                    //Raum verlassen
+                    stayinaufenthaltsraum = false;
+                    break;
+                }
+
+
 
             }
             //Aufenthaltsraum
@@ -320,72 +339,13 @@ void Play(struct data* game)
             ready_for_final_question = true;
             break;
         }
-
-
         system("cls");
-
     }
-
-
-    // Spiel beginnt
-    /*
-    bool not_ready_for_final_question = true;
-    while(not_ready_for_final_question)
-    {
-        cout << choose_room_intro << endl;
-        cout << choose_werwolf_intro << endl;
-        for(int j=0; j<5; j++)
-        {
-            cout << j << ": " <<game.roomlist[j].GetRoomeName() << endl;
-        }
-        cout << choose_room;
-        int raumnummer;
-        cin >> raumnummer;
-        if(raumnummer == 5)
-        {
-            not_ready_for_final_question = false;
-            break;
-        }
-        system("cls");
-
-        string go_to_room = "Du bist in " + game.roomlist[raumnummer].GetRoomeName() + " gegangen";
-        cout << go_to_room << endl;
-
-        string people_in_room = "In diesem Raum ist: " + game.peoplelist[raumnummer].GetName();
-        cout << people_in_room <<endl;
-        printXEmptyLines(2);
-
-        bool continue_asking = true;
-        while(continue_asking)
-        {
-            cout << choose_interaction_with_people << endl;
-            cout << choose_interaction;
-
-            int interactionnumer;
-            cin >> interactionnumer;
-            cout << endl;
-            if(interactionnumer != 3)
-            {
-                system("cls");
-                string people_Answer_Intro = game.peoplelist[raumnummer].GetName() + " sagt:";
-                cout << people_Answer_Intro << endl;
-                string people_Answer = game.peoplelist[raumnummer].GetAnswer(interactionnumer) ;
-                cout << people_Answer << endl;
-                printXEmptyLines(2);
-                Sleep(5000);
-            }
-            else
-            {
-                system("cls");
-                continue_asking = false;
-            }
-        }
-    }*/
-
 }
 
 void Ask(struct data* game)
 {
+
     //Final Question
     //Man muss mindestens zwei Beweise/Indizien haben
 
@@ -453,22 +413,3 @@ int main()
     return 0;
 }
 
-//
-/* Räume
-
-cout << initialize_rooms_start << endl;
-
-room room_one;
-room_one.SetRoomName("Kueche");
-
-room roome_two;
-roome_two.SetRoomName("Badezimmer");
-
-room room_three;
-room_three.SetRoomName("Wohnzimmer");
-
-room room_four;
-room_four.SetRoomName("Flur");
-
-room room_five;
-room_five.SetRoomName("Schlafzimmer"); */
