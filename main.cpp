@@ -13,17 +13,17 @@ bei Settern wenn möglich 'const &' von der Variable übergeben
 Wenn ich nur & von der Variable übergebe, kann ich sie auch ändern in der Methode -> siehe bsp
 
 Anforderungen:
--Bewegung durch Räume bzw. Szenen basierend auf Textein- und ausgabe
--Interaktion mit Spielwelt, inkl. Zustandsänderung /z.B. Schalter, Türe, LP
--Einfache Inventarverwaltung z.B. Gegenstand aufnehmen, später benutzen
--Teilprozesse z.B. Unterhaltung/Dialog, Kampf, schrittweises Rätsel etc.
+-Bewegung durch Räume bzw. Szenen basierend auf Textein- und ausgabe - check
+-Interaktion mit Spielwelt, inkl. Zustandsänderung /z.B. Schalter, Türe, LP - bin dabei
+-Einfache Inventarverwaltung z.B. Gegenstand aufnehmen, später benutzen - passt denke ich wenn es funkt
+-Teilprozesse z.B. Unterhaltung/Dialog, Kampf, schrittweises Rätsel etc. - ist in Planung
 
 
 TODO:
-Std::list -> Inventar // Inventar hat fest 3 Plätze
-Bewegung und Verzweigung der Räume
-Zustandsänderungen erhöhen ((Interatkion mit Inventar)
-Kommentieren wer was gemacht hat
+Std::list -> Inventar // Inventar hat fest 3 Plätze  --- umgeplant
+Bewegung und Verzweigung der Räume --- In Progress
+Zustandsänderungen erhöhen ((Interatkion mit Inventar) --- In Progress
+Kommentieren wer was gemacht hat --- muss noch erledigt werden
 
 */
 
@@ -152,6 +152,7 @@ void Play(struct data* game)
     int set = 1;
     bool activatedgame = false;
     bool knowlegdeOfHiddenRoom = false;
+    bool enableGericht = false;
     // Einführung
     printXEmptyLines(2);
     printTextSmoothly(gamerules);
@@ -171,8 +172,11 @@ void Play(struct data* game)
         bool stayinscheune = true;
         bool stayinfriedhof = true;
         print("Du bist auf dem Marktplatz, wohin willst du gehen?");
-        print("1.Kirche \n2.Mensa \n3.Tatort \n4.Aufenthaltsraum \n5.Scheune\n6.Friedhof\n");
+        print("1.Kirche \n2.Mensa \n3.Tatort \n4.Aufenthaltsraum \n5.Scheune \n6.Friedhof");
         //falls das Bool "erlaubeGericht" freigeschaltet wurde, wird hier auch der Raum 7 "Gerichtsgebäude" angeboten, da man einen Schlüssel bekommt
+        if(enableGericht){
+            print("7.Gerichtsgebäude");
+        }
         int roomnumber;
         cin >> roomnumber;
         cleanconsole();
@@ -191,17 +195,23 @@ void Play(struct data* game)
                     //Mit dem Pfarrer reden
                     break;
                 case 2:
+                    if(!activatedgame){
+                        // Werwolf
+                    }
+                    else{
+                        print("Hier sind nur ein paar Staubfetzen, aber ansonsten ist hier nicht.");
+                    }
                     //Zum Beichtstuhl gehen
                     //Sollte man hier hingehen bevor man beim Sheriff war, so findet man den Täter dort und er liefert starke Indizien für seine Tat
                     break;
                 case 3:
                     //Tür hinter dem Altar
-                    /*if(game ->inventar.Check("Kirchen-Key")){
+                    if(true){ //game ->inventar.Check("Kirchen-Key")
                         // enter room
                     }
                     else{
                         print("Du hast leider keinen passenden Schlüssel dabei");
-                    }*/
+                    }
                     break;
                 }
             }
@@ -213,26 +223,17 @@ void Play(struct data* game)
                 cin >> interactionnumber;
                 switch (interactionnumber) {
                 case 1:
-
+                    //Essen beim Koch holen
                     break;
                 case 2:
+                    //Reden mit P1
                     break;
                 case 3:
+                    //Reden mit P2
                     knowlegdeOfHiddenRoom = true;
                     break;
                 }
-
             }
-            //Mensa
-            /*
-             * Essen
-             * Reden mit P1
-             * Reden mit P2
-             * -> Hat von einem versteckten Raum gehört den der getötete in der Scheune aufgesucht hat
-             *
-             * Küche
-             *  -> P3 (Koch)
-             */
             break;
         case 3:
             cleanconsole();
@@ -261,10 +262,12 @@ void Play(struct data* game)
                             print("Der Sheriff übergibt dir einen Sheriffstern um dich als auserordentlicher Ermittler in dieser Sache zu kennzeichen und erteilt dir die Erlaubnis Nachforschungen anzustellen");
                             //game->inventar_.Add(); //Add Sheriffsstern
                             set = 2;
+                            activatedgame = true;
                             SetDialog(set, game);
                         }
                         else{
                             print("Der Sheriff gibt dir den Schlüssel für das Gerichtsgebäude");
+                            enableGericht = true;
                             //game->inventar_.Add(); // Add Gerichtsschlüssel
                         }
                         break;
@@ -276,8 +279,8 @@ void Play(struct data* game)
 
                     break;
                 case 2:
-                    //Ggf. findet man hier einen Hinweis
                     //Leiche anschauen
+                    //Ggf. findet man hier einen Hinweis
                     break;
                 case 3:
                     stayintatort = false;
@@ -296,7 +299,9 @@ void Play(struct data* game)
                 switch (interactionsnumber) {
                 case 1:
                     //P4
-
+                    //* Spieler 4 bei den Hausaufgaben helfen
+                    //* Ja + richtige Antwort -> "Unbekannter Schlüssel"
+                    //Kleines Rätsel
                     break;
                 case 2:
                     //P5
@@ -310,29 +315,45 @@ void Play(struct data* game)
 
 
             }
-            //Aufenthaltsraum
-            /*
-             * Spieler 4 bei den Hausaufgaben helfen
-             * Ja + richtige Antwort -> "Unbekannter Schlüssel"
-             */
             break;
         case 5:
 
             while(stayinscheune){
-
+                if(!knowlegdeOfHiddenRoom){
+                    print("Hier liegt nur viel Heu herum");
+                    print("Du kannst diesen Raum nur wieder verlassen, drücke dafür die 1");
+                }
+                else{
+                    print("Du schiebst das Heu in einer Ecke zur Seite und findest eine versteckte Tür");
+                    if(true)//Schlüssel
+                    {
+                        //Hinweis in dem Raum
+                    }
+                    else{
+                        print("Leider hast du keinen passenden Schlüssel für diesen Raum");
+                    }
+                }
+                int interactionnumber;
+                cin >> interactionnumber;
+                if(interactionnumber == 1){
+                    stayinscheune = false;
+                }
             }
-            //Scheune
-            /*
-             * Geheimer Raum nur bekannt wenn man die Info von P2 hat.
-             */
-
             break;
+
         case 6:
 
             while(stayinfriedhof){
-
+                print("An einigen Gräbern liegen Blumen, an manchen mehr an manchen weniger");
+                print("Hier kannst du nichts machen");
+                print("Drücke die 1 um den Friedhof wieder zu verlassen");
+                int interactionnumber;
+                cin >> interactionnumber;
+                if(interactionnumber ==1){
+                    stayinfriedhof = false;
+                }
             }
-            //Friedhof
+
             break;
         case 7:
             //Gerichtsgebäude -> du willst das Rätsel lösen
@@ -345,26 +366,61 @@ void Play(struct data* game)
 
 void Ask(struct data* game)
 {
-
-    //Final Question
-    //Man muss mindestens zwei Beweise/Indizien haben
-
-
-    /*
-    cout << choose_werwolf << endl;
-    for(int i=0; i<5; i++)
-    {
-        cout << i << ". "<< game.peoplelist[i].GetName()<< endl;
+    print("Alle haben sich im Gericht versammelt, der Dorfälteste ruft dich nach vorne und erklärt, dass du nun deinen Hauptverdächtigen anklagen wirst und eindeutige Beweise vorbringen wirst");
+    printXEmptyLines(1);
+    print("Wen möchtest du anklagen");
+    for(int i=0;i<5;i++){
+        game ->peoplelist[i].GetName();
     }
+    int personnumber;
+    cin >> personnumber;
+    cleanconsole();
+    cout << "Ich klage hiermit " << game ->peoplelist[personnumber].GetName() << " an und habe dafür folgende Beweiese" << endl;
 
-    cout << choose_people_to_kill << endl;
-    int finalchoose;
-    cin >> finalchoose;
-    string result = game.peoplelist[finalchoose].GetFinalInformation();
+    printXEmptyLines(1);
+    bool chooseinventar = true;
+    bool choosemessage = true;
+    int counter = 0;
+    bool notdone = true;
 
-    printSpecialText(result);
-    return 0;
-    */
+    while(notdone){
+        print("Du hast die Möglichkeit Gegenstände aus deinem Inventar als Beweise vorzulegen oder Aussagen zu zitieren");
+        print("1. Gegenstand aus dem Inventar vorlegen\n2.Aussagen zitieren\n3.Beweisführung beenden und das Gericht entscheiden lassen");
+        int numb;
+        cin >> numb;
+        switch(numb){
+        case 1:
+            while(chooseinventar){
+                print("Du hast folgende Gegenstände im Inventar \nX um das Inventar zu verlassen");
+                //Auflisten
+
+                print("Welchen möchtest du als Beweis vorlegen");
+                if(true){//useful
+                counter++;
+                //Gegenstand entfernen
+                }
+                else{
+                print("Diesen Gegenstand ist kein aussagekräftiger Beweis");
+                //Gegenstand auch entfernen
+                }
+            }
+            break;
+        case 2:
+            while(choosemessage){
+            //MessageListe
+            }
+            break;
+        case 3:
+            notdone = false;
+            break;
+        }
+    }
+    if(game ->peoplelist[personnumber].GetWerwolfStatus() && counter >=2){
+        printSpecialText("Herzlichen Glückwunsch, du hast den Täter anhand von aussagekrätigen Beweisen überführt");
+    }
+    else{
+        printSpecialText("Du hast das Spiel verloren, du hast entweder die falsche Person angeklagt oder zu wenig Beweise vorlegen können um das Gericht zu überzeugen");
+    }
 }
 
 int main()
@@ -375,41 +431,9 @@ int main()
     Play(data_ptr);
     Ask(data_ptr);
 
-    //cout <<gamedata.peoplelist[0].GetName()<<endl;
-    //cout <<gamedata.peoplelist[0].GetAnswer(1);
-    cout << "Erfolgreiche Main" << endl;
-/*
-    bool startedGame = false;
-    int set = 0;
-    while (startedGame)
-    {
-        // Exeption
-        struct data game = CreateGame(); // Setzt Spielzustand _ INTRO
-        struct data game_1;
-        CreateGame(&game_1);
-        bool started = false;
-        SetDialoge(started);
-
-        SetDialoge(started);
-        Play(&game);
-        Ask(&game);
-        // END
-        counter ++;
-        if( counter >= 2 )
-        {
-            startedGame = false;
-        }
-    }
-    // TODO! - Ausgabe wie viele er gewonnen hat. -CLASS
-    // Befragung abgeschlossen
-    // Finales verdächtigen
-    system("cls");
-    // Programm lief erfolgreich und hat sein Ende erreicht
-    Sleep(10000);
-    getchar();
-    system("cls");
+    cleanconsole();
     printSpecialText("Programm erfolgreich beendet");
-*/
+
     return 0;
 }
 

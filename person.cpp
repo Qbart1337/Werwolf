@@ -49,3 +49,11 @@ std::string person::GetFinalInformation()
         return "Du hast das Spiel leider verloren";
     }
 }
+bool person::GetWerwolfStatus(){
+    if(bewohnerstatus == Werwolf){
+        true;
+    }
+    else{
+        return false;
+    }
+}

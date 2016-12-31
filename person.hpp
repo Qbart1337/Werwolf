@@ -22,6 +22,8 @@ public:
     std::string GetAnswer(int answer_choose);
     std::string GetFinalInformation();
 
+    bool GetWerwolfStatus();
+
     void SetWerwolf();
     void SetDialog(std::string answer_neutral, std::string answer_sceptic, std::string answer_random);
     void SetName(std::string name);
