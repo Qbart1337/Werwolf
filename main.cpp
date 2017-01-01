@@ -50,7 +50,7 @@ struct inventar{
 
     void Add(inventarelement elem)
     {
-        if(count >=4)
+        if(count >=5)
         {
             //Inventar voll
         }
@@ -143,7 +143,7 @@ void SetDialog(int set, struct data* z)
         z ->peoplelist[4].SetDialog("###", "###", "###");
         break;
     }
-    cout << "SetDialoge Erfolgreich" << endl;
+    //cout << "SetDialoge Erfolgreich" << endl;
 }
 
 
@@ -171,6 +171,8 @@ void Play(struct data* game)
         bool stayinaufenthaltsraum = true;
         bool stayinscheune = true;
         bool stayinfriedhof = true;
+        bool talkWithP3 = true;
+        bool talkWithKoch = true;
         print("Du bist auf dem Marktplatz, wohin willst du gehen?");
         print("1.Kirche \n2.Mensa \n3.Tatort \n4.Aufenthaltsraum \n5.Scheune \n6.Friedhof");
         //falls das Bool "erlaubeGericht" freigeschaltet wurde, wird hier auch der Raum 7 "Gerichtsgebäude" angeboten, da man einen Schlüssel bekommt
@@ -219,19 +221,75 @@ void Play(struct data* game)
         case 2:
 
             while(stayinmensa){
+                print("Du hast folgende Interaktionsmöglichkeiten: \n1. Zum Kuechenchef gehen \n.Zu P3 gehen");
+                if(!activatedgame){
+                    print("3. Den Raum verlassen");
+                }
+                else{
+                    print("3. Mit P2 sprechen \n4. Den Raum verlassen");
+                }
                 int interactionnumber;
+
+
                 cin >> interactionnumber;
                 switch (interactionnumber) {
                 case 1:
-                    //Essen beim Koch holen
+
+                    while(talkWithKoch){
+                        print("1. Den Kuechenchef nach Essen fragen\n. Den Kuechenchef nach Desserts fragen \n3. Zurueck in den Raum gehen ");
+                        int interactnmb;
+                        cin >> interactnmb;
+                        switch (interactnmb) {
+                        case 1:
+                            print("Der Kuechenchef gibt dir Bohnenauflauf");
+                            //Add Inventar
+                            break;
+                        case 2:
+                            print("Der Kuechenchef gibt dir eine Portion Eis");
+                            //Add Inventar
+                            break;
+                        case 3:
+                            talkWithKoch = false;
+                            break;
+                        }
+
+                    }                    
                     break;
                 case 2:
-                    //Reden mit P1
+                    //Reden mit P3
+
+                    while(talkWithP3){
+                        print("Du hast dich zu P3 an den Tisch gesetzt");
+                        print("Du hast folgende Interaktionsmöglichkeiten: \n1. Dein Essen essen \n2. Mit P3 sprechen \n3. Zurueck in den Raum gehen");
+                        int interactnmb;
+                        cin >> interactnmb;
+                        switch (interactnmb) {
+                        case 1:
+                            //Schauen ob im Inventar Essen ist und es ggf. auflisten / Entfernen
+                            break;
+                        case 2:
+                            //Talk with P3
+                            break;
+                        case 3:
+                            talkWithP3 = false;
+                            break;
+                        }
+                    }
                     break;
                 case 3:
-                    //Reden mit P2
-                    knowlegdeOfHiddenRoom = true;
+                    if(!activatedgame)
+                    {
+                        stayinmensa = false;
+                    }
+                    else{
+                        //Reden mit P2
+                        //P2 ist der Täter
+                        //Verrät den Raum weil er den Schlüsssel weggeworfen hat
+                        knowlegdeOfHiddenRoom = true;
+                    }
                     break;
+                case 4:
+                    stayinmensa = false;
                 }
             }
             break;
@@ -246,7 +304,7 @@ void Play(struct data* game)
                 switch(interactionnumber){
                 case 1:
                     //Mit Sheriff reden
-                    print("Gestern Nacht wurde Herr Müller von einem Werwolf angegriffen und auf bösartige Art und Weiße getötet");
+                    print("Gestern Nacht wurde Herr Müller ermordet");
                     printXEmptyLines(1);
                     if(!activatedgame){
                         print("Du hast folgende Interaktionsmöglichkeiten: \n1. Ihm sagen, dass der Bürgermeister dich beauftragt hat den Fall zu lösen\n2. Dein Beileid bekunden und zurück in den Raum gehen");
@@ -300,8 +358,10 @@ void Play(struct data* game)
                 case 1:
                     //P4
                     //* Spieler 4 bei den Hausaufgaben helfen
-                    //* Ja + richtige Antwort -> "Unbekannter Schlüssel"
                     //Kleines Rätsel
+                    //* Ja + richtige Antwort -> "Unbekannter Schlüssel"
+                    // -> Schlüssel für den geheimen Raum in der Scheune
+
                     break;
                 case 2:
                     //P5
@@ -317,11 +377,16 @@ void Play(struct data* game)
             }
             break;
         case 5:
-
+            print("Du betrittst die Scheune");
             while(stayinscheune){
                 if(!knowlegdeOfHiddenRoom){
-                    print("Hier liegt nur viel Heu herum");
-                    print("Du kannst diesen Raum nur wieder verlassen, drücke dafür die 1");
+                    printTextSmoothly("Eine nackte Frau kommt auf dich zu und fragt dich woher ploetzlich das Heu kommt");
+                    Sleep(5000);
+                    printXEmptyLines(1);
+                    printTextSmoothly("Du reibst dir verwundert die Augen und merkst das du nur getraeumt hast");
+                    Sleep(5000);
+                    printTextSmoothly("In der Scheune siehst du ausser viel Heu nichts interessantes");
+                    printTextSmoothly("Du kannst diesen Raum nur wieder verlassen, druecke dafür die 1");
                 }
                 else{
                     print("Du schiebst das Heu in einer Ecke zur Seite und findest eine versteckte Tür");
@@ -342,7 +407,6 @@ void Play(struct data* game)
             break;
 
         case 6:
-
             while(stayinfriedhof){
                 print("An einigen Gräbern liegen Blumen, an manchen mehr an manchen weniger");
                 print("Hier kannst du nichts machen");
