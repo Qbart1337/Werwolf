@@ -20,6 +20,15 @@ void person::SetDialog(std::string ask_neutral, std::string ask_skeptic, std::st
     this->answer_sceptic = ask_skeptic;
     this->answer_random = answer_random;
 }
+
+void person::SetDialogOptions(std::string str_opts){
+    dialog_options=str_opts;
+}
+
+std::string person::DialogOptions(){
+    return dialog_options;
+}
+
 std::string person::GetAnswer(int answer_choose){
     if(ask_Counter >= 2)
     {

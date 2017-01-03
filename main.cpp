@@ -28,19 +28,39 @@ Kommentieren wer was gemacht hat --- muss noch erledigt werden
 */
 
 using namespace std;
-/*
-enum inventartyp { Key, Sheriffsstern, Sonstiges, Notizen};
 
-struct inventar{
+class inventarelement{
+public:
+    string name;
+    int beweisstueck; // 1 - Ja, 0 - Egal, -1 Spiel verloren
+};
+
+class inventar{
+public:
     int count = 0;
-    struct inventarelement Liste[5];
-    bool Check(std::string name){
+    inventarelement Liste[10];
+    inventarelement t1;
+
+    int GetPriorityOfListElement(int numb){
+        return Liste[numb].beweisstueck;
+    }
+
+    bool CheckIfEmpty(){
+        if(count == 0){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    bool CheckIfElementIsInList(std::string input_name){
         if(count == 0){
             return false;
         }
         else{
             for(int i=0;i<count; i++){
-                if(Liste[i].name == name){
+                if(Liste[i].name == input_name){
                     return true;
                 }
             }
@@ -52,6 +72,7 @@ struct inventar{
     {
         if(count >=5)
         {
+            print("Inventar voll, Element konnte nicht hinzugefügt werden");
             //Inventar voll
         }
         else{
@@ -59,13 +80,12 @@ struct inventar{
             count++;
         }
     }
-    void Delete(){
-        ListAll();
-        int deletenumber;
-        cin >> deletenumber;
+    void Delete(int deletenumber){
+
+
         if(count == deletenumber)
         {
-            Liste[deletenumber] = null;
+            Liste[deletenumber] = t1;
             count --;
         }
         else{
@@ -74,27 +94,22 @@ struct inventar{
                 Liste[deletenumber] = Liste[deletenumber+1];
                 Liste[deletenumber+1] = tmp;
             }
-            Liste[deletenumber] = null;
+            Liste[deletenumber] = t1;
             count --;
         }
     }
     void ListAll(){
         for(int i=0;i<=count;i++){
-            cout << i << " "<< Liste[i].name <<endl;
+            cout << i+1 << " "<< Liste[i].name <<endl;
         }
     }
+};
 
-};
-struct inventarelement{
-    string name;
-    inventartyp typ;
-    bool beweisstueck;
-};
-*/
+
 struct data
 {
     person peoplelist[5];
-    //inventar inventar_;
+    inventar inventar_;
 };
 
 void CreateGame(struct data *z)
@@ -128,18 +143,28 @@ void SetDialog(int set, struct data* z)
 {
     switch(set){
     case 1:
+        z ->peoplelist[0].SetDialogOptions("");
         z ->peoplelist[0].SetDialog("Ich war mit einer Freundin einkauen", "Ich habe Anna gesehen", "Nerv mich nicht!");
+        z ->peoplelist[1].SetDialogOptions("");
         z ->peoplelist[1].SetDialog("Ich war mit einem Freund im Kino", "Nein", "Nerv mich nicht!");
         z ->peoplelist[2].SetWerwolf();
+        z ->peoplelist[2].SetDialogOptions("");
         z ->peoplelist[2].SetDialog("Ich habe mir einen Film angeschaut", "Ich habe Anne gesehen", "Nerv mich nicht!");
+        z ->peoplelist[3].SetDialogOptions("");
         z ->peoplelist[3].SetDialog("Ich habe mir einen Film angeschaut", "Ich habe Anja gesehen", "Nerv mich nicht!");
+        z ->peoplelist[4].SetDialogOptions("");
         z ->peoplelist[4].SetDialog("Ich habe mir ein Kleid gekauft", "Ich habe Anne gesehen", "Nerv mich nicht!");
         break;
     case 2:
+        z ->peoplelist[0].SetDialogOptions("");
         z ->peoplelist[0].SetDialog("###", "###", "###");
+        z ->peoplelist[1].SetDialogOptions("");
         z ->peoplelist[1].SetDialog("###", "###", "###");
+        z ->peoplelist[2].SetDialogOptions("");
         z ->peoplelist[2].SetDialog("###", "###", "###");
+        z ->peoplelist[3].SetDialogOptions("");
         z ->peoplelist[3].SetDialog("###", "###", "###");
+        z ->peoplelist[4].SetDialogOptions("");
         z ->peoplelist[4].SetDialog("###", "###", "###");
         break;
     }
@@ -173,6 +198,7 @@ void Play(struct data* game)
         bool stayinfriedhof = true;
         bool talkWithP3 = true;
         bool talkWithKoch = true;
+
         print("Du bist auf dem Marktplatz, wohin willst du gehen?");
         print("1.Kirche \n2.Mensa \n3.Tatort \n4.Aufenthaltsraum \n5.Scheune \n6.Friedhof");
         //falls das Bool "erlaubeGericht" freigeschaltet wurde, wird hier auch der Raum 7 "Gerichtsgebäude" angeboten, da man einen Schlüssel bekommt
@@ -201,7 +227,7 @@ void Play(struct data* game)
                         // Werwolf
                     }
                     else{
-                        print("Hier sind nur ein paar Staubfetzen, aber ansonsten ist hier nicht.");
+                        print("Hier sind nur ein paar Staubfetzen und ein Schlüssel");
                     }
                     //Zum Beichtstuhl gehen
                     //Sollte man hier hingehen bevor man beim Sheriff war, so findet man den Täter dort und er liefert starke Indizien für seine Tat
@@ -253,7 +279,7 @@ void Play(struct data* game)
                             break;
                         }
 
-                    }                    
+                    }
                     break;
                 case 2:
                     //Reden mit P3
@@ -430,6 +456,8 @@ void Play(struct data* game)
 
 void Ask(struct data* game)
 {
+    bool lose = false;
+
     print("Alle haben sich im Gericht versammelt, der Dorfälteste ruft dich nach vorne und erklärt, dass du nun deinen Hauptverdächtigen anklagen wirst und eindeutige Beweise vorbringen wirst");
     printXEmptyLines(1);
     print("Wen möchtest du anklagen");
@@ -455,10 +483,27 @@ void Ask(struct data* game)
         switch(numb){
         case 1:
             while(chooseinventar){
-                print("Du hast folgende Gegenstände im Inventar \nX um das Inventar zu verlassen");
+                print("Du hast folgende Gegenstände und Dialoge wurden in deinem Inventar gespeichert \n0 um das Inventar zu verlassen");
+                game ->inventar_.ListAll();
                 //Auflisten
+                printXEmptyLines(1);
 
                 print("Welchen möchtest du als Beweis vorlegen");
+
+                int actionnumber;
+                cin >> actionnumber;
+                if(actionnumber == 0){
+                  chooseinventar = false;
+                  break;
+                };
+                if(game ->inventar_.GetPriorityOfListElement(actionnumber) < 0){
+                    lose=true;
+                }
+                else{
+                    counter += game->inventar_.GetPriorityOfListElement(actionnumber);
+                }
+                game->inventar_.Delete(actionnumber);
+
                 if(true){//useful
                 counter++;
                 //Gegenstand entfernen
