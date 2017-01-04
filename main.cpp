@@ -156,8 +156,8 @@ void SetDialog(int set, struct data* z)
         z ->peoplelist[4].SetDialog("Ich habe mir ein Kleid gekauft", "Ich habe Anne gesehen", "Nerv mich nicht!");
         break;
     case 2:
-        z ->peoplelist[0].SetDialogOptions("");
-        z ->peoplelist[0].SetDialog("###", "###", "###");
+        z ->peoplelist[0].SetDialogOptions(p1_set_2_options);
+        z ->peoplelist[0].SetDialog(p1_set_2_str_1, p1_set_2_str_2, p1_set_2_str_3);
         z ->peoplelist[1].SetDialogOptions("");
         z ->peoplelist[1].SetDialog("###", "###", "###");
         z ->peoplelist[2].SetDialogOptions("");
@@ -174,18 +174,19 @@ void SetDialog(int set, struct data* z)
 
 void Play(struct data* game)
 {
-    int set = 1;
+    int set = 2; // TODO: später auf set = 1 setzen, zu Testzwecken schon Set = 2
     bool activatedgame = false;
     bool knowlegdeOfHiddenRoom = false;
     bool enableGericht = false;
     // Einführung
     printXEmptyLines(2);
-    printTextSmoothly(gamerules);
+    printTextSmoothly(introduction);
+    //printTextSmoothly(gamerules);
     printXEmptyLines(2);
 
     SetDialog(set,game);
 
-    printTextSmoothly(introduction);
+    //printTextSmoothly(introduction);
 
     bool ready_for_final_question = false;
     while(!ready_for_final_question)
@@ -211,15 +212,23 @@ void Play(struct data* game)
         switch(roomnumber){
         case 1:
             //Kirche
-            print("Du bist gerade in die Kirche gegangen");
-            print("In der Kirche brennen ein paar Kerzen für den Verstorbenen");
+           // print("Du bist gerade in die Kirche gegangen");
+            //print("In der Kirche brennen ein paar Kerzen für den Verstorbenen");
+            print(church_intro);
+
             while(stayinchurch){
-                print("Du hast folgende Interaktionsmöglichkeiten:");
-                print("1. Mit dem Pfarrer sprechen\n2. Zum Beichstuhl gehen\n3. Zur Tür hinter dem Altar gehen");
+                //print("Du hast folgende Interaktionsmöglichkeiten:");
+                //print("1. Mit dem Pfarrer sprechen\n2. Zum Beichstuhl gehen\n3. Zur Tür hinter dem Altar gehen");
+                print(church_options);
                 int interactionnumber;
                 cin >> interactionnumber;
                 switch(interactionnumber){
                 case 1:
+                    //ToDo Anpassen
+                    print(game->peoplelist[0].GetDialogOptions());
+                    print("empty\n t \n t");
+                    print(game->peoplelist[0].GetAnswer(1));
+                    print(game->peoplelist[0].GetAnswer(2));
                     //Mit dem Pfarrer reden
                     break;
                 case 2:

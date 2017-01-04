@@ -18,7 +18,7 @@ public:
     person();
 
     whoami GetPersonenStatus();
-    std::string DialogOptions();
+    std::string GetDialogOptions();
     std::string GetName();
     std::string GetAnswer(int answer_choose);
     std::string GetFinalInformation();

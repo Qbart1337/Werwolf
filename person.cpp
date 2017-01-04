@@ -25,7 +25,7 @@ void person::SetDialogOptions(std::string str_opts){
     dialog_options=str_opts;
 }
 
-std::string person::DialogOptions(){
+std::string person::GetDialogOptions(){
     return dialog_options;
 }
 
