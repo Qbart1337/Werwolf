@@ -108,7 +108,7 @@ public:
 
 struct data
 {
-    person peoplelist[5];
+    person peoplelist[7];
     inventar inventar_;
 };
 
@@ -120,12 +120,16 @@ void CreateGame(struct data *z)
     person person_three;
     person person_four;
     person person_five;
+    person person_six;
+    person person_seven;
 
-    person_one.SetName("Anne");
-    person_two.SetName("Anja");
-    person_three.SetName("Antoine");
-    person_four.SetName("Anton");
-    person_five.SetName("Anna");
+    person_one.SetName("Pfarrer");
+    person_two.SetName("Herr Schmidt");
+    person_three.SetName("Herr Müller");
+    person_four.SetName("Paul");
+    person_five.SetName("Jan");
+    person_six.SetName("Sheriff");
+    person_seven.SetName("Küchenchef");
 
     //inventar inv;
     //z ->inventar = inv;
@@ -135,6 +139,8 @@ void CreateGame(struct data *z)
     z ->peoplelist[2] = person_three;
     z ->peoplelist[3] = person_four;
     z ->peoplelist[4] = person_five;
+    z ->peoplelist[5] = person_six;
+    z ->peoplelist[6] = person_seven;
     cout << initialize_person_end << endl;
 
 }
@@ -153,19 +159,27 @@ void SetDialog(int set, struct data* z)
         z ->peoplelist[3].SetDialogOptions("");
         z ->peoplelist[3].SetDialog("Ich habe mir einen Film angeschaut", "Ich habe Anja gesehen", "Nerv mich nicht!");
         z ->peoplelist[4].SetDialogOptions("");
-        z ->peoplelist[4].SetDialog("Ich habe mir ein Kleid gekauft", "Ich habe Anne gesehen", "Nerv mich nicht!");
+        z ->peoplelist[4].SetDialog("Ich habe mir ein Kleid gekauft", "Ich habe Anne gesehen", "Nerv mich nicht!");        
+        z ->peoplelist[5].SetDialogOptions("");
+        z ->peoplelist[5].SetDialog("###", "###", "###");
+        z ->peoplelist[6].SetDialogOptions("");
+        z ->peoplelist[6].SetDialog("###", "###", "###");
         break;
     case 2:
         z ->peoplelist[0].SetDialogOptions(p1_set_2_options);
         z ->peoplelist[0].SetDialog(p1_set_2_str_1, p1_set_2_str_2, p1_set_2_str_3);
-        z ->peoplelist[1].SetDialogOptions("");
-        z ->peoplelist[1].SetDialog("###", "###", "###");
-        z ->peoplelist[2].SetDialogOptions("");
-        z ->peoplelist[2].SetDialog("###", "###", "###");
-        z ->peoplelist[3].SetDialogOptions("");
-        z ->peoplelist[3].SetDialog("###", "###", "###");
-        z ->peoplelist[4].SetDialogOptions("");
-        z ->peoplelist[4].SetDialog("###", "###", "###");
+        z ->peoplelist[1].SetDialogOptions(p2_set_2_options);
+        z ->peoplelist[1].SetDialog(p2_set_2_str_1, p2_set_2_str_2, p2_set_2_str_3);
+        z ->peoplelist[2].SetDialogOptions(p3_set_2_options);
+        z ->peoplelist[2].SetDialog(p3_set_2_str_1, p3_set_2_str_2, p3_set_2_str_3);
+        z ->peoplelist[3].SetDialogOptions(p4_set_2_options);
+        z ->peoplelist[3].SetDialog(p4_set_2_str_1,p4_set_2_str_2 ,p4_set_2_str_3);
+        z ->peoplelist[4].SetDialogOptions(p5_set_2_options);
+        z ->peoplelist[4].SetDialog(p5_set_2_str_1, p5_set_2_str_2, p5_set_2_str_3);
+        z ->peoplelist[5].SetDialogOptions(p6_set_2_options);
+        z ->peoplelist[5].SetDialog(p6_set_2_str_1, p6_set_2_str_2, p6_set_2_str_3);
+        z ->peoplelist[6].SetDialogOptions(p6_set_2_options);
+        z ->peoplelist[6].SetDialog(p7_set_2_options, p7_set_2_str_2, p7_set_2_str_3);
         break;
     }
     //cout << "SetDialoge Erfolgreich" << endl;
@@ -178,6 +192,7 @@ void Play(struct data* game)
     bool activatedgame = false;
     bool knowlegdeOfHiddenRoom = false;
     bool enableGericht = false;
+    bool takenChurchKey = false;
     // Einführung
     printXEmptyLines(2);
     printTextSmoothly(introduction);
@@ -226,24 +241,46 @@ void Play(struct data* game)
                 case 1:
                     //ToDo Anpassen
                     print(game->peoplelist[0].GetDialogOptions());
-                    print("empty\n t \n t");
+                    //print("empty\n t \n t");
                     print(game->peoplelist[0].GetAnswer(1));
                     print(game->peoplelist[0].GetAnswer(2));
                     //Mit dem Pfarrer reden
                     break;
                 case 2:
-                    if(!activatedgame){
+                    //Zum Beichtstuhl gehen
+                    if(activatedgame){
+                        print("test");
                         // Werwolf
+                        //Sollte man hier hingehen bevor man beim Sheriff war, so findet man den Täter dort und er liefert starke Indizien für seine Tat
                     }
                     else{
-                        print("Hier sind nur ein paar Staubfetzen und ein Schlüssel");
+                        if(!takenChurchKey){
+                            print(confessional_intro);
+                            print(confessional_options);
+                            int action_numb;
+                            cin>>action_numb;
+                            if(action_numb = 1 && !takenChurchKey)
+                            {
+                                inventarelement church_key;
+                                church_key.name = "Kirchenschluessel";
+                                church_key.beweisstueck = 0;
+                                game ->inventar_.Add(church_key);
+                                takenChurchKey = true;
+                                //Add Schlüssel
+                            }
+                        }
+                        else{
+                            print(confessional_intro_2);
+                        }
+                        //print("Hier sind nur ein paar Staubfetzen und ein Schlüssel");
                     }
-                    //Zum Beichtstuhl gehen
-                    //Sollte man hier hingehen bevor man beim Sheriff war, so findet man den Täter dort und er liefert starke Indizien für seine Tat
                     break;
                 case 3:
                     //Tür hinter dem Altar
-                    if(true){ //game ->inventar.Check("Kirchen-Key")
+                    if(game ->inventar_.CheckIfElementIsInList("Kirchenschluessel")){ //game ->inventar.Check("Kirchen-Key")
+                        print("Im 2ten Raum der Kirche");
+                        // ToDo
+                        // Raumlogik ergänzen
                         // enter room
                     }
                     else{
@@ -254,33 +291,42 @@ void Play(struct data* game)
             }
             break;
         case 2:
+            print(mensa_intro);
 
             while(stayinmensa){
-                print("Du hast folgende Interaktionsmöglichkeiten: \n1. Zum Kuechenchef gehen \n.Zu P3 gehen");
+                //print("Du hast folgende Interaktionsmöglichkeiten: \n1. Zum Kuechenchef gehen \n.Zu P3 gehen");
                 if(!activatedgame){
-                    print("3. Den Raum verlassen");
+                    //print("3. Den Raum verlassen");
+                    print(mensa_options_1);
                 }
                 else{
-                    print("3. Mit P2 sprechen \n4. Den Raum verlassen");
+                    //print("3. Mit P2 sprechen \n4. Den Raum verlassen");
+                    print(mensa_options_2);
                 }
+
                 int interactionnumber;
-
-
                 cin >> interactionnumber;
                 switch (interactionnumber) {
                 case 1:
-
+                    //print()
                     while(talkWithKoch){
-                        print("1. Den Kuechenchef nach Essen fragen\n. Den Kuechenchef nach Desserts fragen \n3. Zurueck in den Raum gehen ");
+                        print(game ->peoplelist[6].GetDialogOptions());
+                        //print("1. Den Kuechenchef nach Essen fragen\n. Den Kuechenchef nach Desserts fragen \n3. Zurueck in den Raum gehen ");
                         int interactnmb;
                         cin >> interactnmb;
+                        inventarelement food;
                         switch (interactnmb) {
                         case 1:
-                            print("Der Kuechenchef gibt dir Bohnenauflauf");
+                            print(game ->peoplelist[6].GetAnswer(1));
+                            food.name = "Teller mit Schnitzel und ein kleines Dessert";
+                            food.beweisstueck = 0;
+                            game->inventar_.Add(food);
+                            //print("Der Kuechenchef gibt dir Bohnenauflauf");
                             //Add Inventar
                             break;
                         case 2:
-                            print("Der Kuechenchef gibt dir eine Portion Eis");
+                            print(game ->peoplelist[6].GetAnswer(2));
+                            //print("Der Kuechenchef gibt dir eine Portion Eis");
                             //Add Inventar
                             break;
                         case 3:
