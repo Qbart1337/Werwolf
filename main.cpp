@@ -96,9 +96,7 @@ public:
             count++;
         }
     }
-    void Delete(std::string input_name){
-        int deletenumber = GetNumberOfListElement(input_name);
-
+    void Delete(int deletenumber){
 
         if(count == deletenumber)
         {
@@ -114,6 +112,11 @@ public:
             Liste[deletenumber] = t1;
             count --;
         }
+    }
+
+    void Delete(std::string input_name){
+        int deletenumber = GetNumberOfListElement(input_name);
+        Delete(deletenumber);
     }
     void ListAll(){
         for(int i=0;i<=count;i++){
@@ -697,12 +700,13 @@ void Ask(struct data* game)
         switch(numb){
         case 1:
             while(chooseinventar){
-                print("Du hast folgende Gegenstände und Dialoge wurden in deinem Inventar gespeichert \n0 um das Inventar zu verlassen");
+                print("Du hast folgende Gegenstände und Dialoge in deinem Inventar gespeichert "
+                      "\n0 um das Inventar zu verlassen");
                 game ->inventar_.ListAll();
                 //Auflisten
                 printXEmptyLines(1);
 
-                print("Welchen möchtest du als Beweis vorlegen");
+                print("Was möchtest du als Beweis vorlegen");
 
                 int actionnumber;
                 cin >> actionnumber;
@@ -713,20 +717,22 @@ void Ask(struct data* game)
                 if(game ->inventar_.GetPriorityOfListElement(actionnumber) < 0){
                     lose=true;
                 }
+                /*
                 else{
                     counter += game->inventar_.GetPriorityOfListElement(actionnumber);
-                }
-                // TODO: Anpassen auf neue Delete-Syntax
-                //game->inventar_.Delete(actionnumber);
+                }*/
 
-                if(true){//useful
-                counter++;
+                game->inventar_.Delete(actionnumber);
+
+                if(game->inventar_.GetPriorityOfListElement(actionnumber) !=0){//useful
+                    counter++;
                 //Gegenstand entfernen
                 }
                 else{
                 print("Diesen Gegenstand ist kein aussagekräftiger Beweis");
                 //Gegenstand auch entfernen
                 }
+                game->inventar_.Delete(actionnumber);
             }
             break;
         case 2:
@@ -739,11 +745,25 @@ void Ask(struct data* game)
             break;
         }
     }
-    if(game ->peoplelist[personnumber].GetWerwolfStatus() && counter >=2){
+    int msg;
+    if(lose){
+        print("Das Gericht ist umpört, dass du ohne Gründe in Privaträume des Pfarrers eingedrungen bist um an Beweise zu kommen. Dies entspricht nach Ansichten des Gerichts eines Amtsmissbrauchs. Du verlierst dadurch jegliche Glaubwürdigkeit und wirst selbst verurteilt.");
+        msg = -1;
+    }
+    else if(game ->peoplelist[personnumber].GetWerwolfStatus() && counter >=2 && !lose){
         printSpecialText("Herzlichen Glückwunsch, du hast den Täter anhand von aussagekrätigen Beweisen überführt");
+        msg = 1;
     }
     else{
         printSpecialText("Du hast das Spiel verloren, du hast entweder die falsche Person angeklagt oder zu wenig Beweise vorlegen können um das Gericht zu überzeugen");
+        msg=-1;
+    }
+
+    if(msg = 1){
+        printSpecialText("Du hast gewonnen");
+    }
+    if(msg = -1){
+        printSpecialText("Du hast verloren");
     }
 }
 
