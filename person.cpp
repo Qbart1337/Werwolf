@@ -16,6 +16,7 @@ whoami person::GetPersonenStatus(){
     return bewohnerstatus;
 }
 void person::SetDialog(std::string ask_neutral, std::string ask_skeptic, std::string answer_random){
+    ask_Counter = 0;
     this->answer_neutral = ask_neutral;
     this->answer_sceptic = ask_skeptic;
     this->answer_random = answer_random;
