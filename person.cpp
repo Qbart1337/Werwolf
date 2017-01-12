@@ -1,8 +1,8 @@
 #include "person.hpp"
+// Konstruktor erstellt den Bewohner init.
 person::person()
 {
     bewohnerstatus = Dorfbewohner;
-    //
     ask_Counter = 0;
 }
 

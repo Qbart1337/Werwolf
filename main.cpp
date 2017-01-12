@@ -26,7 +26,7 @@ Zustandsänderungen erhöhen ((Interatkion mit Inventar) --- In Progress
 Kommentieren wer was gemacht hat --- muss noch erledigt werden
 
 
-CleanConsole() um das ganze hübscher zu machen
+CleanConsole() um das ganze hübscher zu machen | Haben system("cls") dafür eingebaut
 Leave Messages zu Räumen und teils auch Gesprächen
 */
 
