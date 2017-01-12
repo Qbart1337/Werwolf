@@ -30,6 +30,7 @@ CleanConsole() um das ganze hübscher zu machen
 Leave Messages zu Räumen und teils auch Gesprächen
 */
 
+// @Alex_
 using namespace std;
 enum inventartyp{ food_1,beweisstueck,key};
 
@@ -482,6 +483,7 @@ void Play(struct data* game)
                         case 1:
                             if(!activatedgame){
                                 print(game->peoplelist[5].GetAnswer(1));
+                                //Mission angenommen, spiel wird richtig gestartet
                                 set = 2;
                                 activatedgame = true;
                                 SetDialog(set, game);
@@ -629,9 +631,11 @@ void Play(struct data* game)
 
             break;
         case 7:
+            print(".... die Zeit bis zum start der Verhandlung vergeht....");
             //Gerichtsgebäude -> du willst das Rätsel lösen
             ready_for_final_question = true;
             break;
+
         }
         system("cls");
     }
