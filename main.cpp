@@ -25,6 +25,9 @@ Bewegung und Verzweigung der Räume --- In Progress
 Zustandsänderungen erhöhen ((Interatkion mit Inventar) --- In Progress
 Kommentieren wer was gemacht hat --- muss noch erledigt werden
 
+
+CleanConsole() um das ganze hübscher zu machen
+Leave Messages zu Räumen und teils auch Gesprächen
 */
 
 using namespace std;
@@ -216,15 +219,14 @@ void Play(struct data* game)
     bool church_back_room_door = false;
     bool notes_taken = false;
     bool helpwithhomework = false;
+
     // Einführung
     printXEmptyLines(2);
     printTextSmoothly(introduction);
-    //printTextSmoothly(gamerules);
+
     printXEmptyLines(2);
 
     SetDialog(set,game);
-
-    //printTextSmoothly(introduction);
 
     bool ready_for_final_question = false;
     while(!ready_for_final_question)
@@ -247,6 +249,7 @@ void Play(struct data* game)
 
         print("Du bist auf dem Marktplatz, wohin willst du gehen?");
         print("1.Kirche \n2.Mensa \n3.Tatort \n4.Aufenthaltsraum \n5.Scheune \n6.Friedhof");
+        //TODO: Auslagern
         //falls das Bool "erlaubeGericht" freigeschaltet wurde, wird hier auch der Raum 7 "Gerichtsgebäude" angeboten, da man einen Schlüssel bekommt
         if(enableGericht){
             print("7.Gerichtsgebäude");
@@ -256,14 +259,9 @@ void Play(struct data* game)
         //cleanconsole();
         switch(roomnumber){
         case 1:
-            //Kirche
-           // print("Du bist gerade in die Kirche gegangen");
-            //print("In der Kirche brennen ein paar Kerzen für den Verstorbenen");
             print(church_intro);
 
             while(stayinchurch){
-                //print("Du hast folgende Interaktionsmöglichkeiten:");
-                //print("1. Mit dem Pfarrer sprechen\n2. Zum Beichstuhl gehen\n3. Zur Tür hinter dem Altar gehen");
                 print(church_options);
                 int interactionnumber;
                 cin >> interactionnumber;
@@ -309,19 +307,18 @@ void Play(struct data* game)
                                 church_key.typ = key;
                                 game ->inventar_.Add(church_key);
                                 takenChurchKey = true;
-                                //Add Schlüssel
+
                             }
                         }
                         else{
                             print(confessional_intro_2);
                         }
-                        //print("Hier sind nur ein paar Staubfetzen und ein Schlüssel");
+
                     }
                     break;
                 case 3:
                     stayinchurchbackroom = true;
 
-                    //Tür hinter dem Altar
                     if(church_back_room_door == false){
                         if(game ->inventar_.CheckIfElementIsInList("Kirchenschluessel"))
                         {
@@ -335,7 +332,7 @@ void Play(struct data* game)
                     if(church_back_room_door)
                     {
                         while(stayinchurchbackroom){
-                            //print("Im 2ten Raum der Kirche");
+
                             print(church_back_room_intro);
                             if(!notes_taken){
                                 print(church_back_room_options);
@@ -381,13 +378,11 @@ void Play(struct data* game)
         case 2:
             print(mensa_intro);
             while(stayinmensa){
-                //print("Du hast folgende Interaktionsmöglichkeiten: \n1. Zum Kuechenchef gehen \n.Zu P3 gehen");
-                if(!activatedgame){
-                    //print("3. Den Raum verlassen");
+
+                if(!activatedgame){                    
                     print(mensa_options_1);
                 }
-                else{
-                    //print("3. Mit P2 sprechen \n4. Den Raum verlassen");
+                else{                    
                     print(mensa_options_2);
                 }
 
@@ -395,10 +390,10 @@ void Play(struct data* game)
                 cin >> interactionnumber;
                 switch (interactionnumber) {
                 case 1:
-                    //print()
+
                     while(talkWithP7){
                         print(game ->peoplelist[6].GetDialogOptions());
-                        //print("1. Den Kuechenchef nach Essen fragen\n. Den Kuechenchef nach Desserts fragen \n3. Zurueck in den Raum gehen ");
+
                         int interactnmb;
                         cin >> interactnmb;
                         inventarelement food;
@@ -409,8 +404,7 @@ void Play(struct data* game)
                             food.beweisstueck = 0;
                             food.typ = food_1;
                             game->inventar_.Add(food);
-                            //print("Der Kuechenchef gibt dir Bohnenauflauf");
-                            //Add Inventar
+
                             break;
                         case 2:
                             print(game ->peoplelist[6].GetAnswer(2));
@@ -419,26 +413,20 @@ void Play(struct data* game)
                             talkWithP7 = false;
                             break;
                         }
-
                     }
                     break;
                 case 2:
-                    //Reden mit P3
-
                     while(talkWithP3){
-                        //print("Du hast dich zu P3 an den Tisch gesetzt");
-                        //print("Du hast folgende Interaktionsmöglichkeiten: \n1. Dein Essen essen \n2. Mit P3 sprechen \n3. Zurueck in den Raum gehen");
                         print(game->peoplelist[2].GetDialogOptions());
                         int interactnmb;
                         cin >> interactnmb;
                         switch (interactnmb) {
                         case 1:
                             print(game->peoplelist[2].GetAnswer(1));
-                            //Schauen ob im Inventar Essen ist und es ggf. auflisten / Entfernen
+                            //TODO: Schauen ob im Inventar Essen ist und es ggf. auflisten / Entfernen
                             break;
                         case 2:
                             print(game->peoplelist[2].GetAnswer(2));
-                            //Talk with P3
                             break;
                         case 3:
                             talkWithP3 = false;
@@ -477,26 +465,15 @@ void Play(struct data* game)
             }
             break;
         case 3:
-            //cleanconsole();
             print("Du betrittst den Tatort, in diesem Raum befindet sich eine Leiche und der Sheriff");
             print(crime_scene_intro);
 
             while(stayintatort){
-                //print("Du hast folgende Interaktionsmöglichkeiten: \n1. Mit dem Sheriff reden \n2. Die Leiche genauer anschauen \n3. Den Raum verlassen");
                 print(crime_scene_options);
                 int interactionnumber;
                 cin >> interactionnumber;
                 switch(interactionnumber){
                 case 1:
-                    //Mit Sheriff reden
-                    //print("Gestern Nacht wurde Herr Müller ermordet");
-                    //printXEmptyLines(1);
-                    /*if(!activatedgame){
-                        //print("Du hast folgende Interaktionsmöglichkeiten: \n1. Ihm sagen, dass der Bürgermeister dich beauftragt hat den Fall zu lösen\n2. Dein Beileid bekunden und zurück in den Raum gehen");
-                    }
-                    else{
-                        //print("Du hast folgende Interaktionsmöglichkeiten: \n1. Ihm sagen, dass du genug Indizien hast um den Schuldigen anzuklagen\n2. Ihn nach Tipps für die Ermittlung fragen");
-                    }*/
                     while(talkWithP6){
                         print(game->peoplelist[5].GetDialogOptions());
 
@@ -505,22 +482,18 @@ void Play(struct data* game)
                         case 1:
                             if(!activatedgame){
                                 print(game->peoplelist[5].GetAnswer(1));
-                                //print("Der Sheriff übergibt dir einen Sheriffstern um dich als auserordentlicher Ermittler in dieser Sache zu kennzeichen und erteilt dir die Erlaubnis Nachforschungen anzustellen");
-                                //game->inventar_.Add(); //Add Sheriffsstern
                                 set = 2;
                                 activatedgame = true;
                                 SetDialog(set, game);
                             }
                             else{
                                 print(game->peoplelist[5].GetAnswer(1));
-                                //print("Der Sheriff gibt dir den Schlüssel für das Gerichtsgebäude");
                                 enableGericht = true;
                                 inventarelement gerichtskey;
                                 gerichtskey.beweisstueck = 0;
                                 gerichtskey.name = "Schluessel zum Gericht";
                                 gerichtskey.typ = key;
                                 game->inventar_.Add(gerichtskey);
-                                //game->inventar_.Add(); // Add Gerichtsschlüssel
                             }
                             break;
                         case 2:
@@ -533,8 +506,6 @@ void Play(struct data* game)
                     break;
                 case 2:
                     print(watch_stiff);
-                    //Leiche anschauen
-                    //Ggf. findet man hier einen Hinweis
                     break;
                 case 3:
                     stayintatort = false;
@@ -544,13 +515,9 @@ void Play(struct data* game)
             }
             break;
         case 4:
-            //print("Du bist in den Aufenthaltsraum gegangen");
             print(common_room_intro);
             while(stayinaufenthaltsraum){
-                //print("In diesem Raum sitzen P4 und P5 und machen Hausaufgaben");
-                //print("Du hast in diesem Raum folgende Interaktionsmöglichkeiten: \n1. Zu P4 gehen \n. Zu P5 gehen \n.6. Den Raum wieder verlassen");
                 print(common_room_options);
-
                 int interactionsnumber;
                 cin >> interactionsnumber;
                 switch (interactionsnumber) {
@@ -577,7 +544,6 @@ void Play(struct data* game)
                                 //TODO: Neue Texte schreiben
                             }
                             else{
-
                                 //game ->peoplelist[3].SetDialogOptions();
                                 //game ->peoplelist[3].SetDialog();
                             }
