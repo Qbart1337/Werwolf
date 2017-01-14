@@ -8,13 +8,13 @@
 #include <textstrings.cpp>
 
 /*
-bei Settern wenn möglich 'const &' von der Variable übergeben
+bei Settern wenn möglich 'const &' von der Variable uebergeben
 
-Wenn ich nur & von der Variable übergebe, kann ich sie auch ändern in der Methode -> siehe bsp
+Wenn ich nur & von der Variable uebergebe, kann ich sie auch ändern in der Methode -> siehe bsp
 
 Anforderungen:
 -Bewegung durch Räume bzw. Szenen basierend auf Textein- und ausgabe - check
--Interaktion mit Spielwelt, inkl. Zustandsänderung /z.B. Schalter, Türe, LP - bin dabei
+-Interaktion mit Spielwelt, inkl. Zustandsänderung /z.B. Schalter, Tuere, LP - bin dabei
 -Einfache Inventarverwaltung z.B. Gegenstand aufnehmen, später benutzen - passt denke ich wenn es funkt
 -Teilprozesse z.B. Unterhaltung/Dialog, Kampf, schrittweises Rätsel etc. - ist in Planung
 
@@ -26,11 +26,11 @@ Zustandsänderungen erhöhen ((Interatkion mit Inventar) --- In Progress
 Kommentieren wer was gemacht hat --- muss noch erledigt werden
 
 
-CleanConsole() um das ganze hübscher zu machen | Haben system("cls") dafür eingebaut
+CleanConsole() um das ganze huebscher zu machen | Haben system("cls") dafuer eingebaut
 Leave Messages zu Räumen und teils auch Gesprächen
 */
 
-// @Alex_ & Caner Yavuz #2017
+// @Alex_ #2017
 using namespace std;
 enum inventartyp{ food_1,beweisstueck,key};
 
@@ -129,7 +129,7 @@ public:
     }
 };
 
-//#Ronaldo Dano
+//#Ronaldo Dano  & Textrefactor Caner Yavuz
 struct data
 {
     person peoplelist[7];
@@ -149,11 +149,11 @@ void CreateGame(struct data *z)
 
     person_one.SetName("Pfarrer");
     person_two.SetName("Herr Schmidt");
-    person_three.SetName("Herr Müller");
+    person_three.SetName("Herr Mueller");
     person_four.SetName("Paul");
     person_five.SetName("Jan");
     person_six.SetName("Sheriff");
-    person_seven.SetName("Küchenchef");
+    person_seven.SetName("Kuechenchef");
 
     //inventar inv;
     //z ->inventar = inv;
@@ -169,17 +169,17 @@ void CreateGame(struct data *z)
 
 }
 
-void SetDialog(int set, struct data* z)
+void SetDialogTexts(int set, struct data* z)
 {
     switch(set){
     case 1:
         z ->peoplelist[0].SetDialogOptions("Du weißt doch.. du musst zum Tatort. Trödle nicht rum");
         z ->peoplelist[0].SetDialog("Ich war mit einer Freundin einkauen", "Ich habe Anna gesehen", "Nerv mich nicht!");
         z ->peoplelist[1].SetDialogOptions("Ich glaube du wirst erwartet");
-        z ->peoplelist[1].SetDialog("Ich war mit einem Freund im Kino", "Nein", "Nerv mich nicht!");
+        z ->peoplelist[1].SetDialog("Ich war mit einem Freund im Goldenem Adler", "Nein", "Ich möchte mich nicht wiederholen!");
         z ->peoplelist[1].SetWerwolf();
-        z ->peoplelist[2].SetDialogOptions("");
-        z ->peoplelist[2].SetDialog("Ich habe mir einen Film angeschaut", "Ich habe Anne gesehen", "Nerv mich nicht!");
+        z ->peoplelist[2].SetDialogOptions("Gerade keine Zeit. Komm nachher wieder");
+        z ->peoplelist[2].SetDialog("Ich habe mir was neues gekauft", "Ich war mit dem Pfarrer einkaufen", "Nerv mich nicht!");
         z ->peoplelist[3].SetDialogOptions("");
         z ->peoplelist[3].SetDialog("Ich habe mir einen Film angeschaut", "Ich habe Anja gesehen", "Nerv mich nicht!");
         z ->peoplelist[4].SetDialogOptions("");
@@ -222,13 +222,13 @@ void Play(struct data* game)
     bool notes_taken = false;
     bool helpwithhomework = false;
 
-    // Einführung
+    // Einfuehrung
     printXEmptyLines(2);
     printTextSmoothly(introduction);
 
     printXEmptyLines(2);
 
-    SetDialog(set,game);
+    SetDialogTexts(set,game);
 
     bool ready_for_final_question = false;
     while(!ready_for_final_question)
@@ -252,14 +252,14 @@ void Play(struct data* game)
         print("Du bist auf dem Marktplatz, wohin willst du gehen?");
         print("1.Kirche \n2.Mensa \n3.Tatort \n4.Aufenthaltsraum \n5.Scheune \n6.Friedhof");
         //TODO: Auslagern
-        //falls das Bool "erlaubeGericht" freigeschaltet wurde, wird hier auch der Raum 7 "Gerichtsgebäude" angeboten, da man einen Schlüssel bekommt
+        //falls das Bool "erlaubeGericht" freigeschaltet wurde, wird hier auch der Raum 7 "Gerichtsgebäude" angeboten, da man einen Schluessel bekommt
         if(enableGericht){
             print("7.Gerichtsgebäude");
         }
         int roomnumber;
-        cout << "Nummer: ";
+        print(choose_room);
         cin >> roomnumber;
-        //cleanconsole();
+        cleanconsole();
         switch(roomnumber){
         case 1:
             print(church_intro);
@@ -267,13 +267,16 @@ void Play(struct data* game)
             while(stayinchurch){
                 print(church_options);
                 int interactionnumber;
+                print(choose_interaction);
                 cin >> interactionnumber;
+                cleanconsole();
                 switch(interactionnumber){
                 case 1:
                     //ToDo Anpassen
                     while(talkWithP1){
                         print(game->peoplelist[0].GetDialogOptions());
                         int interactnmb;
+                        print(choose_interaction);
                         cin >> interactnmb;
                         switch(interactnmb){
                             case 1:
@@ -291,17 +294,21 @@ void Play(struct data* game)
                 case 2:
                     //Zum Beichtstuhl gehen
                     if(activatedgame){
-                        print("test");
+                        print("Es ist schon jemand drinnen...");
+                        set = 1;
+                        SetDialogTexts(set,game);
                         //TODO: Set 1 Strings bei P2 hinterlegen mit belastenden Aussagen
                         // Werwolf
-                        //Sollte man hier hingehen bevor man beim Sheriff war, so findet man den Täter dort und er liefert starke Indizien für seine Tat
+                        //Sollte man hier hingehen bevor man beim Sheriff war, so findet man den Täter dort und er liefert starke Indizien fuer seine Tat
                     }
                     else{
                         if(!takenChurchKey){
                             print(confessional_intro);
                             print(confessional_options);
                             int action_numb;
-                            cin>>action_numb;
+                            print(choose_interaction);
+                            cin >> action_numb;
+                            cleanconsole();
                             if(action_numb = 1 && !takenChurchKey)
                             {
                                 inventarelement church_key;
@@ -329,7 +336,7 @@ void Play(struct data* game)
                             church_back_room_door = true;
                         }
                         else{
-                            print("Du hast leider keinen passenden Schlüssel dabei");
+                            print("Du hast leider keinen passenden Schluessel dabei");
                         }
                     }
                     if(church_back_room_door)
@@ -344,8 +351,10 @@ void Play(struct data* game)
                                 //TODO
                             }
                             int interactnumb;
+                            print(choose_interaction);
                             cin >> interactnumb;
-                            //TODO: Bool notes_taken und zweiter options string für den Raum, damit falls die Notes mitgenommen wurden es die Option nicht mehr gibt
+                            cleanconsole();
+                            //TODO: Bool notes_taken und zweiter options string fuer den Raum, damit falls die Notes mitgenommen wurden es die Option nicht mehr gibt
                             switch(interactnumb){
                             case 1: //Gebetsbuchtext
                                 break;
@@ -354,7 +363,9 @@ void Play(struct data* game)
                                     print(church_back_room_notes);
                                     print("Du hast folgende Optionen: \n1. Mitnehmen \n2. Liegen lassen");
                                     int interactnumb_2;
+                                    print(choose_interaction);
                                     cin >> interactnumb_2;
+                                    cleanconsole();
                                     if(interactnumb_2 = 1){
                                         inventarelement tagebuch;
                                         tagebuch.name = "Tagebuch des Pfarrers";
@@ -390,13 +401,14 @@ void Play(struct data* game)
                 }
 
                 int interactionnumber;
+                print(choose_interaction);
                 cin >> interactionnumber;
+                cleanconsole();
                 switch (interactionnumber) {
                 case 1:
 
                     while(talkWithP7){
                         print(game ->peoplelist[6].GetDialogOptions());
-
                         int interactnmb;
                         cin >> interactnmb;
                         inventarelement food;
@@ -423,6 +435,7 @@ void Play(struct data* game)
                         print(game->peoplelist[2].GetDialogOptions());
                         int interactnmb;
                         cin >> interactnmb;
+                        cleanconsole();
                         switch (interactnmb) {
                         case 1:
                             print(game->peoplelist[2].GetAnswer(1));
@@ -447,6 +460,7 @@ void Play(struct data* game)
                             print(game->peoplelist[1].GetDialogOptions());
                             int interactnmb;
                             cin >> interactnmb;
+                            cleanconsole();
                             switch(interactnmb){
                             case 1:
                                 print(game ->peoplelist[1].GetAnswer(1));
@@ -475,11 +489,11 @@ void Play(struct data* game)
                 print(crime_scene_options);
                 int interactionnumber;
                 cin >> interactionnumber;
+                cleanconsole();
                 switch(interactionnumber){
                 case 1:
                     while(talkWithP6){
                         print(game->peoplelist[5].GetDialogOptions());
-
                         cin >> interactionnumber;
                         switch(interactionnumber){
                         case 1:
@@ -488,7 +502,7 @@ void Play(struct data* game)
                                 //Mission angenommen, spiel wird richtig gestartet
                                 set = 2;
                                 activatedgame = true;
-                                SetDialog(set, game);
+                                SetDialogTexts(set, game);
                             }
                             else{
                                 print(game->peoplelist[5].GetAnswer(1));
@@ -523,21 +537,25 @@ void Play(struct data* game)
             while(stayinaufenthaltsraum){
                 print(common_room_options);
                 int interactionsnumber;
+                print(choose_interaction);
                 cin >> interactionsnumber;
+                cleanconsole();
                 switch (interactionsnumber) {
                 case 1:
                     while(talkWithP4){
                         print(game->peoplelist[3].GetDialogOptions());
                         int interactnmb;
                         cin >> interactnmb;
+                        cleanconsole();
                         switch(interactnmb){
                         case 1:
                             print(game->peoplelist[3].GetAnswer(1));
                             print("Lösung eintippen");
                             int lsg;
                             cin >> lsg;
+                            cleanconsole();
                             if(lsg == -16){
-                                print("Das sieht gut aus, ich danke dir für deine Hilfe. \nIch möchte dir dafür diesen Schluessel geben, den ich heute morgen im Wald gefunden habe. Ich weiß zwar nicht zu welcher Tür er passt, aber vielleicht findest du es ja heraus.");
+                                print("Das sieht gut aus, ich danke dir fuer deine Hilfe. \nIch möchte dir dafuer diesen Schluessel geben, den ich heute morgen im Wald gefunden habe. Ich weiß zwar nicht zu welcher Tuer er passt, aber vielleicht findest du es ja heraus.");
                                 inventarelement scheunenkey;
                                 scheunenkey.beweisstueck = 0;
                                 scheunenkey.name = "Unbekannter Schluessel";
@@ -567,6 +585,7 @@ void Play(struct data* game)
                         game->peoplelist[4].GetDialogOptions();
                         int interactnmb;
                         cin >> interactnmb;
+                        cleanconsole();
                         switch(interactnmb){
                         case 1:
                             game->peoplelist[4].GetAnswer(1);
@@ -596,11 +615,11 @@ void Play(struct data* game)
                     printTextSmoothly("Du reibst dir verwundert die Augen und merkst, dass du das nur getraeumt hast");
                     Sleep(5000);
                     printTextSmoothly("In der Scheune siehst du ausser viel Heu nichts interessantes");
-                    printTextSmoothly("Du kannst diesen Raum nur wieder verlassen, druecke dafür die 1");
+                    printTextSmoothly("Du kannst diesen Raum nur wieder verlassen, druecke dafuer die 1");
                 }
                 else{
-                    print("Du schiebst das Heu in einer Ecke zur Seite und findest eine versteckte Tür");
-                    if(game->inventar_.CheckIfElementIsInList("Unbekannter Schluessel"))//Schlüssel
+                    print("Du schiebst das Heu in einer Ecke zur Seite und findest eine versteckte Tuer");
+                    if(game->inventar_.CheckIfElementIsInList("Unbekannter Schluessel"))//Schluessel
                     {
                         game->inventar_.Delete("Unbekannter Schluessel");
 
@@ -608,11 +627,12 @@ void Play(struct data* game)
                         //Hinweis in dem Raum
                     }
                     else{
-                        print("Leider hast du keinen passenden Schlüssel für diesen Raum");
+                        print("Leider hast du keinen passenden Schluessel fuer diesen Raum");
                     }
                 }
                 int interactionnumber;
                 cin >> interactionnumber;
+                cleanconsole();
                 if(interactionnumber == 1){
                     stayinscheune = false;
                 }
@@ -623,9 +643,10 @@ void Play(struct data* game)
             while(stayinfriedhof){
                 print("An einigen Gräbern liegen Blumen, an manchen mehr an manchen weniger");
                 print("Hier kannst du nichts machen");
-                print("Drücke die 1 um den Friedhof wieder zu verlassen");
+                print("Druecke die 1 um den Friedhof wieder zu verlassen");
                 int interactionnumber;
                 cin >> interactionnumber;
+                cleanconsole();
                 if(interactionnumber ==1){
                     stayinfriedhof = false;
                 }
@@ -655,8 +676,8 @@ void Ask(struct data* game)
     }
     int personnumber;
     cin >> personnumber;
-    //cleanconsole();
-    cout << "Ich klage hiermit " << game ->peoplelist[personnumber].GetName() << " an und habe dafür folgende Beweiese" << endl;
+    cleanconsole();
+    cout << "Ich klage hiermit " << game ->peoplelist[personnumber].GetName() << " an und habe dafuer folgende Beweiese" << endl;
 
     printXEmptyLines(1);
     bool chooseinventar = true;
@@ -666,7 +687,7 @@ void Ask(struct data* game)
 
     while(notdone){
         print("Du hast die Möglichkeit Gegenstände aus deinem Inventar als Beweise vorzulegen oder Aussagen zu zitieren");
-        print("1. Gegenstand aus dem Inventar vorlegen\n2.Aussagen zitieren\n3.Beweisführung beenden und das Gericht entscheiden lassen");
+        print("1. Gegenstand aus dem Inventar vorlegen\n2.Aussagen zitieren\n3.Beweisfuehrung beenden und das Gericht entscheiden lassen");
         int numb;
         cin >> numb;
         switch(numb){
@@ -719,15 +740,15 @@ void Ask(struct data* game)
     }
     int msg;
     if(lose){
-        print("Das Gericht ist umpört, dass du ohne Gründe in Privaträume des Pfarrers eingedrungen bist um an Beweise zu kommen. Dies entspricht nach Ansichten des Gerichts eines Amtsmissbrauchs. Du verlierst dadurch jegliche Glaubwürdigkeit und wirst selbst verurteilt.");
+        print("Das Gericht ist umpört, dass du ohne Gruende in Privaträume des Pfarrers eingedrungen bist um an Beweise zu kommen. Dies entspricht nach Ansichten des Gerichts eines Amtsmissbrauchs. Du verlierst dadurch jegliche Glaubwuerdigkeit und wirst selbst verurteilt.");
         msg = -1;
     }
     else if(game ->peoplelist[personnumber].GetWerwolfStatus() && counter >=2 && !lose){
-        printSpecialText("Herzlichen Glückwunsch, du hast den Täter anhand von aussagekrätigen Beweisen überführt");
+        printSpecialText("Herzlichen Glueckwunsch, du hast den Täter anhand von aussagekrätigen Beweisen ueberfuehrt");
         msg = 1;
     }
     else{
-        printSpecialText("Du hast das Spiel verloren, du hast entweder die falsche Person angeklagt oder zu wenig Beweise vorlegen können um das Gericht zu überzeugen");
+        printSpecialText("Du hast das Spiel verloren, du hast entweder die falsche Person angeklagt oder zu wenig Beweise vorlegen können um das Gericht zu ueberzeugen");
         msg=-1;
     }
 
