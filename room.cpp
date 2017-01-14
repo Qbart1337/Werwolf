@@ -1,8 +1,9 @@
 #include "room.hpp"
 
+//# Caner Yavuz
 room::room()
 {
-
+    // Ausgenommen! Nicht mehr benutzen
 }
 void room::SetRoomName(std::string raumName){
     this->room_name = raumName;

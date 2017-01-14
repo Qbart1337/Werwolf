@@ -1,5 +1,6 @@
 #include <Windows.h>
 #include <string>
+// @Alex_ Speziellen danke für die gestellte Lib für schöneren ConsolenPrint#
 void cleanconsole(){
     system("cls");
 }

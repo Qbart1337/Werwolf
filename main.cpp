@@ -1,6 +1,6 @@
 #include <iostream>
 #include <person.hpp>
-#include <room.hpp>
+// #include <room.hpp> Wurde nach Besprechung ausgebaut. Peoplelist ist geordnet nach den Raumnummern
 #include <string>
 #include <stdlib.h>
 #include <Windows.h>
@@ -92,7 +92,7 @@ public:
     {
         if(count >=5)
         {
-            print("Inventar voll, Element konnte nicht hinzugefügt werden");
+            print("Inventar voll! Dieses Element kann nicht aufgenommen werden");
             //Inventar voll
         }
         else{
@@ -129,7 +129,7 @@ public:
     }
 };
 
-
+//#Ronaldo Dano
 struct data
 {
     person peoplelist[7];
@@ -210,6 +210,7 @@ void SetDialog(int set, struct data* z)
 }
 
 
+// @Alex_
 void Play(struct data* game)
 {
     int set = 2; // TODO: später auf set = 1 setzen, zu Testzwecken schon Set = 2
@@ -744,9 +745,8 @@ int main()
     CreateGame(data_ptr);
     Play(data_ptr);
     Ask(data_ptr);
-
     cleanconsole();
-    printSpecialText("Programm erfolgreich beendet");
+    printSpecialText("Das Spiel wurde erfolgreich beendet");
 
     return 0;
 }
