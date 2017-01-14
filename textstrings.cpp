@@ -2,9 +2,9 @@
 #include <string>
 
 //# Caner Yavuz & Text-Refactor Stefan Nonn
-std::string initialize_rooms_start = "Initialisiere Raeume";
-std::string initialize_rooms_end = "Raeume erfolgreich erstellt";
-std::string initialize_person_start = "Initialisiere Personen";
+std::string initialize_rooms_start = "Initialisiere alle Raeume";
+std::string initialize_rooms_end = "Raeume wurden erfolgreich erstellt";
+std::string initialize_person_start = "Initialisiere Personen für das Spiel";
 std::string initialize_person_end = "Personen erfolgreich erstellt";
 //std::string gamerules = "Spielregeln:\nDu kannst mit bis zu 5 Personen sprechen.\nZiel des Spiel ist es durch das Sprechen mit den verschiedenen Personen herauszufinden wessen Alibi nicht stimmt und ihn als Werwolf zu enttarnen";
 std::string gamerules = "Ziel des Spiels ist es durch das Sprechen mit den Dorfbewohnern herauszufinden wer Herr Mustermann umgebracht wird. Begebe dich an den Tatort um mit den Sheriff zu sprechen und das Spiel zu starten";

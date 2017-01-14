@@ -257,6 +257,7 @@ void Play(struct data* game)
             print("7.Gerichtsgebäude");
         }
         int roomnumber;
+        cout << "Nummer: ";
         cin >> roomnumber;
         //cleanconsole();
         switch(roomnumber){
