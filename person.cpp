@@ -1,36 +1,56 @@
 #include "person.hpp"
-// Konstruktor erstellt den Bewohner init.
+
+//@Stefan
+// default für GetAnswer()
+// Konstruktor erstellt den Bewohner init die privaten Variablen
 person::person()
 {
     bewohnerstatus = Dorfbewohner;
     ask_Counter = 0;
 }
 
-std::string person::GetName(){
-    return (name);
+// # SETTERS #
+void person::SetWerwolf()
+{
+    bewohnerstatus = Werwolf;
 }
-void person::SetName(std::string name){
+
+void person::SetName(std::string name)
+{
     this->name = name;
 }
-whoami person::GetPersonenStatus(){
-    return bewohnerstatus;
+
+void person::SetDialogOptions(std::string str_opts)
+{
+    dialog_options=str_opts;
 }
-void person::SetDialog(std::string ask_neutral, std::string ask_skeptic, std::string answer_random){
+
+void person::SetDialog(std::string ask_neutral, std::string ask_skeptic, std::string answer_random)
+{
     ask_Counter = 0;
     this->answer_neutral = ask_neutral;
     this->answer_sceptic = ask_skeptic;
     this->answer_random = answer_random;
 }
 
-void person::SetDialogOptions(std::string str_opts){
-    dialog_options=str_opts;
+// # GETTERS #
+whoami person::GetPersonenStatus()
+{
+    return bewohnerstatus;
 }
 
-std::string person::GetDialogOptions(){
+std::string person::GetName()
+{
+    return (name);
+}
+
+std::string person::GetDialogOptions()
+{
     return dialog_options;
 }
 
-std::string person::GetAnswer(int answer_choose){
+std::string person::GetAnswer(int answer_choose)
+{
     if(ask_Counter >= 2)
     {
         return answer_random;
@@ -42,12 +62,11 @@ std::string person::GetAnswer(int answer_choose){
         {
             case(1): return answer_neutral;
             case(2): return answer_sceptic;
+            default: return answer_random;
         }
     }
 }
-void person::SetWerwolf(){
-    bewohnerstatus = Werwolf;
-}
+
 std::string person::GetFinalInformation()
 {
     if(bewohnerstatus == Werwolf)
@@ -59,11 +78,14 @@ std::string person::GetFinalInformation()
         return "Du hast das Spiel leider verloren";
     }
 }
-bool person::GetWerwolfStatus(){
-    if(bewohnerstatus == Werwolf){
+bool person::GetWerwolfStatus()
+{
+    if(bewohnerstatus == Werwolf)
+    {
         true;
     }
-    else{
+    else
+    {
         return false;
     }
 }
