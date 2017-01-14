@@ -33,8 +33,8 @@ class person
 
         // kein Set da jede Person erst Dorfbewohner ist
         whoami GetPersonenStatus();
-        std::string GetDialogOptions();
         std::string GetName();
+        std::string GetDialogOptions();
         std::string GetAnswer(int answer_choose);
         std::string GetFinalInformation();
         bool GetWerwolfStatus();

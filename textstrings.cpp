@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 
+//# Caner Yavuz & Text-Refactor Stefan Nonn
 std::string initialize_rooms_start = "Initialisiere Raeume";
 std::string initialize_rooms_end = "Raeume erfolgreich erstellt";
 std::string initialize_person_start = "Initialisiere Personen";

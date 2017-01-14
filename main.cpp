@@ -30,7 +30,7 @@ CleanConsole() um das ganze hübscher zu machen | Haben system("cls") dafür ein
 Leave Messages zu Räumen und teils auch Gesprächen
 */
 
-// @Alex_
+// @Alex_ & Caner Yavuz #2017
 using namespace std;
 enum inventartyp{ food_1,beweisstueck,key};
 
@@ -173,9 +173,9 @@ void SetDialog(int set, struct data* z)
 {
     switch(set){
     case 1:
-        z ->peoplelist[0].SetDialogOptions("");
+        z ->peoplelist[0].SetDialogOptions("Du weißt doch.. du musst zum Tatort. Trödle nicht rum");
         z ->peoplelist[0].SetDialog("Ich war mit einer Freundin einkauen", "Ich habe Anna gesehen", "Nerv mich nicht!");
-        z ->peoplelist[1].SetDialogOptions("");
+        z ->peoplelist[1].SetDialogOptions("Ich glaube du wirst erwartet");
         z ->peoplelist[1].SetDialog("Ich war mit einem Freund im Kino", "Nein", "Nerv mich nicht!");
         z ->peoplelist[1].SetWerwolf();
         z ->peoplelist[2].SetDialogOptions("");
