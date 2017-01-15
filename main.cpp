@@ -322,7 +322,7 @@ void Play(struct data* game)
                         cleanconsole();
                         switch(GetUserInput(game->peoplelist[0].GetDialogOptions(),3)){
                             case 1:
-                                print(game->peoplelist[0].GetAnswer(1));
+                                print(game->peoplelist[0].GetAnswer(1));                                
                                 break;
                             case 2:
                                 print(game->peoplelist[0].GetAnswer(2));

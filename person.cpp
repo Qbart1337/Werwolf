@@ -49,7 +49,7 @@ std::string person::GetDialogOptions()
     return dialog_options;
 }
 
-std::string person::GetAnswer(int answer_choose, bool temp = true)
+std::string person::GetAnswer(int answer_choose, bool temp)
 {
     if(ask_Counter >= 2 && temp)
     {

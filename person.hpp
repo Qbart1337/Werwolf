@@ -35,7 +35,7 @@ class person
         whoami GetPersonenStatus();
         std::string GetName();
         std::string GetDialogOptions();
-        std::string GetAnswer(int answer_choose, bool temp);
+        std::string GetAnswer(int answer_choose, bool temp = true);
         std::string GetFinalInformation();
         bool GetWerwolfStatus();
 };
