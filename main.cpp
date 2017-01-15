@@ -27,11 +27,11 @@ Zustandsänderungen erhöhen ((Interatkion mit Inventar) --- In Progress
 Kommentieren wer was gemacht hat --- muss noch erledigt werden
 
 
-CleanConsole() um das ganze hübscher zu machen | Haben system("cls") dafür eingebaut
+CleanConsole() um das ganze hübscher zu machen | Haben system("cls") dafuer eingebaut
 Leave Messages zu Räumen und teils auch Gesprächen
 */
 
-// @Alex_ & Caner Yavuz #2017
+// Caner Yavuz
 using namespace std;
 enum inventartyp{ food_1,beweisstueck,key};
 
@@ -170,7 +170,7 @@ void CreateGame(struct data *z)
 
 }
 
-void SetDialog(int set, struct data* z)
+void SetDialogText(int set, struct data* z)
 {
     switch(set){
     case 1:
@@ -267,7 +267,7 @@ void Play(struct data* game)
 
     printXEmptyLines(2);
 
-    SetDialog(set,game);
+    SetDialogText(set,game);
 
     //Main Game Loop - Spieler kann solange in der Welt umherlaufen,
     //wie er sich nicht entscheidet jemanden zur Anklage zu bringen
@@ -339,7 +339,7 @@ void Play(struct data* game)
                         print("test");
                         //TODO: Set 1 Strings bei P2 hinterlegen mit belastenden Aussagen
                         // Werwolf
-                        //Sollte man hier hingehen bevor man beim Sheriff war, so findet man den Täter dort und er liefert starke Indizien für seine Tat
+                        //Sollte man hier hingehen bevor man beim Sheriff war, so findet man den Täter dort und er liefert starke Indizien fuer seine Tat
                     }
                     else{
                         if(!takenChurchKey){
@@ -392,7 +392,7 @@ void Play(struct data* game)
                             }
                             int interactnumb;
                             cin >> interactnumb;
-                            //TODO: Bool notes_taken und zweiter options string für den Raum, damit falls die Notes mitgenommen wurden es die Option nicht mehr gibt
+                            //TODO: Bool notes_taken und zweiter options string fuer den Raum, damit falls die Notes mitgenommen wurden es die Option nicht mehr gibt
                             switch(interactnumb){
                             case 1: //Gebetsbuchtext
                                 break;
@@ -535,7 +535,7 @@ void Play(struct data* game)
                                 //Texte werden neu gesetzt
                                 set = 2;
                                 activatedgame = true;
-                                SetDialog(set, game);
+                                SetDialogText(set, game);
                             }
                             else{
                                 //Spiel "beenden" und zur Anklage einer Person kommen
@@ -591,7 +591,7 @@ void Play(struct data* game)
                                 cin >> lsg;
                                 //TODO
                                 if(lsg == -16){
-                                    print("Das sieht gut aus, ich danke dir für deine Hilfe. \nIch möchte dir dafür diesen Schluessel geben, den ich heute morgen im Wald gefunden habe. Ich weiß zwar nicht zu welcher Tür er passt, aber vielleicht findest du es ja heraus.");
+                                    print("Das sieht gut aus, ich danke dir fuer deine Hilfe. \nIch möchte dir dafuer diesen Schluessel geben, den ich heute morgen im Wald gefunden habe. Ich weiß zwar nicht zu welcher Tür er passt, aber vielleicht findest du es ja heraus.");
                                     inventarelement scheunenkey;
                                     scheunenkey.beweisstueck = 0;
                                     scheunenkey.name = "Unbekannter Schluessel";
@@ -660,7 +660,7 @@ void Play(struct data* game)
                     printTextSmoothly("Du reibst dir verwundert die Augen und merkst, dass du das nur getraeumt hast");
                     Sleep(5000);
                     printTextSmoothly("In der Scheune siehst du ausser viel Heu nichts interessantes");
-                    printTextSmoothly("Du kannst diesen Raum nur wieder verlassen, druecke dafür die 1");
+                    printTextSmoothly("Du kannst diesen Raum nur wieder verlassen, druecke dafuer die 1");
                 }
                 else{
                     print("Du schiebst das Heu in einer Ecke zur Seite und findest eine versteckte Tür");
@@ -692,7 +692,7 @@ void Play(struct data* game)
                         }
                     }
                     else{
-                        print("Leider hast du keinen passenden Schlüssel für diesen Raum");
+                        print("Leider hast du keinen passenden Schlüssel fuer diesen Raum");
                     }
                 }
                 tempstring = "Druecke 1 um die Scheune zu verlassen";

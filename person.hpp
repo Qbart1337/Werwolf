@@ -24,7 +24,7 @@ class person
 
     public:
         person();
-        // Bei der GameInit verwenden. SetWerwolf nur für den Täter
+        // Bei der GameInit verwenden. SetWerwolf nur fuer den Täter
         void SetWerwolf();
         void SetName(std::string name);
         void SetDialogOptions(std::string str_opts);

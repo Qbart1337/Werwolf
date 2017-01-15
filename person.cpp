@@ -1,7 +1,7 @@
 #include "person.hpp"
 
 //@Stefan
-// default für GetAnswer()
+// default fuer GetAnswer()
 // Konstruktor erstellt den Bewohner init die privaten Variablen
 person::person()
 {
