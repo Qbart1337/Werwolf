@@ -821,6 +821,7 @@ void Ask(struct data* game)
 
 int main()
 {
+    // 15. Beta Stand
     struct data gamedata;
     struct data *data_ptr = &gamedata;
     CreateGame(data_ptr);
