@@ -49,15 +49,18 @@ std::string person::GetDialogOptions()
     return dialog_options;
 }
 
-std::string person::GetAnswer(int answer_choose)
+std::string person::GetAnswer(int answer_choose, bool temp = true)
 {
-    if(ask_Counter >= 2)
+    if(ask_Counter >= 2 && temp)
     {
         return answer_random;
     }
     else
     {
-        ask_Counter++;
+        if(temp)
+        {
+            ask_Counter++;
+        }
         switch(answer_choose)
         {
             case(1): return answer_neutral;
