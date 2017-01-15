@@ -1,6 +1,6 @@
 #include <Windows.h>
 #include <string>
-// @Alex_ Speziellen danke für die gestellte Lib für schöneren ConsolenPrint#
+// @Alex_ Speziellen Dank für die gestellte Lib für schöneren ConsolenPrint#
 void cleanconsole(){
     system("cls");
 }
@@ -25,15 +25,10 @@ void printSpecialText(std::string AusgabeString){
     int len = 0;
     len = AusgabeString.length();
     int total_len = len + 20;
-    //int half_len_first = total_len/2  -len / 2;
+
     int half_len_first = (total_len - len) / 2;
     int half_len_second = half_len_first -1;
 
-    /* Anscheinend nicht mehr benötigt
-     *
-    if(len % 2 != 0){
-        half_len_second --;
-    }*/
     std::cout << GetXTimesTheSameString("*", total_len) << std::endl;
     std::cout << "*" << GetXTimesTheSameString(" ", total_len-2) << "*" << std::endl;
     std::cout << "*" << GetXTimesTheSameString(" ", half_len_first) << AusgabeString << GetXTimesTheSameString(" ", half_len_second-1) << "*" << std::endl;
