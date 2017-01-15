@@ -403,7 +403,7 @@ void Play(struct data* game)
                                     //TODO
                                     int interactnumb_2;
                                     cin >> interactnumb_2;
-                                    if(GetUserInput(note_options,2) = 1){
+                                    if(GetUserInput(note_options,2) == 1){
                                         inventarelement tagebuch;
                                         tagebuch.name = "Tagebuch des Pfarrers";
                                         tagebuch.typ = beweisstueck;
