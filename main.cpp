@@ -322,7 +322,7 @@ void Play(struct data* game)
                         cleanconsole();
                         switch(GetUserInput(game->peoplelist[0].GetDialogOptions(),3)){
                             case 1:
-                                print(game->peoplelist[0].GetAnswer(1));
+                                print(game->peoplelist[0].GetAnswer(1));                                
                                 break;
                             case 2:
                                 print(game->peoplelist[0].GetAnswer(2));
@@ -530,7 +530,7 @@ void Play(struct data* game)
                         case 1:
                             if(!activatedgame){
                                 //Spiel starten und den Auftrag offiziell annehmen
-                                print(game->peoplelist[5].GetAnswer(1));
+                                print(game->peoplelist[5].GetAnswer(1,false));
 
                                 //Texte werden neu gesetzt
                                 set = 2;
@@ -540,7 +540,7 @@ void Play(struct data* game)
                             else{
                                 //Spiel "beenden" und zur Anklage einer Person kommen
                                 //Der Ort "Gericht" wird dadurch freigeschaltet und man bekommt einen Schlüssel
-                                print(game->peoplelist[5].GetAnswer(1));
+                                print(game->peoplelist[5].GetAnswer(1,false));
                                 enableGericht = true;
                                 inventarelement gerichtskey;
                                 gerichtskey.beweisstueck = 0;
@@ -550,7 +550,7 @@ void Play(struct data* game)
                             }
                             break;
                         case 2:
-                            print(game->peoplelist[5].GetAnswer(2));
+                            print(game->peoplelist[5].GetAnswer(2,false));
                             break;
                         case 3:
                             //Gespräch verlassen
