@@ -27,7 +27,7 @@ Zustandsänderungen erhöhen ((Interatkion mit Inventar) --- In Progress
 Kommentieren wer was gemacht hat --- muss noch erledigt werden
 
 
-CleanConsole() um das ganze hübscher zu machen | Haben system("cls") dafuer eingebaut
+cleanConsole() um das ganze hübscher zu machen | Haben system("cls") dafuer eingebaut
 Leave Messages zu Räumen und teils auch Gesprächen
 */
 
@@ -123,6 +123,7 @@ public:
         int deletenumber = GetNumberOfListElement(input_name);
         Delete(deletenumber);
     }
+    //TODO: Muss String zurückliefern
     void ListAll(){
         for(int i=0;i<=count;i++){
             cout << i+1 << " "<< Liste[i].name <<endl;
@@ -295,8 +296,6 @@ void Play(struct data* game)
         std::string tempstring;
 
         //TODO: Auslagern
-        std::string options = "Du bist in der Dorfmitte, wohin willst du gehen?\n1.Kirche \n2.Mensa \n3.Tatort \n4.Aufenthaltsraum \n5.Scheune \n6.Friedhof";
-        std::string options_2 = "Du bist in der Dorfmitte, wohin willst du gehen?\n1.Kirche \n2.Mensa \n3.Tatort \n4.Aufenthaltsraum \n5.Scheune \n6.Friedhof\n7.Gerichtsgebäude";
         //TODO: Auslagern
         //falls das Bool "erlaubeGericht" freigeschaltet wurde, wird hier auch der Raum 7 "Gerichtsgebäude" angeboten, da man einen Schlüssel bekommt
         if(!enableGericht){
@@ -375,7 +374,8 @@ void Play(struct data* game)
                             church_back_room_door = true;
                         }
                         else{
-                            print("Du hast leider keinen passenden Schlüssel dabei");
+                            std::string no_key = "Du hast leider keinen passenden Schlüssel dabei";
+                            print(no_key);
                         }
                     }
                     if(church_back_room_door)
@@ -395,11 +395,13 @@ void Play(struct data* game)
                             //TODO: Bool notes_taken und zweiter options string fuer den Raum, damit falls die Notes mitgenommen wurden es die Option nicht mehr gibt
                             switch(interactnumb){
                             case 1: //Gebetsbuchtext
+                                print(church_back_room_prayer_book);
+                                print(not_useful);
                                 break;
                             case 2: // Tagebuch
                                 if(!church_notes_taken){
                                     print(church_back_room_notes);
-                                    std::string note_options = "Du hast folgende Optionen: \n1. Mitnehmen \n2. Liegen lassen";
+
                                     //TODO
                                     int interactnumb_2;
                                     cin >> interactnumb_2;
@@ -454,7 +456,6 @@ void Play(struct data* game)
                             food.beweisstueck = 0;
                             food.typ = food_1;
                             game->inv.Add(food);
-
                             break;
                         case 2:
                             print(game ->peoplelist[6].GetAnswer(2));
@@ -566,7 +567,8 @@ void Play(struct data* game)
                     //Tatort verlassen
                     stayintatort = false;
                     //TODO: Konsistenz?
-                    print("Du verlässt den Tatort");
+
+                    print(leave_tatort);
                     break;
                 }
             }
@@ -586,12 +588,13 @@ void Play(struct data* game)
                             if(!helpwithhomework)
                             {
                                 print(game->peoplelist[3].GetAnswer(1));
-                                print("Lösung eintippen");
+
+                                print(enter_solution);
                                 int lsg;
                                 cin >> lsg;
                                 //TODO
                                 if(lsg == -16){
-                                    print("Das sieht gut aus, ich danke dir fuer deine Hilfe. \nIch möchte dir dafuer diesen Schluessel geben, den ich heute morgen im Wald gefunden habe. Ich weiß zwar nicht zu welcher Tür er passt, aber vielleicht findest du es ja heraus.");
+                                    print(thanks_for_homework);
                                     inventarelement scheunenkey;
                                     scheunenkey.beweisstueck = 0;
                                     scheunenkey.name = "Unbekannter Schluessel";
@@ -602,7 +605,8 @@ void Play(struct data* game)
                                     //TODO: Neue Texte schreiben
                                 }
                                 else{
-                                    print("Ich glaube nicht dass das stimmt, aber trotzdem nett das du es versucht hast");
+
+                                    print(wrong_solution);
                                     //game ->peoplelist[3].SetDialogOptions();
                                     //game ->peoplelist[3].SetDialog();
                                     //TODO: Neue Texte schreiben
@@ -651,33 +655,33 @@ void Play(struct data* game)
             break;
         case 5:
             //Scheune
-            print("Du betrittst die Scheune");
+            std::string barn_intro = "Du betrittst die Scheune";
+            print(barn_intro);
             while(stayinscheune){
                 if(!knowlegdeOfHiddenRoom){
-                    printTextSmoothly("Eine nackte Frau kommt auf dich zu und fragt dich woher ploetzlich das Heu kommt");
+
+                    printTextSmoothly(easter_egg_str_1);
                     Sleep(5000);
                     printXEmptyLines(1);
-                    printTextSmoothly("Du reibst dir verwundert die Augen und merkst, dass du das nur getraeumt hast");
+                    printTextSmoothly(easter_egg_str_2);
                     Sleep(5000);
-                    printTextSmoothly("In der Scheune siehst du ausser viel Heu nichts interessantes");
-                    printTextSmoothly("Du kannst diesen Raum nur wieder verlassen, druecke dafuer die 1");
+                    printTextSmoothly(easter_egg_str_3);
+                    printTextSmoothly(easter_egg_str_4);
                 }
                 else{
-                    print("Du schiebst das Heu in einer Ecke zur Seite und findest eine versteckte Tür");
-                    if(game->inv.CheckIfElementIsInList("Unbekannter Schluessel"))//Schlüssel
+
+                    print(barn_hay_action);
+                    if(game->inv.CheckIfElementIsInList("Unbekannter Schluessel"))
                     {
                         if(!hiddenroomopen){
                             game->inv.Delete("Unbekannter Schluessel");
-                            print("Du öffnest die Tür mit dem Schlüssel, den du von Paul bekommen hast");
+                            print(hiddenroom_door_opening);
                             hiddenroomopen = true;
                         }
+                        print(hiddenroom_entry);
                         while(stayinhiddenroom){
-                            print("Du betrittst den geheimen Raum in der Scheune");
                             if(!hiddenroom_notes_taken){
-                                print("In dem kleinen Raum liegen ein paar Blätter auf einem einsamen Tisch.");
-                                print("Beim genaueren betrachten der Blätter merkst du das es Schuldscheine sind, aus denen hervorgeht, dass  Hr. Schmidt dem Opfer noch sehr viel Geld geschuldet hat");
-                                print("Auf einer letzten Seiten ist geplantes Treffen der beiden vermerkt, welches zur Tatzeit passt");
-                                print("Du packst die Schuldscheine ein und verlässt die Raum wieder");
+                                print(hiddenroom_notes_intro);
                                 inventarelement hidden_room_notes;
                                 hidden_room_notes.beweisstueck = 2;
                                 hidden_room_notes.name = "Schuldscheine aus der Scheune";
@@ -686,13 +690,14 @@ void Play(struct data* game)
                                 hiddenroom_notes_taken = true;
                             }
                             else{
-                                print("Seitdem du die Schuldscheine mitgenommen hast, ist dieser Raum genau so uninteressant wie die Scheune selbst, du verlässt daher den Raum wieder");
+                            print(hiddenroom_intro_2);
                             }
                             stayinhiddenroom = false;
                         }
                     }
                     else{
-                        print("Leider hast du keinen passenden Schlüssel fuer diesen Raum");
+
+                        print(no_key);
                     }
                 }
                 tempstring = "Druecke 1 um die Scheune zu verlassen";
@@ -713,7 +718,7 @@ void Play(struct data* game)
 
             break;
         case 7:
-            print(".... die Zeit bis zum start der Verhandlung vergeht....");
+            print(final_intro);
             //Gerichtsgebäude -> du willst das Rätsel lösen
             ready_for_final_question = true;
             break;
@@ -725,18 +730,25 @@ void Play(struct data* game)
 
 void Ask(struct data* game)
 {
-    bool lose = false;
+    int element_number;
+    std::string tempstring;
+    std::string temp;
 
-    print("Alle haben sich im Gericht versammelt, der Dorfälteste ruft dich nach vorne und erklärt, dass du nun deinen Hauptverdächtigen anklagen wirst und eindeutige Beweise vorbringen wirst");
+    bool lose = false;
+    print(final_intro_part_2);
     printXEmptyLines(1);
-    print("Wen möchtest du anklagen");
+    print(choose_person);
     for(int i=0;i<7;i++){
         game ->peoplelist[i].GetName();
     }
     int personnumber;
     cin >> personnumber;
     cleanconsole();
-    cout << "Ich klage hiermit " << game ->peoplelist[personnumber].GetName() << " an und habe dafuer folgende Beweiese" << endl;
+
+    temp = "Ich klage hiermit " + game ->peoplelist[personnumber].GetName() + " an und habe dafuer folgende Beweise";
+    print(temp);
+    int actionnumber;
+
 
     printXEmptyLines(1);
     bool chooseinventar = true;
@@ -745,24 +757,22 @@ void Ask(struct data* game)
     bool notdone = true;
 
     while(notdone){
-        print("Du hast die Möglichkeit Gegenstände aus deinem Inventar als Beweise vorzulegen oder Aussagen zu zitieren");
-        print("1. Gegenstand aus dem Inventar vorlegen\n2.Aussagen zitieren\n3.Beweisfuehrung beenden und das Gericht entscheiden lassen");
-        int numb;
-        cin >> numb;
-        switch(numb){
+        print(final_intro_part_3);
+
+        switch(GetUserInput(choose_inventar_intro,3)){
         case 1:
             while(chooseinventar){
-                print("Du hast folgende Gegenstände und Dialoge in deinem Inventar gespeichert "
-                      "\n0 um das Inventar zu verlassen");
-                game ->inv.ListAll();
+
+                print(inventar_stuff_intro);
+                //tempstring = "0. Inventar verlassen" + game ->inv.ListAll() + endl + "\n" + "Was möchtest du als Beweis vorlegen";
+                //game ->inv.ListAll();
                 //Auflisten
-                printXEmptyLines(1);
+                //printXEmptyLines(1);
+                //std::string choose_proof = "Was möchtest du als Beweis vorlegen";
+                //print(choose_proof);
 
-                print("Was möchtest du als Beweis vorlegen");
-
-                int actionnumber;
-                cin >> actionnumber;
-                if(actionnumber == 0){
+                element_number = GetUserInput(tempstring,game->inv.count+1,0);
+                if(element_number == 0){
                   chooseinventar = false;
                   break;
                 };

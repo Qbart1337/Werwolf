@@ -112,3 +112,35 @@ std::string p5_set_1_options ="Du Setzt dich zu Jan an den Tisch, dieser spielt 
 std::string p5_set_1_str_1 ="Jan erzaehlt dir, dass er gerade das neue Pokemon spielt. Nach einigen Details und Fachbegriffen steigst du jedoch vollkommen aus und Jan ersparrt dir weitere Details.";
 std::string p5_set_1_str_2 ="Jan erzaehlt dir, dass er glaubt das Herr Meier mit dem Sheriff im Klintsch lag und du genau deswegen die Ermittlungen uebernehmen sollst. Wer weiß, vielleicht hat der Sherriff ihn ja selbst umgebracht?";
 std::string p5_set_1_str_3 ="Ach komm, lass den armen Jungen doch einfach in Ruhe zocken.";
+
+
+
+
+
+//Alex 18:08 Push
+std::string final_intro_part_2 = "Alle haben sich im Gericht versammelt, der Dorfälteste ruft dich nach vorne und erklärt, dass du nun deinen Hauptverdächtigen anklagen wirst und eindeutige Beweise vorbringen wirst";
+std::string choose_person = "Wen möchtest du anklagen";
+std::string final_intro_part_3 = "Du hast die Möglichkeit Gegenstände aus deinem Inventar als Beweise vorzulegen oder Aussagen zu zitieren";
+std::string choose_inventar_intro = "1. Gegenstand/Gespraech aus dem Inventar vorlegen\n2.Beweisfuehrung beenden und das Gericht entscheiden lassen";
+std::string inventar_stuff_intro = "Du hast folgende Gegenstände und Dialoge in deinem Inventar gespeichert" ;
+std::string options = "Du bist in der Dorfmitte, wohin willst du gehen?\n1.Kirche \n2.Mensa \n3.Tatort \n4.Aufenthaltsraum \n5.Scheune \n6.Friedhof";
+std::string options_2 = "Du bist in der Dorfmitte, wohin willst du gehen?\n1.Kirche \n2.Mensa \n3.Tatort \n4.Aufenthaltsraum \n5.Scheune \n6.Friedhof\n7.Gerichtsgebäude";
+std::string church_back_room_prayer_book = "Ave Maria, gratia plena\nMaria, gratia plena\nMaria, gratia plena\nAve Ave Dominus Dominus tecumIn mulieribus\nEt benedictus et benedictus fructus ventris\nVentris tui Jésus\nAve Maria";
+std::string not_useful ="Das hilft dir auch nicht weiter, du kehrst in die Raumuebersicht zurueck";
+
+std::string note_options = "Du hast folgende Optionen: \n1. Mitnehmen \n2. Liegen lassen";
+std::string enter_solution = "Lösung eintippen";
+std::string leave_tatort = "Du verlässt den Tatort";
+std::string thanks_for_homework = "Das sieht gut aus, ich danke dir fuer deine Hilfe. \nIch möchte dir dafuer diesen Schluessel geben, den ich heute morgen im Wald gefunden habe. Ich weiß zwar nicht zu welcher Tür er passt, aber vielleicht findest du es ja heraus.";
+std::string wrong_solution = "Ich glaube nicht dass das stimmt, aber trotzdem nett das du es versucht hast";
+std::string easter_egg_str_1 = "Eine nackte Frau kommt auf dich zu und fragt dich woher ploetzlich das Heu kommt";
+std::string easter_egg_str_2 = "Du reibst dir verwundert die Augen und merkst, dass du das nur getraeumt hast";
+std::string easter_egg_str_3 = "In der Scheune siehst du ausser viel Heu nichts interessantes";
+std::string easter_egg_str_4 = "Du kannst diesen Raum nur wieder verlassen, druecke dafuer die 1";
+std::string barn_hay_action = "Du schiebst das Heu in einer Ecke zur Seite und findest eine versteckte Tür";
+std::string hiddenroom_door_opening = "Du öffnest die Tür mit dem Schlüssel, den du von Paul bekommen hast";
+std::string hiddenroom_entry = "Du betrittst den geheimen Raum in der Scheune";
+std::string hiddenroom_notes_intro = "In dem kleinen Raum liegen ein paar Blätter auf einem einsamen Tisch.\nBeim genaueren betrachten der Blätter merkst du das es Schuldscheine sind, aus denen hervorgeht, dass  Hr. Schmidt dem Opfer noch sehr viel Geld geschuldet hat\nAuf einer letzten Seiten ist geplantes Treffen der beiden vermerkt, welches zur Tatzeit passt\nDu packst die Schuldscheine ein und verlässt die Raum wieder";
+std::string hiddenroom_intro_2 = "Seitdem du die Schuldscheine mitgenommen hast, ist dieser Raum genau so uninteressant wie die Scheune selbst, du verlässt daher den Raum wieder";
+std::string no_key = "Leider hast du keinen passenden Schlüssel fuer diesen Raum";
+std::string final_intro = ".... die Zeit bis zum start der Verhandlung vergeht....";
