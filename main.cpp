@@ -655,7 +655,7 @@ void Play(struct data* game)
             break;
         case 5:
             //Scheune
-            std::string barn_intro = "Du betrittst die Scheune";
+
             print(barn_intro);
             while(stayinscheune){
                 if(!knowlegdeOfHiddenRoom){

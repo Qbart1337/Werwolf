@@ -144,3 +144,4 @@ std::string hiddenroom_notes_intro = "In dem kleinen Raum liegen ein paar Blätt
 std::string hiddenroom_intro_2 = "Seitdem du die Schuldscheine mitgenommen hast, ist dieser Raum genau so uninteressant wie die Scheune selbst, du verlässt daher den Raum wieder";
 std::string no_key = "Leider hast du keinen passenden Schlüssel fuer diesen Raum";
 std::string final_intro = ".... die Zeit bis zum start der Verhandlung vergeht....";
+std::string barn_intro = "Du betrittst die Scheune";
