@@ -175,21 +175,21 @@ void SetDialogText(int set, struct data* z)
 {
     switch(set){
     case 1:
-        z ->peoplelist[0].SetDialogOptions("Du weißt doch.. du musst zum Tatort. Trödle nicht rum");
-        z ->peoplelist[0].SetDialog("Ich war mit einer Freundin einkauen", "Ich habe Anna gesehen", "Nerv mich nicht!");
-        z ->peoplelist[1].SetDialogOptions("Ich glaube du wirst erwartet");
-        z ->peoplelist[1].SetDialog("Ich war mit einem Freund im Kino", "Nein", "Nerv mich nicht!");
-        z ->peoplelist[1].SetWerwolf();
-        z ->peoplelist[2].SetDialogOptions("");
-        z ->peoplelist[2].SetDialog("Ich habe mir einen Film angeschaut", "Ich habe Anne gesehen", "Nerv mich nicht!");
-        z ->peoplelist[3].SetDialogOptions("");
-        z ->peoplelist[3].SetDialog("Ich habe mir einen Film angeschaut", "Ich habe Anja gesehen", "Nerv mich nicht!");
-        z ->peoplelist[4].SetDialogOptions("");
-        z ->peoplelist[4].SetDialog("Ich habe mir ein Kleid gekauft", "Ich habe Anne gesehen", "Nerv mich nicht!");        
-        z ->peoplelist[5].SetDialogOptions("");
-        z ->peoplelist[5].SetDialog("###", "###", "###");
-        z ->peoplelist[6].SetDialogOptions("");
-        z ->peoplelist[6].SetDialog("###", "###", "###");
+        z ->peoplelist[0].SetDialogOptions(p1_set_1_options);
+        z ->peoplelist[0].SetDialog(p1_set_1_str_1, p1_set_1_str_2, p1_set_1_str_3);
+        z ->peoplelist[1].SetDialogOptions(p2_set_1_options);
+        z ->peoplelist[1].SetDialog(p2_set_1_str_1, p2_set_1_str_2, p2_set_1_str_3);
+        z ->peoplelist[2].SetWerwolf();
+        z ->peoplelist[2].SetDialogOptions(p3_set_1_options);
+        z ->peoplelist[2].SetDialog(p3_set_1_str_1, p3_set_1_str_2, p3_set_1_str_3);
+        z ->peoplelist[3].SetDialogOptions(p4_set_1_options);
+        z ->peoplelist[3].SetDialog(p4_set_1_str_1,p4_set_1_str_2 ,p4_set_1_str_3);
+        z ->peoplelist[4].SetDialogOptions(p5_set_1_options);
+        z ->peoplelist[4].SetDialog(p5_set_1_str_1, p5_set_1_str_2, p5_set_1_str_3);
+        z ->peoplelist[5].SetDialogOptions(p6_set_1_options);
+        z ->peoplelist[5].SetDialog(p6_set_1_str_1, p6_set_1_str_2, p6_set_1_str_3);
+        z ->peoplelist[6].SetDialogOptions(p7_set_1_options);
+        z ->peoplelist[6].SetDialog(p7_set_1_str_1, p7_set_1_str_2, p7_set_1_str_3);
         break;
     case 2:
         z ->peoplelist[0].SetDialogOptions(p1_set_2_options);
