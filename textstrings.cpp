@@ -32,7 +32,8 @@ std::string confessional_intro = "Hier ist ausser ein wenig Staub und einem Schl
 std::string confessional_intro_2 = "Hier ist ausser ein wenig Staub absolut nichts interessantes. Du verlaesst den Beichtstuhl wieder";
 std::string confessional_options = "1. Schluessel nehmen\n.2. Beichtstuhl verlassen";
 std::string church_back_room_intro = "In diesem Raum liegen viele Gebetsbuecher und Notizen";
-std::string church_back_room_options = "Was moechtest du tun?\n1. Aufgeschlagenes Gebetsbuch anschauen\n2. Tagebuch anschauen";
+std::string church_back_room_options = "Was moechtest du tun?\n1. Aufgeschlagenes Gebetsbuch anschauen\n2. Tagebuch anschauen\n3. Raum verlassen";
+std::string church_back_room_options_2 = "Was moechtest du tun?\n1. Aufgeschlagenes Gebetsbuch anschauen\n2. Raum verlassen";
 std::string church_back_room_notes = "…";
 
 std::string mensa_intro = "Du bist in die Mensa gegangen, hier duftet es lecker.";
@@ -58,7 +59,7 @@ std::string crime_scene_options="Du hast folgende Optionen: \n1. Mit dem Sheriff
 std::string p6_set_2_options = "Du gehst auf den Sheriff zu, dieser erwartet dich schon. \nDu hast folgende Optionen";
 std::string p6_set_2_str_1 ="Der Sheriff uebergibt dir einen Sheriffsstern und erteilt dir noch einmal offiziell den Auftrag mit allen im Dorf zu sprechen. Deine Aufgabe ist es nun mit allen Bewohnern des Dorfes zu sprechen und Indizien zu sammeln. Wenn du genug davon hast, sollst du wieder zurueck zum Sheriff kommen.";
 std::string p6_set_2_str_2 ="Auch der Sheriff bekundet sein Beileid fuer den Verstorbenen, sagt aber sonst nichts weiteres zu ihm.";
-std::string p6_set_2_str_3 =""; //muss deaktivierbar sein
+std::string p6_set_2_str_3 ="";
 std::string watch_stiff = "Du hast zwar oft den Tartort im Ersten geschaut, aber wirklich auskennen tust du dich mit dem Untersuchen von Leichen nicht. Du siehst lediglich das Offensichtliche und weißt das Herr Meier sich wohl nie wieder von selbst bewegen wird.";
 
 // TODO text
@@ -93,6 +94,8 @@ std::string p3_set_1_str_1 ="Das Schnitzel hier ist einfach das Beste der Welt, 
 std::string p3_set_1_str_2 ="Der Mord verunsichert alle Leute. Der Täter ist bestimmt schon weg.";
 std::string p3_set_1_str_3="Kann ich bitte nun in Ruhe essen?";
 
+
+//TODO: Herr Schmidt sitzt im Beichtstuhl und beichtet dir seine Tat!!! texte aendern!
 std::string p2_set_1_options ="Du hast dich zu Herr Schmidt gesetzt, dieser sitzt ein wenig nachdenklich vor seinem Essen.\nDu hast folgende Optionen:\n1.Ihn fragen was ihn bekuemmert. \n2. Ihn fragen wie das Dessert schmeckt. \n3. Gespraech verlassen.";
 std::string p2_set_1_str_1 ="Ich haette es nie fuer moeglich gehalten, dass in unserem kleinen Dorf mal jemand ermordet werden wuerde. Jetzt wird der Täter gesucht.. sind wir sicher?.";
 std::string p2_set_1_str_2 ="Also ich finde es nicht sehr berauschend."; // Lüge

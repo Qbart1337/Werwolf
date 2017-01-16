@@ -249,7 +249,7 @@ int GetUserInput(std::string options, int maxallowedNumber, int minnumber=1){
 
 void Play(struct data* game)
 {
-    int set = 2; // TODO: später auf set = 1 setzen, zu Testzwecken schon Set = 2
+    int set = 1; // TODO: später auf set = 1 setzen, zu Testzwecken schon Set = 2
     bool activatedgame = false;
     bool knowlegdeOfHiddenRoom = false;
     bool enableGericht = false;
@@ -331,11 +331,29 @@ void Play(struct data* game)
                                 break;
                         }
                     }
+                    talkWithP1 = true;
                     break;
                 case 2:
                     //Zum Beichtstuhl gehen
                     if(activatedgame){
                         print("test");
+                        std::string confessional_intro_pre = "Du gehst in den Beichtstuhl und triffst auf Herr Schmidt.";
+                        print(confessional_intro_pre);
+
+                        while(talkWithP3){
+                            switch(GetUserInput(game->peoplelist[2].GetDialogOptions(),3)){
+                            case 1:
+                                print(game->peoplelist[2].GetAnswer(1));
+                                break;
+                            case 2:
+                                print(game->peoplelist[2].GetAnswer(2));
+                                break;
+                            case 3:
+                                talkWithP3 = false;
+                                break;
+                            }
+                        }
+                        talkWithP3 = true;
                         //TODO: Set 1 Strings bei P2 hinterlegen mit belastenden Aussagen
                         // Werwolf
                         //Sollte man hier hingehen bevor man beim Sheriff war, so findet man den Täter dort und er liefert starke Indizien fuer seine Tat
@@ -343,11 +361,8 @@ void Play(struct data* game)
                     else{
                         if(!takenChurchKey){
                             print(confessional_intro);
-                            print(confessional_options);
-                            int action_numb;
-                            cin>>action_numb;
-                            //TODO
-                            if(action_numb = 1 && !takenChurchKey)
+
+                            if(GetUserInput(confessional_options,1) = 1 && !takenChurchKey)
                             {
                                 inventarelement church_key;
                                 church_key.name = "Kirchenschluessel";
@@ -360,12 +375,11 @@ void Play(struct data* game)
                         else{
                             print(confessional_intro_2);
                         }
-
                     }
                     break;
                 case 3:
                     //Zur Tür hinter dem Altar gehen
-                    stayinchurchbackroom = true;
+
 
                     if(church_back_room_door == false){
                         if(game ->inv.CheckIfElementIsInList("Kirchenschluessel"))
@@ -381,19 +395,15 @@ void Play(struct data* game)
                     if(church_back_room_door)
                     {
                         while(stayinchurchbackroom){
-
                             print(church_back_room_intro);
                             if(!church_notes_taken){
-                                print(church_back_room_options);
+                                tempstring = church_back_room_options;
                             }
-                            else{
-                                //TODO
-                                //print(church_back_room_options_2);
+                            else{                                
+                                tempstring = church_back_room_options_2;
                             }
-                            int interactnumb;
-                            cin >> interactnumb;
                             //TODO: Bool notes_taken und zweiter options string fuer den Raum, damit falls die Notes mitgenommen wurden es die Option nicht mehr gibt
-                            switch(interactnumb){
+                            switch(GetUserInput(tempstring,3)){
                             case 1: //Gebetsbuchtext
                                 print(church_back_room_prayer_book);
                                 print(not_useful);
@@ -402,9 +412,6 @@ void Play(struct data* game)
                                 if(!church_notes_taken){
                                     print(church_back_room_notes);
 
-                                    //TODO
-                                    int interactnumb_2;
-                                    cin >> interactnumb_2;
                                     if(GetUserInput(note_options,2) == 1){
                                         inventarelement tagebuch;
                                         tagebuch.name = "Tagebuch des Pfarrers";
@@ -424,10 +431,12 @@ void Play(struct data* game)
                                 break;
                             }
                         }
+                        stayinchurchbackroom = true;
                     }
                     break;
                 }
             }
+            stayinchurch = true;
             break;
         case 2:
             //Mensa
@@ -465,6 +474,7 @@ void Play(struct data* game)
                             break;
                         }
                     }
+                    talkWithP7 = true;
                     break;
                 case 2:
                     //Mit P3 Sprechen (Hr. Müller)
@@ -474,6 +484,7 @@ void Play(struct data* game)
                         case 1:
                             print(game->peoplelist[2].GetAnswer(1));
                             //TODO: Schauen ob im Inventar Essen ist und es ggf. auflisten / Entfernen
+                            //TODO: Wo bauen wir das noch ein?
                             break;
                         case 2:
                             print(game->peoplelist[2].GetAnswer(2));
@@ -483,6 +494,7 @@ void Play(struct data* game)
                             break;
                         }
                     }
+                    talkWithP3 = true;
                     break;
                 case 3:
                     //Wenn man bevor man mit dem Sheriff geredet hat,
@@ -509,12 +521,14 @@ void Play(struct data* game)
                                 break;
                             }
                         }
+                        talkWithP2 = true;
                     }
                     break;
                 case 4:
                     stayinmensa = false;
                 }
             }
+            stayinmensa = true;
             break;
         case 3:
             //Tatort
@@ -558,6 +572,7 @@ void Play(struct data* game)
                             talkWithP6 = false;
                         }
                     }
+                    talkWithP6 = 6;
                     break;
                 case 2:
                     //Leiche anschauen
@@ -566,12 +581,11 @@ void Play(struct data* game)
                 case 3:
                     //Tatort verlassen
                     stayintatort = false;
-                    //TODO: Konsistenz?
 
-                    print(leave_tatort);
                     break;
                 }
             }
+            stayintatort = true;
             break;
         case 4:
             //Aufenthaltsraum
@@ -627,6 +641,7 @@ void Play(struct data* game)
                             break;
                         }
                     }
+                    talkWithP4 = true;
                     break;
                 case 2:
                     //Mit P5 sprechen
@@ -646,12 +661,14 @@ void Play(struct data* game)
                             break;
                         }
                     }
+                    talkWithP5 = true;
                 case 3:
                     //Raum verlassen
                     stayinaufenthaltsraum = false;
                     break;
                 }
             }
+            stayinaufenthaltsraum = true;
             break;
         case 5:
             //Scheune
@@ -705,6 +722,7 @@ void Play(struct data* game)
                     stayinscheune = false;
                 }
             }
+            stayinscheune = true;
             break;
 
         case 6:
@@ -715,10 +733,12 @@ void Play(struct data* game)
                     stayinfriedhof = false;
                 }
             }
+            stayinfriedhof = true;
 
             break;
         case 7:
             print(final_intro);
+            Sleep(2000);
             //Gerichtsgebäude -> du willst das Rätsel lösen
             ready_for_final_question = true;
             break;
