@@ -216,8 +216,6 @@ void SetDialogText(int set, struct data* z)
 
 // @Alex_
 int GetUserInput(std::string options, int maxAllowedNumber, int minAllowedNumber=1){
-    //print("UserInput Methode wird aufgerufen");
-    //printXEmptyLines(2);
     bool correct_input = false;
     int input;
 
@@ -239,15 +237,11 @@ int GetUserInput(std::string options, int maxAllowedNumber, int minAllowedNumber
         }
         else{
             cleanconsole();
-
             print("Bitte gebe eine gueltige Zahl ein. Ein gueltige Zahl ist ganzzahlig und liegt im Bereich ZWISCHEN " + std::to_string(minAllowedNumber-1) + " und " + std::to_string(maxAllowedNumber+1));
             printXEmptyLines(1);
         }
-
     }
     cleanconsole();
-    //print("leave");
-    //Sleep(5000);
     return input;
 }
 
@@ -321,48 +315,41 @@ void Play(struct data* game)
             while(stayinchurch){
 
                 print(church_intro);
-                //print(church_options);
                 switch(GetUserInput(church_options,4)){
                 case 1:
                     //Mit P1 sprechen
-                    //ToDo Anpassen
-                    //cleanconsole();
                     print(p1_intro);
                     while(talkWithP1){
-                        //cleanconsole();
                         switch(GetUserInput(game->peoplelist[0].GetDialogOptions(),3)){
                             case 1:
-                                //cleanconsole();
                                 print(game->peoplelist[0].GetAnswer(1));                                
                                 break;
                             case 2:
-                                //cleanconsole();
                                 print(game->peoplelist[0].GetAnswer(2));
                                 break;
                             case 3:
                                 talkWithP1 = false;
-                                //cleanconsole();
                                 break;
                         }
                     }
                     talkWithP1 = true;
                     break;
                 case 2:
-                    //cleanconsole();
-                    //Zum Beichtstuhl gehen
+                    //Beichtstuhl
                     if(!activatedgame){
-                        //print("test");
-                        std::string confessional_intro_pre = "Du gehst in den Beichtstuhl und triffst auf Herr Schmidt.";
+                        //Sollte man hier hingehen bevor man beim Sheriff war, so findet man den Täter dort und er liefert starke Indizien fuer seine Tat
                         print(confessional_intro_pre);
 
                         while(talkWithP3){
                             switch(GetUserInput(game->peoplelist[2].GetDialogOptions(),3)){
-                            case 1:
-                                //cleanconsole();
+                            case 1:                                
                                 print(game->peoplelist[2].GetAnswer(1));
+                                inventarelement talk_with_p3;
+                                talk_with_p3.beweisstueck = 2;
+                                talk_with_p3.typ = beweisstueck;
+                                talk_with_p3.name = "Gestaednis von Herr Schmidt";
                                 break;
                             case 2:
-                                //cleanconsole();
                                 print(game->peoplelist[2].GetAnswer(2));
                                 break;
                             case 3:
@@ -371,12 +358,8 @@ void Play(struct data* game)
                             }
                         }
                         talkWithP3 = true;
-                        //TODO: Set 1 Strings bei P2 hinterlegen mit belastenden Aussagen
-                        // Werwolf
-                        //Sollte man hier hingehen bevor man beim Sheriff war, so findet man den Täter dort und er liefert starke Indizien fuer seine Tat
                     }
-                    else{
-                        //cleanconsole();
+                    else{                        
                         if(!takenChurchKey){
                             print(confessional_intro);
 
@@ -398,7 +381,6 @@ void Play(struct data* game)
                     break;
                 case 3:
                     //Zur Tür hinter dem Altar gehen
-
                     if(church_back_room_door == false){
                         if(!game ->inv.CheckIfElementIsInList("Kirchenschluessel"))
                         {
@@ -407,8 +389,7 @@ void Play(struct data* game)
                             game ->inv.Delete("Kirchenschluessel");
                             church_back_room_door = true;
                         }
-                        else{
-                            //std::string no_key = "Du hast leider keinen passenden Schlüssel dabei";
+                        else{                            
                             print(no_key);
                         }
                     }
@@ -422,13 +403,14 @@ void Play(struct data* game)
                             else{                                
                                 tempstring = church_back_room_options_2;
                             }
-                            //TODO: Bool notes_taken und zweiter options string fuer den Raum, damit falls die Notes mitgenommen wurden es die Option nicht mehr gibt
                             switch(GetUserInput(tempstring,3)){
-                            case 1: //Gebetsbuchtext
+                            case 1:
+                                //Gebetsbuchtext
                                 print(church_back_room_prayer_book);
                                 print(not_useful);
                                 break;
-                            case 2: // Tagebuch
+                            case 2:
+                                // Tagebuch
                                 if(!church_notes_taken){
                                     print(church_back_room_notes);
 
@@ -468,7 +450,7 @@ void Play(struct data* game)
             print(mensa_intro);
             while(stayinmensa){
 
-                //Wenn das Spiel noch nicht aktiviert ist, befindet sich der Täter noch nicht in der Mensa
+                //Wenn das Spiel noch nicht aktiviert ist, befindet sich der Täter noch nicht in der Mensa, daher wird ein andere Optionen geladen..
                 if(!activatedgame){
                     tempstring = mensa_options_1;
                 }
@@ -478,7 +460,7 @@ void Play(struct data* game)
 
                 switch (GetUserInput(tempstring,4)) {
                 case 1:
-                    //Mit P7 sprechen (Küchenchef)
+                    //Mit P7 sprechen
                     while(talkWithP7){
                         tempstring = game ->peoplelist[6].GetDialogOptions();
 
@@ -493,7 +475,8 @@ void Play(struct data* game)
                                 game->inv.Add(food);
                             }
                             else{
-                                print("Du hast noch Essen im Inventar, du gibst daher den aktuellen Teller zurueck");
+
+                                print(food_in_inventar);
                             }
                             break;
                         case 2:
@@ -513,8 +496,6 @@ void Play(struct data* game)
                         switch (GetUserInput(tempstring,3)) {
                         case 1:
                             print(game->peoplelist[2].GetAnswer(1));
-                            //TODO: Schauen ob im Inventar Essen ist und es ggf. auflisten / Entfernen
-                            //TODO: Wo bauen wir das noch ein?
                             break;
                         case 2:
                             print(game->peoplelist[2].GetAnswer(2));
@@ -535,8 +516,8 @@ void Play(struct data* game)
                         stayinmensa = false;
                     }
                     else{
+                        //Mit P2 Sprechen
                         while(talkWithP2){
-                            //P2 Talk Loop
                             tempstring = game->peoplelist[1].GetDialogOptions();
                             switch(GetUserInput(tempstring,3)){
                             case 1:
@@ -562,7 +543,6 @@ void Play(struct data* game)
             break;
         case 3:
             //Tatort
-
             while(stayintatort){
                 print(crime_scene_intro);
                 switch(GetUserInput(crime_scene_options,3)){
@@ -783,11 +763,12 @@ void Play(struct data* game)
 
             break;
         case 7:
-            if(game->inv.CheckIfElementIsInList("Schluessel zum Gericht")){
+            //Gerichtsgebäude -> du willst das Rätsel lösen
+            if(game->inv.CheckIfElementIsInList("Schluessel zum Gericht")){                
+                print(open_gericht);
                 game->inv.Delete("Schluessel zum Gericht");
                 print(final_intro);
                 Sleep(2000);
-                //Gerichtsgebäude -> du willst das Rätsel lösen
                 ready_for_final_question = true;
             }
             else{
@@ -831,7 +812,6 @@ void Ask(struct data* game)
             chooseinventar = true;
             while(chooseinventar){
                 if(game->inv.CheckIfEmpty()){
-                    std::string empty_inventar = "Inventar leer, Beweisfuehrung beendet";
                     print(empty_inventar);
                     notdone = false;
                     break;

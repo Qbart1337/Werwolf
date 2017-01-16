@@ -99,6 +99,7 @@ std::string p3_set_1_str_3="Kann ich bitte nun in Ruhe essen?";
 
 
 //TODO: Herr Schmidt sitzt im Beichtstuhl und beichtet dir seine Tat!!! texte aendern!
+//Optionen muessen geaendert werden - p2_set_1_str_1 muss ein Gestaendnis sein
 std::string p2_set_1_options ="Du hast dich zu Herr Schmidt gesetzt, dieser sitzt ein wenig nachdenklich vor seinem Essen.\nDu hast folgende Optionen:\n1.Ihn fragen was ihn bekuemmert. \n2. Ihn fragen wie das Dessert schmeckt. \n3. Gespraech verlassen.";
 std::string p2_set_1_str_1 ="Ich haette es nie fuer moeglich gehalten, dass in unserem kleinen Dorf mal jemand ermordet werden wuerde. Jetzt wird der Täter gesucht.. sind wir sicher?.";
 std::string p2_set_1_str_2 ="Also ich finde es nicht sehr berauschend."; // Lüge
@@ -155,3 +156,7 @@ std::string hiddenroom_intro_2 = "Seitdem du die Schuldscheine mitgenommen hast,
 std::string no_key = "Leider hast du keinen passenden Schlüssel fuer diesen Raum und gehst zurueck in die Kirche";
 std::string final_intro = ".... die Zeit bis zum start der Verhandlung vergeht....";
 std::string barn_intro = "Du betrittst die Scheune";
+std::string confessional_intro_pre = "Du gehst in den Beichtstuhl und triffst auf Herr Schmidt.";
+std::string food_in_inventar = "Du hast noch Essen im Inventar, du gibst daher den aktuellen Teller zurueck";
+std::string open_gericht = "Du nimmst den Schluessel vom Sheriff und sperrst das Gerichtsgebaeude auf";
+std::string empty_inventar = "Inventar leer, Beweisfuehrung beendet";
