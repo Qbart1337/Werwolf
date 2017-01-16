@@ -91,7 +91,7 @@ public:
 
     void Add(inventarelement elem)
     {
-        if(count >=5)
+        if(count >=10)
         {
             print("Inventar voll! Dieses Element kann nicht aufgenommen werden");
             //Inventar voll
@@ -123,11 +123,13 @@ public:
         int deletenumber = GetNumberOfListElement(input_name);
         Delete(deletenumber);
     }
-    //TODO: Muss String zurückliefern
-    void ListAll(){
+
+    std::string ListAll(){
+        string tempstring ="";
         for(int i=0;i<=count;i++){
-            cout << i+1 << " "<< Liste[i].name <<endl;
+            tempstring += i+1 + " " + Liste[i].name +"\n";
         }
+        return tempstring;
     }
 };
 
@@ -780,10 +782,16 @@ void Play(struct data* game)
 
             break;
         case 7:
-            print(final_intro);
-            Sleep(2000);
-            //Gerichtsgebäude -> du willst das Rätsel lösen
-            ready_for_final_question = true;
+            if(game->inv.CheckIfElementIsInList("Schluessel zum Gericht")){
+                game->inv.Delete("Schluessel zum Gericht");
+                print(final_intro);
+                Sleep(2000);
+                //Gerichtsgebäude -> du willst das Rätsel lösen
+                ready_for_final_question = true;
+            }
+            else{
+                print("Du hast keinen Schluessel hierfuer");
+            }
             break;
 
         }
@@ -795,77 +803,67 @@ void Ask(struct data* game)
 {
     int element_number;
     std::string tempstring;
-    std::string temp;
 
     bool lose = false;
     print(final_intro_part_2);
     printXEmptyLines(1);
     print(choose_person);
+    tempstring = "";
     for(int i=0;i<7;i++){
-        game ->peoplelist[i].GetName();
+        tempstring += std::to_string(i) + " " + game ->peoplelist[i].GetName();
     }
-    int personnumber;
-    cin >> personnumber;
+    int personnumber = GetUserInput(tempstring,6,0);
     cleanconsole();
 
-    temp = "Ich klage hiermit " + game ->peoplelist[personnumber].GetName() + " an und habe dafuer folgende Beweise";
-    print(temp);
+    tempstring = "Ich klage hiermit " + game ->peoplelist[personnumber].GetName() + " an und habe dafuer folgende Beweise";
+    print(tempstring);
     int actionnumber;
-
-
     printXEmptyLines(1);
     bool chooseinventar = true;
-    bool choosemessage = true;
     int counter = 0;
     bool notdone = true;
 
     while(notdone){
         print(final_intro_part_3);
 
-        switch(GetUserInput(choose_inventar_intro,3)){
+        switch(GetUserInput(choose_inventar_intro,2)){
         case 1:
             while(chooseinventar){
-
-                print(inventar_stuff_intro);
-                //tempstring = "0. Inventar verlassen" + game ->inv.ListAll() + endl + "\n" + "Was möchtest du als Beweis vorlegen";
-                //game ->inv.ListAll();
-                //Auflisten
-                //printXEmptyLines(1);
-                //std::string choose_proof = "Was möchtest du als Beweis vorlegen";
-                //print(choose_proof);
-
-                element_number = GetUserInput(tempstring,game->inv.count+1,0);
-                if(element_number == 0){
-                  chooseinventar = false;
-                  break;
-                };
-                if(game ->inv.GetPriorityOfListElement(actionnumber) < 0){
-                    lose=true;
-                }
-                /*
-                else{
-                    counter += game->inventar_.GetPriorityOfListElement(actionnumber);
-                }*/
-
-                game->inv.Delete(actionnumber);
-
-                if(game->inv.GetPriorityOfListElement(actionnumber) !=0){//useful
-                    counter++;
-                //Gegenstand entfernen
+                if(game->inv.CheckIfEmpty()){
+                    print("Inventar leer, Beweisfuehrung beendet");
+                    notdone = false;
+                    break;
                 }
                 else{
-                print("Diesen Gegenstand ist kein aussagekräftiger Beweis");
-                //Gegenstand auch entfernen
+                    print(inventar_stuff_intro);
+                    //tempstring = "0. Inventar verlassen" + game ->inv.ListAll() + endl + "\n" + "Was möchtest du als Beweis vorlegen";
+                    print(game ->inv.ListAll());
+                    //Auflisten
+                    printXEmptyLines(1);
+                    std::string choose_proof = "Was moechtest du als Beweis vorlegen";
+                    print(choose_proof);
+
+                    element_number = GetUserInput(tempstring,game->inv.count+1,0);
+                    if(element_number == 0){
+                      chooseinventar = false;
+                      break;
+                    };
+                    int priority = game ->inv.GetPriorityOfListElement(element_number);
+                    if( priority < 0){
+                        lose=true;
+                    }
+                    else{
+                        counter += priority;
+                    }
+
+                    //Gegenstand entfernen
+                    game->inv.Delete(actionnumber);
                 }
+
                 game->inv.Delete(actionnumber);
             }
             break;
         case 2:
-            while(choosemessage){
-            //MessageListe
-            }
-            break;
-        case 3:
             notdone = false;
             break;
         }
