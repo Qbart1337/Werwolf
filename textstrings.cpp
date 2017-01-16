@@ -77,8 +77,8 @@ std::string p5_set_2_str_3 ="Ach komm der ist doch unmöglich der Täter...";
 
 
 // Optionale Variablen #BEFORE Spieler beim Sheriff war
-
-std::string p1_set_1_options = "Du bist zum Pfarrer gegangen\nDu kannst ihn folgendes Fragen:\n1.Was ist hier passiert?\n2.Wo ist den der Sheriff?\nGespraech verlassen";
+std::string p1_intro = "Du bist zum Pfarrer gegangen";
+std::string p1_set_1_options = "Du kannst ihn folgendes Fragen:\n1.Was ist hier passiert?\n2.Wo ist den der Sheriff?\n3.Gespraech verlassen";
 std::string p1_set_1_str_1 = "Es gab über nacht einen Mord. Sie sollten lieber mehr von Sheriff hören";
 std::string p1_set_1_str_2 = "Ich würde mal den Tatort schätzen mein Sohn.";
 std::string p1_set_1_str_3 = "Ich habe dir schon alles erzaehltwas ich weiß mein Kind.";
@@ -145,6 +145,6 @@ std::string hiddenroom_door_opening = "Du öffnest die Tür mit dem Schlüssel, 
 std::string hiddenroom_entry = "Du betrittst den geheimen Raum in der Scheune";
 std::string hiddenroom_notes_intro = "In dem kleinen Raum liegen ein paar Blätter auf einem einsamen Tisch.\nBeim genaueren betrachten der Blätter merkst du das es Schuldscheine sind, aus denen hervorgeht, dass  Hr. Schmidt dem Opfer noch sehr viel Geld geschuldet hat\nAuf einer letzten Seiten ist geplantes Treffen der beiden vermerkt, welches zur Tatzeit passt\nDu packst die Schuldscheine ein und verlässt die Raum wieder";
 std::string hiddenroom_intro_2 = "Seitdem du die Schuldscheine mitgenommen hast, ist dieser Raum genau so uninteressant wie die Scheune selbst, du verlässt daher den Raum wieder";
-std::string no_key = "Leider hast du keinen passenden Schlüssel fuer diesen Raum";
+std::string no_key = "Leider hast du keinen passenden Schlüssel fuer diesen Raum und gehst zurueck in die Kirche";
 std::string final_intro = ".... die Zeit bis zum start der Verhandlung vergeht....";
 std::string barn_intro = "Du betrittst die Scheune";

@@ -215,11 +215,12 @@ void SetDialogText(int set, struct data* z)
 // @Alex_
 int GetUserInput(std::string options, int maxallowedNumber, int minnumber=1){
     //print("UserInput Methode wird aufgerufen");
-    printXEmptyLines(2);
+    //printXEmptyLines(2);
     bool correct_input = false;
     int input;
 
     while (!correct_input) {
+        printXEmptyLines(1);
         print(options);
         cin >> input;
         while(cin.fail()){
@@ -241,7 +242,7 @@ int GetUserInput(std::string options, int maxallowedNumber, int minnumber=1){
         }
 
     }
-
+    cleanconsole();
     //print("leave");
     //Sleep(5000);
     return input;
@@ -265,6 +266,7 @@ void Play(struct data* game)
 
     //Zu Testzwecken ausgeschaltet
     //printTextSmoothly(introduction);
+    print(introduction);
 
     printXEmptyLines(2);
 
@@ -309,43 +311,51 @@ void Play(struct data* game)
         switch(GetUserInput(tempstring,6)){
         case 1:
             //Kirche
-            cleanconsole();
-            print(church_intro);
             while(stayinchurch){
+
+                print(church_intro);
                 //print(church_options);
                 switch(GetUserInput(church_options,4)){
                 case 1:
                     //Mit P1 sprechen
                     //ToDo Anpassen
+                    //cleanconsole();
+                    print(p1_intro);
                     while(talkWithP1){
-                        cleanconsole();
+                        //cleanconsole();
                         switch(GetUserInput(game->peoplelist[0].GetDialogOptions(),3)){
                             case 1:
+                                //cleanconsole();
                                 print(game->peoplelist[0].GetAnswer(1));                                
                                 break;
                             case 2:
+                                //cleanconsole();
                                 print(game->peoplelist[0].GetAnswer(2));
                                 break;
                             case 3:
                                 talkWithP1 = false;
+                                //cleanconsole();
                                 break;
                         }
                     }
                     talkWithP1 = true;
                     break;
                 case 2:
+                    //cleanconsole();
                     //Zum Beichtstuhl gehen
-                    if(activatedgame){
-                        print("test");
+                    if(!activatedgame){
+                        //print("test");
                         std::string confessional_intro_pre = "Du gehst in den Beichtstuhl und triffst auf Herr Schmidt.";
                         print(confessional_intro_pre);
 
                         while(talkWithP3){
                             switch(GetUserInput(game->peoplelist[2].GetDialogOptions(),3)){
                             case 1:
+                                //cleanconsole();
                                 print(game->peoplelist[2].GetAnswer(1));
                                 break;
                             case 2:
+                                //cleanconsole();
                                 print(game->peoplelist[2].GetAnswer(2));
                                 break;
                             case 3:
@@ -359,10 +369,11 @@ void Play(struct data* game)
                         //Sollte man hier hingehen bevor man beim Sheriff war, so findet man den Täter dort und er liefert starke Indizien fuer seine Tat
                     }
                     else{
+                        //cleanconsole();
                         if(!takenChurchKey){
                             print(confessional_intro);
 
-                            if(GetUserInput(confessional_options,1) = 1 && !takenChurchKey)
+                            if(GetUserInput(confessional_options,1) == 1 && !takenChurchKey)
                             {
                                 inventarelement church_key;
                                 church_key.name = "Kirchenschluessel";
@@ -380,7 +391,6 @@ void Play(struct data* game)
                 case 3:
                     //Zur Tür hinter dem Altar gehen
 
-
                     if(church_back_room_door == false){
                         if(game ->inv.CheckIfElementIsInList("Kirchenschluessel"))
                         {
@@ -388,7 +398,7 @@ void Play(struct data* game)
                             church_back_room_door = true;
                         }
                         else{
-                            std::string no_key = "Du hast leider keinen passenden Schlüssel dabei";
+                            //std::string no_key = "Du hast leider keinen passenden Schlüssel dabei";
                             print(no_key);
                         }
                     }
@@ -433,6 +443,9 @@ void Play(struct data* game)
                         }
                         stayinchurchbackroom = true;
                     }
+                    break;
+                case 4:
+                    stayinchurch = false;
                     break;
                 }
             }
