@@ -127,7 +127,7 @@ public:
     std::string ListAll(){
         string tempstring ="";
         for(int i=0;i<count;i++){
-            tempstring += std::to_string(i+1) + " " + Liste[i].name + "\n";
+            tempstring += std::to_string(i) + ". " + Liste[i].name + "\n";
         }
         return tempstring;
     }
@@ -289,7 +289,7 @@ void Play(struct data* game)
     game->inv.Add(essen);
 
     inventarelement notiz;
-    notiz.beweisstueck = 1;
+    notiz.beweisstueck = 3;
     notiz.name = "Notiz";
     notiz.typ = beweisstueck;
     game->inv.Add(notiz);
@@ -832,7 +832,6 @@ void Ask(struct data* game)
 
     tempstring = "Ich klage hiermit " + game ->peoplelist[personnumber].GetName() + " an und habe dafuer folgende Beweise";
     print(tempstring);
-    int actionnumber;
     printXEmptyLines(1);
     bool chooseinventar = true;
     int counter = 0;
@@ -856,27 +855,30 @@ void Ask(struct data* game)
                     //print(game ->inv.ListAll());
                     //Auflisten
                     printXEmptyLines(1);
-                    std::string choose_proof = "Was moechtest du als Beweis vorlegen\n" + game->inv.ListAll();
+                    std::string choose_proof = "Was moechtest du als Beweis vorlegen\n" + game->inv.ListAll() + std::to_string(game->inv.count) + ". Um zurueck zur Uebersicht zu gelangen";
                     //print(choose_proof);
 
-                    element_number = GetUserInput(choose_proof,game->inv.count+1,0);
-                    if(element_number == 0){
+                    element_number = GetUserInput(choose_proof,game->inv.count,0);
+                    if(element_number == game->inv.count){
                       chooseinventar = false;
+                      //print("Back To Ubersicht");
+                      //Sleep(60000);
                       break;
                     };
                     int priority = game ->inv.GetPriorityOfListElement(element_number);
                     if( priority < 0){
+                        print(game->inv.Liste[element_number].name);
+                        print("lose wird gesetzt");
                         lose=true;
+                        Sleep(60000);
                     }
-                    else{
+                    else if(game->inv.Liste[element_number].beweisstueck == beweisstueck){
                         counter += priority;
                     }
 
                     //Gegenstand entfernen
                     game->inv.Delete(element_number);
                 }
-
-
             }
             break;
         case 2:
@@ -890,11 +892,16 @@ void Ask(struct data* game)
         msg = -1;
     }
     else if(game ->peoplelist[personnumber].GetWerwolfStatus() && counter >=2 && !lose){
-        printSpecialText("Herzlichen Glueckwunsch, du hast den Täter anhand von aussagekrätigen Beweisen ueberfuehrt");
+        printSpecialText("Herzlichen Glueckwunsch,");
+        printSpecialText("du hast den Täter anhand von aussagekrätigen");
+        printSpecialText("Beweisen ueberfuehrt");
         msg = 1;
     }
     else{
-        printSpecialText("Du hast das Spiel verloren, du hast entweder die falsche Person angeklagt oder zu wenig Beweise vorlegen können um das Gericht zu ueberzeugen");
+        printSpecialText("Du hast das Spiel verloren";
+        printSpecialText("du hast entweder die falsche Person angeklagt ";
+        printSpecialText("oder zu wenig Beweise vorlegen können ";
+        printSpecialText("um das Gericht zu ueberzeugen");
         msg=-1;
     }
 
