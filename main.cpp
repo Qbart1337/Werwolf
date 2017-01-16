@@ -127,7 +127,7 @@ public:
     std::string ListAll(){
         string tempstring ="";
         for(int i=0;i<=count;i++){
-            tempstring += i+1 + " " + Liste[i].name +"\n";
+            tempstring += i+1 + " " + Liste[i].name + "\n";
         }
         return tempstring;
     }
@@ -810,7 +810,7 @@ void Ask(struct data* game)
     print(choose_person);
     tempstring = "";
     for(int i=0;i<7;i++){
-        tempstring += std::to_string(i) + " " + game ->peoplelist[i].GetName();
+        tempstring += std::to_string(i) + ". " + game ->peoplelist[i].GetName() + "\n";
     }
     int personnumber = GetUserInput(tempstring,6,0);
     cleanconsole();
@@ -882,10 +882,10 @@ void Ask(struct data* game)
         msg=-1;
     }
 
-    if(msg = 1){
+    if(msg == 1){
         printSpecialText("Du hast gewonnen");
     }
-    if(msg = -1){
+    if(msg == -1){
         printSpecialText("Du hast verloren");
     }
 }
@@ -898,6 +898,9 @@ int main()
     CreateGame(data_ptr);
     Play(data_ptr);
     Ask(data_ptr);
+    printXEmptyLines(2);
+    print("Das Spiel wird sich in 10 Sekunden beenden");
+    Sleep(30000);
     cleanconsole();
     printSpecialText("Das Spiel wurde erfolgreich beendet");
 
