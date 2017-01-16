@@ -842,6 +842,7 @@ void Ask(struct data* game)
 
         switch(GetUserInput(choose_inventar_intro,2)){
         case 1:
+            chooseinventar = true;
             while(chooseinventar){
                 if(game->inv.CheckIfEmpty()){
                     std::string empty_inventar = "Inventar leer, Beweisfuehrung beendet";
@@ -872,9 +873,21 @@ void Ask(struct data* game)
                         lose=true;
                         Sleep(60000);
                     }
-                    else if(game->inv.Liste[element_number].beweisstueck == beweisstueck){
+
+
+                    if(game->inv.Liste[element_number].typ == beweisstueck && priority != -1){
                         counter += priority;
+                        print("Aktualisiere Counter wird aufgerufen");
                     }
+
+                    //Testweise Ausgeben der Prio;
+                    /*print(game->inv.Liste[element_number].name);
+                    print("Prio");
+                    print(std::to_string(game->inv.GetPriorityOfListElement(element_number)));
+                    print("aktueller counter");
+                    print(std::to_string(counter));
+                    Sleep(3000);
+*/
 
                     //Gegenstand entfernen
                     game->inv.Delete(element_number);
@@ -886,31 +899,34 @@ void Ask(struct data* game)
             break;
         }
     }
-    int msg;
+    //int msg;
+    print(std::to_string(counter));
+    Sleep(60000);
+
     if(lose){
         print("Das Gericht ist umpört, dass du ohne Gruende in Privaträume des Pfarrers eingedrungen bist um an Beweise zu kommen. Dies entspricht nach Ansichten des Gerichts eines Amtsmissbrauchs. Du verlierst dadurch jegliche Glaubwuerdigkeit und wirst selbst verurteilt.");
-        msg = -1;
+        //msg = -1;
     }
     else if(game ->peoplelist[personnumber].GetWerwolfStatus() && counter >=2 && !lose){
-        printSpecialText("Herzlichen Glueckwunsch,");
-        printSpecialText("du hast den Täter anhand von aussagekrätigen");
-        printSpecialText("Beweisen ueberfuehrt");
-        msg = 1;
+        printSpecialText("Herzlichen Glueckwunsch");
+        print("du hast den Täter anhand von aussagekrätigen");
+        print("Beweisen ueberfuehrt");
+        //msg = 1;
     }
     else{
         printSpecialText("Du hast das Spiel verloren");
-        printSpecialText("du hast entweder die falsche Person angeklagt ");
-        printSpecialText("oder zu wenig Beweise vorlegen können ");
-        printSpecialText("um das Gericht zu ueberzeugen");
-        msg=-1;
+        print("du hast entweder die falsche Person angeklagt ");
+        print("oder zu wenig Beweise vorlegen können ");
+        print("um das Gericht zu ueberzeugen");
+        //msg=-1;
     }
-
+    /*
     if(msg == 1){
         printSpecialText("Du hast gewonnen");
     }
     if(msg == -1){
         printSpecialText("Du hast verloren");
-    }
+    }*/
 }
 
 int main()
