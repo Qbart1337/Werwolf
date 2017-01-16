@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
 
+//Beta 42
+
 //# Caner Yavuz & Refactor+Edit Stefan Nonn
 
 std::string initialize_rooms_start = "Initialisiere alle Raeume";

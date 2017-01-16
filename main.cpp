@@ -279,27 +279,7 @@ void Play(struct data* game)
 
     //Main Game Loop - Spieler kann solange in der Welt umherlaufen,
     //wie er sich nicht entscheidet jemanden zur Anklage zu bringen
-    bool ready_for_final_question = true; //Zu Testzwecken auf True
-
-    //Test Beginn
-    inventarelement essen;
-    essen.beweisstueck = 0;
-    essen.name = "Doener";
-    essen.typ = food_1;
-    game->inv.Add(essen);
-
-    inventarelement notiz;
-    notiz.beweisstueck = 3;
-    notiz.name = "Notiz";
-    notiz.typ = beweisstueck;
-    game->inv.Add(notiz);
-    //Test Ende
-
-    inventarelement note;
-    note.beweisstueck = -1;
-    note.name = "Lose Condition Test";
-    note.typ = beweisstueck;
-    game->inv.Add(note);
+    bool ready_for_final_question = false;
 
     while(!ready_for_final_question)
     {
@@ -857,43 +837,23 @@ void Ask(struct data* game)
                     break;
                 }
                 else{
-                    //print(inventar_stuff_intro);
-                    //tempstring = "0. Inventar verlassen" + game ->inv.ListAll() + endl + "\n" + "Was möchtest du als Beweis vorlegen";
-                    //print(game ->inv.ListAll());
-                    //Auflisten
                     printXEmptyLines(1);
                     std::string choose_proof = "Was moechtest du als Beweis vorlegen\n" + game->inv.ListAll() + std::to_string(game->inv.count) + ". Um zurueck zur Uebersicht zu gelangen";
-                    //print(choose_proof);
 
                     element_number = GetUserInput(choose_proof,game->inv.count,0);
                     if(element_number == game->inv.count){
                       chooseinventar = false;
-                      //print("Back To Ubersicht");
-                      //Sleep(60000);
                       break;
                     };
                     int priority = game ->inv.GetPriorityOfListElement(element_number);
                     if( priority < 0){
                         print(game->inv.Liste[element_number].name);
-                        print("lose wird gesetzt");
                         lose=true;
-                        Sleep(60000);
                     }
-
 
                     if(game->inv.Liste[element_number].typ == beweisstueck && priority != -1){
                         counter += priority;
-                        print("Aktualisiere Counter wird aufgerufen");
                     }
-
-                    //Testweise Ausgeben der Prio;
-                    /*print(game->inv.Liste[element_number].name);
-                    print("Prio");
-                    print(std::to_string(game->inv.GetPriorityOfListElement(element_number)));
-                    print("aktueller counter");
-                    print(std::to_string(counter));
-                    Sleep(3000);
-                    */
 
                     //Gegenstand entfernen
                     game->inv.Delete(element_number);
@@ -905,22 +865,17 @@ void Ask(struct data* game)
             break;
         }
     }
-    //int msg;
-    //print(std::to_string(counter));
-    //Sleep(60000);
 
     if(lose){
         printSpecialText("Du hast verloren");
         printXEmptyLines(2);
         print("Das Gericht ist umpört, dass du ohne Gruende in Privaträume des Pfarrers eingedrungen bist um an Beweise zu kommen. Dies entspricht nach Ansichten des Gerichts eines Amtsmissbrauchs. Du verlierst dadurch jegliche Glaubwuerdigkeit und wirst selbst verurteilt.");
-        //msg = -1;
     }
     else if(game ->peoplelist[personnumber].GetWerwolfStatus() && counter >=2 && !lose){
         printSpecialText("Herzlichen Glueckwunsch");
         printXEmptyLines(2);
         print("du hast den Täter anhand von aussagekrätigen");
         print("Beweisen ueberfuehrt");
-        //msg = 1;
     }
     else{
         printSpecialText("Du hast das Spiel verloren");
@@ -928,20 +883,12 @@ void Ask(struct data* game)
         print("du hast entweder die falsche Person angeklagt ");
         print("oder zu wenig Beweise vorlegen können ");
         print("um das Gericht zu ueberzeugen");
-        //msg=-1;
     }
-    /*
-    if(msg == 1){
-        printSpecialText("Du hast gewonnen");
-    }
-    if(msg == -1){
-        printSpecialText("Du hast verloren");
-    }*/
 }
 
 int main()
 {
-    // 15. Beta Stand
+    //Beta 42
     struct data gamedata;
     struct data *data_ptr = &gamedata;
     CreateGame(data_ptr);
