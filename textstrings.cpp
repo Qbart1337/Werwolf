@@ -24,7 +24,7 @@ std::string introduction = "Willkommen im kleinen aber ueberschaulichen Dorf Hau
 
 std::string church_intro = "Du bist gerade in die Kirche gegangen. In der Kirche brennen schon ein paar Kerzen fuer den Verstorbenen.";
 std::string church_options = "Du hast folgende Moeglichkeiten: \n1.Mit dem Pfarrer sprechen\n2. Den Beichstuhl dieser Kirche besuchen.\n3. Zur Tuer hinter dem Altar gehen\n4. Kirche verlassen";
-std::string p1_set_2_options = "Du bist zum Pfarrer gegangen\nDu kannst ihn folgendes Fragen:\n1.Was weisst du ueber Hr. Meier?\n2.Weisst du ob jemand etwas gegen den Hr. Meier hatte?\nGespraech verlassen";
+std::string p1_set_2_options = "Du bist zum Pfarrer gegangen\nDu kannst ihn folgendes Fragen:\n1.Was weisst du ueber Hr. Meier?\n2.Weisst du ob jemand etwas gegen den Hr. Meier hatte?\n3.Gespraech verlassen";
 std::string p1_set_2_str_1 = "Puh, eigentlich nicht viel. Er kam leider nicht sehr oft in die Kirche. Ich glaube zwar nicht, dass es dir hilft, aber Herr Meier liebte Spaghetti ueber alles, er war gerade zu suechtig nach ihnen.";
 std::string p1_set_2_str_2 = "Tut mir leid, meine Schweigepflicht bindet mir Haende und Fuesse.";
 std::string p1_set_2_str_3 = "Ich habe dir schon alles erzaehlt, vielleicht solltest du lieber mit anderen sprechen.";
@@ -53,13 +53,14 @@ std::string p2_set_2_str_1 ="Ich haette es nie fuer moeglich gehalten, dass in u
 std::string p2_set_2_str_2 ="Ich habe Hr. Meier ab und zu in die Scheune gehen sehen. Einmal sah ich wie er viel Heu zur Seite schob und in einen geheimen Raum ging.";
 std::string p2_set_2_str_3 ="Lass mich bitte ein wenig in Ruhe, ich brauche Zeit zum Nachdenken";
 
-// TODO text
+// TODO text - Neu schreiben
 std::string crime_scene_intro="Du bist gerade an den Tartort gegangen. Herr Meier liegt direkt neben der Tuer aufgeschlitzt am Boden. Neben ihm steht der Sheriff";
 std::string crime_scene_options="Du hast folgende Optionen: \n1. Mit dem Sheriff sprechen \n2. Die Leiche genauer anschauen\n3. Den Tartort verlassen";
-std::string p6_set_2_options = "Du gehst auf den Sheriff zu, dieser erwartet dich schon. \nDu hast folgende Optionen";
-std::string p6_set_2_str_1 ="Der Sheriff uebergibt dir einen Sheriffsstern und erteilt dir noch einmal offiziell den Auftrag mit allen im Dorf zu sprechen. Deine Aufgabe ist es nun mit allen Bewohnern des Dorfes zu sprechen und Indizien zu sammeln. Wenn du genug davon hast, sollst du wieder zurueck zum Sheriff kommen.";
-std::string p6_set_2_str_2 ="Auch der Sheriff bekundet sein Beileid fuer den Verstorbenen, sagt aber sonst nichts weiteres zu ihm.";
-std::string p6_set_2_str_3 ="";
+std::string p6_set_2_options = "Du gehst auf den Sheriff zu, dieser erwartet dich schon. \nDu hast folgende Optionen\n1. Jemanden anklagen\n2.Nach Tipps fragen\n3. Gespraech verlassen";
+std::string p6_set_2_str_1 ="Der Sheriff uebergibt dir den Schlussel zum Gericht und drueckt dir die Daumen. Gehe zurueck zur Dorfmitte um Gericht zu geklagen\n \n-Gericht freigeschaltet-";
+std::string p6_set_2_str_2 ="Der Sheriff gibt dir den Tipp einfach mit allen im Dorf zu sprechen";
+std::string p6_set_2_str_3 ="Auch ich bin ein Fehler #fuck";
+
 std::string watch_stiff = "Du hast zwar oft den Tartort im Ersten geschaut, aber wirklich auskennen tust du dich mit dem Untersuchen von Leichen nicht. Du siehst lediglich das Offensichtliche und weißt das Herr Meier sich wohl nie wieder von selbst bewegen wird.";
 
 // TODO text
@@ -101,7 +102,7 @@ std::string p2_set_1_str_1 ="Ich haette es nie fuer moeglich gehalten, dass in u
 std::string p2_set_1_str_2 ="Also ich finde es nicht sehr berauschend."; // Lüge
 std::string p2_set_1_str_3 ="Lass mich bitte ein wenig in Ruhe essen.";
 
-std::string p6_set_1_options = "Du gehst auf den Sheriff zu, dieser erwartet dich schon. \nDu hast folgende Optionen";
+std::string p6_set_1_options = "Du gehst auf den Sheriff zu, dieser erwartet dich schon. \nDu hast folgende Optionen\n1. Die Mission annehmen\n2. Ihn nach dem verstorbenen fragen \n3. Das Gespraech verlassen";
 std::string p6_set_1_str_1 ="Der Sheriff uebergibt dir einen Sheriffsstern und erteilt dir noch einmal offiziell den Auftrag mit allen im Dorf zu sprechen. Deine Aufgabe ist es nun mit allen Bewohnern des Dorfes zu sprechen und Indizien zu sammeln. Wenn du genug davon hast, sollst du wieder zurueck zum Sheriff kommen.";
 std::string p6_set_1_str_2 ="Auch der Sheriff bekundet sein Beileid fuer den Verstorbenen, sagt aber sonst nichts weiteres zu ihm.";
 std::string p6_set_1_str_3 ="Hilfe ich bin ein Bug, und jetzt kannst du den Auftrag nicht mehr annehmen #GameOver!"; // darf hier nicht rein weil er sonst den Auftrag nicht annehmen kann

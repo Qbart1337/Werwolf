@@ -545,9 +545,9 @@ void Play(struct data* game)
             break;
         case 3:
             //Tatort
-            print(crime_scene_intro);
 
             while(stayintatort){
+                print(crime_scene_intro);
                 switch(GetUserInput(crime_scene_options,3)){
                 case 1:
                     //Mit dem Sheriff (P6) sprechen
