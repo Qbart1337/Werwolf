@@ -56,7 +56,7 @@ std::string p2_set_2_str_3 ="Lass mich bitte ein wenig in Ruhe, ich brauche Zeit
 // TODO text - Neu schreiben
 std::string crime_scene_intro="Du bist gerade an den Tartort gegangen. Herr Meier liegt direkt neben der Tuer aufgeschlitzt am Boden. Neben ihm steht der Sheriff";
 std::string crime_scene_options="Du hast folgende Optionen: \n1. Mit dem Sheriff sprechen \n2. Die Leiche genauer anschauen\n3. Den Tartort verlassen";
-std::string p6_set_2_options = "Du gehst auf den Sheriff zu, dieser erwartet dich schon. \nDu hast folgende Optionen\n1. Jemanden anklagen\n2.Nach Tipps fragen\n3. Gespraech verlassen";
+std::string p6_set_2_options = "Du gehst auf den Sheriff zu, dieser erwartet dich schon. \nDu hast folgende Optionen\n1. Jemanden anklagen\n2. Nach Tipps fragen\n3. Gespraech verlassen";
 std::string p6_set_2_str_1 ="Der Sheriff uebergibt dir den Schlussel zum Gericht und drueckt dir die Daumen. Gehe zurueck zur Dorfmitte um Gericht zu geklagen\n \n-Gericht freigeschaltet-";
 std::string p6_set_2_str_2 ="Der Sheriff gibt dir den Tipp einfach mit allen im Dorf zu sprechen";
 std::string p6_set_2_str_3 ="Auch ich bin ein Fehler #fuck";
@@ -111,6 +111,10 @@ std::string p4_set_1_options ="Du setzt dich zu Paul an den Tisch, dieser macht 
 std::string p4_set_1_str_1 ="Hast du echt nicht besseres zu tun?";
 std::string p4_set_1_str_2 ="Haha sehr lustig. Du kannst mir auch gern später helfen wenn du zuviel Zeit hast";
 std::string p4_set_1_str_3 ="Lass mich bitte jetzt in Ruhe meine Hausaufgaben machen";
+
+std::string p4_set_3_str_1 = "Nochmal vielen Dank das du mir geholfen hast! Aber den Rest schaffe ich denke ich selber";
+std::string p4_set_4_str_1 = "Du solltest dich eher fragen wie du das Abitur geschafft hast, selbst ein Grundschueler konnte mir mehr helfen wie du";
+std::string p4_set_3_options ="Du setzt dich zu Paul an den Tisch, dieser macht gerade Mathe Hausaufgaben und flucht ein wenig darueber.\n Du hast folgende Moeglichkeiten: \n1.Bei den Hausaufgaben helfen\n2. Ihn fragen was er ueber Hr. Meier weiß\n3. Aufstehen";
 
 std::string p5_set_1_options ="Du Setzt dich zu Jan an den Tisch, dieser spielt gerade an einem Handheld\nDir bieten sich folgende Moeglichkeiten: \n1.Ihn fragen was er da gerade macht\n2.Ihn fragen warum hier ist \n3.Aufstehen";
 std::string p5_set_1_str_1 ="Jan erzaehlt dir, dass er gerade das neue Pokemon spielt. Nach einigen Details und Fachbegriffen steigst du jedoch vollkommen aus und Jan ersparrt dir weitere Details.";

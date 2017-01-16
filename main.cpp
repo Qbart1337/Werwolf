@@ -213,7 +213,7 @@ void SetDialogText(int set, struct data* z)
 
 
 // @Alex_
-int GetUserInput(std::string options, int maxallowedNumber, int minnumber=1){
+int GetUserInput(std::string options, int maxAllowedNumber, int minAllowedNumber=1){
     //print("UserInput Methode wird aufgerufen");
     //printXEmptyLines(2);
     bool correct_input = false;
@@ -232,12 +232,13 @@ int GetUserInput(std::string options, int maxallowedNumber, int minnumber=1){
             print(options);
             cin >> input;
         }
-        if(input >= minnumber && input <= maxallowedNumber){
+        if(input >= minAllowedNumber && input <= maxAllowedNumber){
             correct_input = true;
         }
         else{
             cleanconsole();
-            print("Bitte gebe eine gueltige Zahl ein!");
+
+            print("Bitte gebe eine gueltige Zahl ein. Ein gueltige Zahl ist ganzzahlig und liegt im Bereich ZWISCHEN " + std::to_string(minAllowedNumber-1) + " und " + std::to_string(maxAllowedNumber+1));
             printXEmptyLines(1);
         }
 
@@ -250,6 +251,7 @@ int GetUserInput(std::string options, int maxallowedNumber, int minnumber=1){
 
 void Play(struct data* game)
 {
+    int available_houses = 6;
     int set = 1; // TODO: später auf set = 1 setzen, zu Testzwecken schon Set = 2
     bool activatedgame = false;
     bool knowlegdeOfHiddenRoom = false;
@@ -305,10 +307,11 @@ void Play(struct data* game)
         }
         else{
             tempstring = options_2;
+            available_houses = 7;
         }
 
         //Switch von der Markplatzmitte
-        switch(GetUserInput(tempstring,6)){
+        switch(GetUserInput(tempstring,available_houses)){
         case 1:
             //Kirche
             while(stayinchurch){
@@ -564,6 +567,11 @@ void Play(struct data* game)
                                 set = 2;
                                 activatedgame = true;
                                 SetDialogText(set, game);
+
+                                printXEmptyLines(2);
+                                print("Die Leute erkennen dich nun als Ermittler und werden dir ggf. anderes erzaehlen wie zuvor.");
+                                printXEmptyLines(2);
+
                             }
                             else{
                                 //Spiel "beenden" und zur Anklage einer Person kommen
@@ -612,30 +620,39 @@ void Play(struct data* game)
                         switch(GetUserInput(tempstring,3)){
                         case 1:
                             //Bei den Mathehausaufgaben helfen
+                            if(!activatedgame){
+                                print(game->peoplelist[3].GetAnswer(1));
+                                break;
+                            }
+
                             if(!helpwithhomework)
                             {
-                                print(game->peoplelist[3].GetAnswer(1));
+                                //print(game->peoplelist[3].GetAnswer(1));
 
-                                print(enter_solution);
-                                int lsg;
-                                cin >> lsg;
+                                //print(enter_solution);
+
+                                tempstring = game ->peoplelist[3].GetAnswer(1) + "\n" + enter_solution;
+                                //int lsg;
+                                //cin >> lsg;
                                 //TODO
-                                if(lsg == -16){
+                                if(GetUserInput(tempstring,1000,-1000) == -16){
                                     print(thanks_for_homework);
                                     inventarelement scheunenkey;
                                     scheunenkey.beweisstueck = 0;
                                     scheunenkey.name = "Unbekannter Schluessel";
                                     scheunenkey.typ = key;
                                     game->inv.Add(scheunenkey);
-                                    //game ->peoplelist[3].SetDialogOptions();
-                                    //game ->peoplelist[3].SetDialog();
+                                    game ->peoplelist[3].SetDialogOptions(p4_set_3_options);
+                                    //Nur String 1 aendert sich
+                                    game ->peoplelist[3].SetDialog(p4_set_3_str_1,p4_set_2_str_2,p4_set_2_str_3);
                                     //TODO: Neue Texte schreiben
                                 }
                                 else{
 
                                     print(wrong_solution);
-                                    //game ->peoplelist[3].SetDialogOptions();
-                                    //game ->peoplelist[3].SetDialog();
+                                    game ->peoplelist[3].SetDialogOptions(p4_set_3_options);
+                                    //Nur String 1 aendert sich
+                                    game ->peoplelist[3].SetDialog(p4_set_4_str_1,p4_set_2_str_2,p4_set_2_str_3);
                                     //TODO: Neue Texte schreiben
                                 }
                             }
