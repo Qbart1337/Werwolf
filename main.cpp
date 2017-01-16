@@ -126,8 +126,8 @@ public:
 
     std::string ListAll(){
         string tempstring ="";
-        for(int i=0;i<=count;i++){
-            tempstring += i+1 + " " + Liste[i].name + "\n";
+        for(int i=0;i<count;i++){
+            tempstring += std::to_string(i+1) + " " + Liste[i].name + "\n";
         }
         return tempstring;
     }
@@ -279,7 +279,22 @@ void Play(struct data* game)
 
     //Main Game Loop - Spieler kann solange in der Welt umherlaufen,
     //wie er sich nicht entscheidet jemanden zur Anklage zu bringen
-    bool ready_for_final_question = false;
+    bool ready_for_final_question = true; //Zu Testzwecken auf True
+
+    //Test Beginn
+    inventarelement essen;
+    essen.beweisstueck = 0;
+    essen.name = "Doener";
+    essen.typ = food_1;
+    game->inv.Add(essen);
+
+    inventarelement notiz;
+    notiz.beweisstueck = 1;
+    notiz.name = "Notiz";
+    notiz.typ = beweisstueck;
+    game->inv.Add(notiz);
+    //Test Ende
+
     while(!ready_for_final_question)
     {
         //Loop Variablen
@@ -830,20 +845,21 @@ void Ask(struct data* game)
         case 1:
             while(chooseinventar){
                 if(game->inv.CheckIfEmpty()){
-                    print("Inventar leer, Beweisfuehrung beendet");
+                    std::string empty_inventar = "Inventar leer, Beweisfuehrung beendet";
+                    print(empty_inventar);
                     notdone = false;
                     break;
                 }
                 else{
-                    print(inventar_stuff_intro);
+                    //print(inventar_stuff_intro);
                     //tempstring = "0. Inventar verlassen" + game ->inv.ListAll() + endl + "\n" + "Was möchtest du als Beweis vorlegen";
-                    print(game ->inv.ListAll());
+                    //print(game ->inv.ListAll());
                     //Auflisten
                     printXEmptyLines(1);
-                    std::string choose_proof = "Was moechtest du als Beweis vorlegen";
-                    print(choose_proof);
+                    std::string choose_proof = "Was moechtest du als Beweis vorlegen\n" + game->inv.ListAll();
+                    //print(choose_proof);
 
-                    element_number = GetUserInput(tempstring,game->inv.count+1,0);
+                    element_number = GetUserInput(choose_proof,game->inv.count+1,0);
                     if(element_number == 0){
                       chooseinventar = false;
                       break;
@@ -857,10 +873,10 @@ void Ask(struct data* game)
                     }
 
                     //Gegenstand entfernen
-                    game->inv.Delete(actionnumber);
+                    game->inv.Delete(element_number);
                 }
 
-                game->inv.Delete(actionnumber);
+
             }
             break;
         case 2:
@@ -899,8 +915,8 @@ int main()
     Play(data_ptr);
     Ask(data_ptr);
     printXEmptyLines(2);
-    print("Das Spiel wird sich in 10 Sekunden beenden");
-    Sleep(30000);
+    print("Das Spiel wird sich in 60 Sekunden beenden");
+    Sleep(60000);
     cleanconsole();
     printSpecialText("Das Spiel wurde erfolgreich beendet");
 
