@@ -295,6 +295,12 @@ void Play(struct data* game)
     game->inv.Add(notiz);
     //Test Ende
 
+    inventarelement note;
+    note.beweisstueck = -1;
+    note.name = "Lose Condition Test";
+    note.typ = beweisstueck;
+    game->inv.Add(note);
+
     while(!ready_for_final_question)
     {
         //Loop Variablen
@@ -887,7 +893,7 @@ void Ask(struct data* game)
                     print("aktueller counter");
                     print(std::to_string(counter));
                     Sleep(3000);
-*/
+                    */
 
                     //Gegenstand entfernen
                     game->inv.Delete(element_number);
@@ -900,21 +906,25 @@ void Ask(struct data* game)
         }
     }
     //int msg;
-    print(std::to_string(counter));
-    Sleep(60000);
+    //print(std::to_string(counter));
+    //Sleep(60000);
 
     if(lose){
+        printSpecialText("Du hast verloren");
+        printXEmptyLines(2);
         print("Das Gericht ist umpört, dass du ohne Gruende in Privaträume des Pfarrers eingedrungen bist um an Beweise zu kommen. Dies entspricht nach Ansichten des Gerichts eines Amtsmissbrauchs. Du verlierst dadurch jegliche Glaubwuerdigkeit und wirst selbst verurteilt.");
         //msg = -1;
     }
     else if(game ->peoplelist[personnumber].GetWerwolfStatus() && counter >=2 && !lose){
         printSpecialText("Herzlichen Glueckwunsch");
+        printXEmptyLines(2);
         print("du hast den Täter anhand von aussagekrätigen");
         print("Beweisen ueberfuehrt");
         //msg = 1;
     }
     else{
         printSpecialText("Du hast das Spiel verloren");
+        printXEmptyLines(2);
         print("du hast entweder die falsche Person angeklagt ");
         print("oder zu wenig Beweise vorlegen können ");
         print("um das Gericht zu ueberzeugen");
@@ -942,6 +952,7 @@ int main()
     Sleep(60000);
     cleanconsole();
     printSpecialText("Das Spiel wurde erfolgreich beendet");
+    Sleep(1000);
 
     return 0;
 }
