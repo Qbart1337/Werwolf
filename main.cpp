@@ -898,9 +898,9 @@ void Ask(struct data* game)
         msg = 1;
     }
     else{
-        printSpecialText("Du hast das Spiel verloren";
-        printSpecialText("du hast entweder die falsche Person angeklagt ";
-        printSpecialText("oder zu wenig Beweise vorlegen können ";
+        printSpecialText("Du hast das Spiel verloren");
+        printSpecialText("du hast entweder die falsche Person angeklagt ");
+        printSpecialText("oder zu wenig Beweise vorlegen können ");
         printSpecialText("um das Gericht zu ueberzeugen");
         msg=-1;
     }
