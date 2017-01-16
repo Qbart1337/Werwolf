@@ -263,6 +263,7 @@ void Play(struct data* game)
     bool helpwithhomework = false;
     bool hiddenroomopen = false;
 
+
     // Einführung
     printXEmptyLines(2);
 
@@ -376,14 +377,15 @@ void Play(struct data* game)
                         if(!takenChurchKey){
                             print(confessional_intro);
 
-                            if(GetUserInput(confessional_options,1) == 1 && !takenChurchKey)
+                            if(GetUserInput(confessional_options,1) == 1)
                             {
-                                inventarelement church_key;
-                                church_key.name = "Kirchenschluessel";
-                                church_key.beweisstueck = 0;
-                                church_key.typ = key;
-                                game ->inv.Add(church_key);
-                                takenChurchKey = true;
+                                if(!game->inv.CheckIfElementIsInList("Kirchenschluessel")){
+                                    inventarelement church_key;
+                                    church_key.name = "Kirchenschluessel";
+                                    church_key.beweisstueck = 0;
+                                    church_key.typ = key;
+                                    game ->inv.Add(church_key);
+                                }
                             }
                         }
                         else{
@@ -395,8 +397,10 @@ void Play(struct data* game)
                     //Zur Tür hinter dem Altar gehen
 
                     if(church_back_room_door == false){
-                        if(game ->inv.CheckIfElementIsInList("Kirchenschluessel"))
+                        if(!game ->inv.CheckIfElementIsInList("Kirchenschluessel"))
                         {
+                            std::string use_church_key = "Du verwendest den Schluessel den du im Beichtstuhl gefunden hast";
+                            print(use_church_key);
                             game ->inv.Delete("Kirchenschluessel");
                             church_back_room_door = true;
                         }
@@ -426,12 +430,14 @@ void Play(struct data* game)
                                     print(church_back_room_notes);
 
                                     if(GetUserInput(note_options,2) == 1){
-                                        inventarelement tagebuch;
-                                        tagebuch.name = "Tagebuch des Pfarrers";
-                                        tagebuch.typ = beweisstueck;
-                                        tagebuch.beweisstueck = -1;
-                                        game->inv.Add(tagebuch);
-                                        church_notes_taken = true;
+                                        if(!game->inv.CheckIfElementIsInList("Tagebuch des Pfarrers")){
+                                            inventarelement tagebuch;
+                                            tagebuch.name = "Tagebuch des Pfarrers";
+                                            tagebuch.typ = beweisstueck;
+                                            tagebuch.beweisstueck = -1;
+                                            game->inv.Add(tagebuch);
+                                            church_notes_taken = true;
+                                        }
                                     }
                                 }
                                 else{
@@ -477,10 +483,15 @@ void Play(struct data* game)
                         switch (GetUserInput(tempstring,3)) {
                         case 1:
                             print(game ->peoplelist[6].GetAnswer(1));
-                            food.name = "Teller mit Schnitzel und ein kleines Dessert";
-                            food.beweisstueck = 0;
-                            food.typ = food_1;
-                            game->inv.Add(food);
+                            if(!game->inv.CheckIfElementIsInList("Teller mit Schnitzel und ein kleines Dessert")){
+                                food.name = "Teller mit Schnitzel und ein kleines Dessert";
+                                food.beweisstueck = 0;
+                                food.typ = food_1;
+                                game->inv.Add(food);
+                            }
+                            else{
+                                print("Du hast noch Essen im Inventar, du gibst daher den aktuellen Teller zurueck");
+                            }
                             break;
                         case 2:
                             print(game ->peoplelist[6].GetAnswer(2));
@@ -632,20 +643,23 @@ void Play(struct data* game)
                                 //print(enter_solution);
 
                                 tempstring = game ->peoplelist[3].GetAnswer(1) + "\n" + enter_solution;
+                                helpwithhomework = true;
                                 //int lsg;
                                 //cin >> lsg;
                                 //TODO
-                                if(GetUserInput(tempstring,1000,-1000) == -16){
+                                if(GetUserInput(tempstring,999,-999) == -16){
                                     print(thanks_for_homework);
-                                    inventarelement scheunenkey;
-                                    scheunenkey.beweisstueck = 0;
-                                    scheunenkey.name = "Unbekannter Schluessel";
-                                    scheunenkey.typ = key;
-                                    game->inv.Add(scheunenkey);
-                                    game ->peoplelist[3].SetDialogOptions(p4_set_3_options);
-                                    //Nur String 1 aendert sich
-                                    game ->peoplelist[3].SetDialog(p4_set_3_str_1,p4_set_2_str_2,p4_set_2_str_3);
-                                    //TODO: Neue Texte schreiben
+                                    if(!game->inv.CheckIfElementIsInList("Unbekannter Schluessel")){
+                                        inventarelement scheunenkey;
+                                        scheunenkey.beweisstueck = 0;
+                                        scheunenkey.name = "Unbekannter Schluessel";
+                                        scheunenkey.typ = key;
+                                        game->inv.Add(scheunenkey);
+                                        game ->peoplelist[3].SetDialogOptions(p4_set_3_options);
+                                        //Nur String 1 aendert sich
+                                        game ->peoplelist[3].SetDialog(p4_set_3_str_1,p4_set_2_str_2,p4_set_2_str_3);
+
+                                    }
                                 }
                                 else{
 
@@ -653,7 +667,6 @@ void Play(struct data* game)
                                     game ->peoplelist[3].SetDialogOptions(p4_set_3_options);
                                     //Nur String 1 aendert sich
                                     game ->peoplelist[3].SetDialog(p4_set_4_str_1,p4_set_2_str_2,p4_set_2_str_3);
-                                    //TODO: Neue Texte schreiben
                                 }
                             }
                             else{
@@ -680,10 +693,10 @@ void Play(struct data* game)
 
                         switch(GetUserInput(tempstring,3)){
                         case 1:
-                            game->peoplelist[4].GetAnswer(1);
+                            print(game->peoplelist[4].GetAnswer(1));
                             break;
                         case 2:
-                            game->peoplelist[4].GetAnswer(2);
+                            print(game->peoplelist[4].GetAnswer(2));
                             break;
                         case 3:
                             //Gespräch beenden
@@ -758,8 +771,8 @@ void Play(struct data* game)
         case 6:
             //Friedhof
             while(stayinfriedhof){
-                tempstring ="An einigen Gräbern liegen Blumen, an manchen mehr an manchen weniger\nHier kannst du nichts machen\nDrücke die 1 um den Friedhof wieder zu verlassen";
-                if(GetUserInput(tempstring,1) ==1){
+                std::string cemetery_intro = "An einigen Gräbern liegen Blumen, an manchen mehr an manchen weniger\nHier kannst du nichts machen\nDrücke die 1 um den Friedhof wieder zu verlassen";
+                if(GetUserInput(cemetery_intro,1) ==1){
                     stayinfriedhof = false;
                 }
             }

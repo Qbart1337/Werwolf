@@ -34,7 +34,7 @@ std::string confessional_options = "1. Schluessel nehmen\n.2. Beichtstuhl verlas
 std::string church_back_room_intro = "In diesem Raum liegen viele Gebetsbuecher und Notizen";
 std::string church_back_room_options = "Was moechtest du tun?\n1. Aufgeschlagenes Gebetsbuch anschauen\n2. Tagebuch anschauen\n3. Raum verlassen";
 std::string church_back_room_options_2 = "Was moechtest du tun?\n1. Aufgeschlagenes Gebetsbuch anschauen\n2. Raum verlassen";
-std::string church_back_room_notes = "…";
+std::string church_back_room_notes = "Auf der aufgeschlagenen Seite ist ein Gespraech vom vormittag notiert, in der Pfarrer sein schlechtes Gewissen beschreibt, weil er nichts unternehmen kann, trotz Herr Schmidts Schuldeingestaendnisses bei der Beichte.";
 
 std::string mensa_intro = "Du bist in die Mensa gegangen, hier duftet es lecker.";
 std::string mensa_options_2 = "Was moechtest du tun? \n1.Etwas zu Essen holen \n2. Mit Herr Mueller sprechen\n3 Mit Herr Schmidt sprechen.\n4.Mensa verlassen";
@@ -67,7 +67,7 @@ std::string watch_stiff = "Du hast zwar oft den Tartort im Ersten geschaut, aber
 std::string common_room_intro="Du bist in den Aufenthaltsraum gegangen.";
 std::string common_room_options="In diesem Raum bieten sich dir folgende Moeglichkeiten: \n1. Dich zu Paul setzen \n2. Dich zu Jan setzen \n3. Den Raum wieder verlassen";
 std::string p4_set_2_options ="Du setzt dich zu Paul an den Tisch, dieser macht gerade Mathe Hausaufgaben und flucht ein wenig darueber.\n Du hast folgende Moeglichkeiten: \n1.Paul bei den Hausaufgaben helfen\n2. Ihn fragen was er ueber Hr. Meier weiß\n3. Aufstehen";
-std::string p4_set_2_str_1 ="Paul ließt dir seine aktuelle Aufgabe vor: 'Berechnen sie den Schnittpunkt von y=2x² - 16 mit der y-Achse.";
+std::string p4_set_2_str_1 ="Paul ließt dir seine aktuelle Aufgabe vor: 'Berechnen sie den Schnittpunkt von y=2x^2 - 16 mit der y-Achse.";
 std::string p4_set_2_str_2 ="Jan erzaehlt dir, dass er Herr Meier immer sehr gerne mochte, weil er ihm oefters mal bei den Hausaufgaben geholfen hat.";
 std::string p4_set_2_str_3 ="Lass mich bitte in Ruhe meine Hausaufgaben machen";
 
