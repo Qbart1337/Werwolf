@@ -344,10 +344,13 @@ void Play(struct data* game)
                             switch(GetUserInput(game->peoplelist[2].GetDialogOptions(),3)){
                             case 1:                                
                                 print(game->peoplelist[2].GetAnswer(1));
-                                inventarelement talk_with_p3;
-                                talk_with_p3.beweisstueck = 2;
-                                talk_with_p3.typ = beweisstueck;
-                                talk_with_p3.name = "Gestaednis von Herr Schmidt";
+                                if(game->inv.CheckIfElementIsInList("Gestaednis von Herr Schmidt")){
+                                    inventarelement talk_with_p3;
+                                    talk_with_p3.beweisstueck = 2;
+                                    talk_with_p3.typ = beweisstueck;
+                                    talk_with_p3.name = "Gestaednis von Herr Schmidt";
+
+                                }
                                 break;
                             case 2:
                                 print(game->peoplelist[2].GetAnswer(2));
