@@ -875,7 +875,7 @@ int main()
     Play(data_ptr);
     Ask(data_ptr);
     printXEmptyLines(2);
-    print("Das Spiel wird sich in 60 Sekunden beenden");
+    print("Das Spiel wird sich in 60 Sekunden beenden"); // Da freut er sich :D #Stefan
     Sleep(60000);
     cleanconsole();
     printSpecialText("Das Spiel wurde erfolgreich beendet");
