@@ -341,9 +341,9 @@ void Play(struct data* game)
                         print(confessional_intro_pre);
 
                         while(talkWithP3){
-                            switch(GetUserInput(game->peoplelist[2].GetDialogOptions(),3)){
+                            switch(GetUserInput(game->peoplelist[1].GetDialogOptions(),3)){
                             case 1:                                
-                                print(game->peoplelist[2].GetAnswer(1));
+                                print(game->peoplelist[1].GetAnswer(1));
                                 if(game->inv.CheckIfElementIsInList("Gestaednis von Herr Schmidt")){
                                     inventarelement talk_with_p3;
                                     talk_with_p3.beweisstueck = 2;
@@ -353,7 +353,7 @@ void Play(struct data* game)
                                 }
                                 break;
                             case 2:
-                                print(game->peoplelist[2].GetAnswer(2));
+                                print(game->peoplelist[1].GetAnswer(2));
                                 break;
                             case 3:
                                 talkWithP3 = false;
@@ -478,7 +478,7 @@ void Play(struct data* game)
                                 game->inv.Add(food);
                             }
                             else{
-
+                                // des klappt nicht
                                 print(food_in_inventar);
                             }
                             break;

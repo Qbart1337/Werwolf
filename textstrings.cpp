@@ -55,25 +55,23 @@ std::string p2_set_2_str_1 ="Ich haette es nie fuer moeglich gehalten, dass in u
 std::string p2_set_2_str_2 ="Ich habe Hr. Meier ab und zu in die Scheune gehen sehen. Einmal sah ich wie er viel Heu zur Seite schob und in einen geheimen Raum ging.";
 std::string p2_set_2_str_3 ="Lass mich bitte ein wenig in Ruhe, ich brauche Zeit zum Nachdenken";
 
-// TODO text - Neu schreiben
-std::string crime_scene_intro="Du bist gerade an den Tartort gegangen. Herr Meier liegt direkt neben der Tuer aufgeschlitzt am Boden. Neben ihm steht der Sheriff";
+std::string crime_scene_intro="Du gehst zum Tatort. Herr Meier liegt direkt neben der Tuer aufgeschlitzt am Boden. Neben ihm steht der Sheriff";
 std::string crime_scene_options="Du hast folgende Optionen: \n1. Mit dem Sheriff sprechen \n2. Die Leiche genauer anschauen\n3. Den Tartort verlassen";
 std::string p6_set_2_options = "Du gehst auf den Sheriff zu, dieser erwartet dich schon. \nDu hast folgende Optionen\n1. Jemanden anklagen\n2. Nach Tipps fragen\n3. Gespraech verlassen";
 std::string p6_set_2_str_1 ="Der Sheriff uebergibt dir den Schlussel zum Gericht und drueckt dir die Daumen. Gehe zurueck zur Dorfmitte um Gericht zu geklagen\n \n-Gericht freigeschaltet-";
 std::string p6_set_2_str_2 ="Der Sheriff gibt dir den Tipp einfach mit allen im Dorf zu sprechen";
-std::string p6_set_2_str_3 ="Auch ich bin ein Fehler #fuck";
+std::string p6_set_2_str_3 ="Auch ich bin ein Fehler #Buggyface";
 
-std::string watch_stiff = "Du hast zwar oft den Tartort im Ersten geschaut, aber wirklich auskennen tust du dich mit dem Untersuchen von Leichen nicht. Du siehst lediglich das Offensichtliche und weißt das Herr Meier sich wohl nie wieder von selbst bewegen wird.";
-
+std::string watch_stiff = "Du hast zwar oft den Tartort im Ersten geschaut, aber wirklich auskennen tust du dich mit dem Untersuchen von Leichen nicht. Du siehst lediglich das Offensichtliche und weisst das Herr Meier sich wohl nie wieder von selbst bewegen wird. #Newsflash :D";
 // TODO text
-std::string common_room_intro="Du bist in den Aufenthaltsraum gegangen.";
+std::string common_room_intro="Du betritst den Aufenthalsraum und schaust die um.";
 std::string common_room_options="In diesem Raum bieten sich dir folgende Moeglichkeiten: \n1. Dich zu Paul setzen \n2. Dich zu Jan setzen \n3. Den Raum wieder verlassen";
-std::string p4_set_2_options ="Du setzt dich zu Paul an den Tisch, dieser macht gerade Mathe Hausaufgaben und flucht ein wenig darueber.\n Du hast folgende Moeglichkeiten: \n1.Paul bei den Hausaufgaben helfen\n2. Ihn fragen was er ueber Hr. Meier weiß\n3. Aufstehen";
-std::string p4_set_2_str_1 ="Paul ließt dir seine aktuelle Aufgabe vor: 'Berechnen sie den Schnittpunkt von y=2x^2 - 16 mit der y-Achse.";
+std::string p4_set_2_options ="Du setzt dich zu Paul an den Tisch, dieser macht gerade Mathe Hausaufgaben und flucht ein wenig darueber.\n Du hast folgende Moeglichkeiten: \n1.Paul bei den Hausaufgaben helfen\n2. Ihn fragen was er ueber Hr. Meier weiss\n3. Aufstehen";
+std::string p4_set_2_str_1 ="Paul liesst dir seine aktuelle Aufgabe vor: 'Berechnen sie den Schnittpunkt von y=2x^2 - 16 mit der y-Achse.";
 std::string p4_set_2_str_2 ="Jan erzaehlt dir, dass er Herr Meier immer sehr gerne mochte, weil er ihm oefters mal bei den Hausaufgaben geholfen hat.";
 std::string p4_set_2_str_3 ="Lass mich bitte in Ruhe meine Hausaufgaben machen";
 
-std::string p5_set_2_options ="Du Setzt dich zu Jan an den Tisch, dieser spielt gerade an einem Handheld\nDir bieten sich folgende Moeglichkeiten: \n1. Ihn fragen was er da gerade macht\n2. Ihn fragen was er ueber Herr Meier weiß \n3. Aufstehen";
+std::string p5_set_2_options ="Du Setzt dich zu Jan an den Tisch, dieser spielt gerade an einem Handheld\nDir bieten sich folgende Moeglichkeiten: \n1. Ihn fragen was er da gerade macht\n2. Ihn fragen was er ueber Herr Meier weiss \n3. Aufstehen";
 std::string p5_set_2_str_1 ="Jan erzaehlt dir, dass er gerade das neue Pokemon spielt. Nach einigen Details und Fachbegriffen steigst du jedoch vollkommen aus und Jan ersparrt dir weitere Details. Kennt er eigentlich Pokemon Go? Egal..";
 std::string p5_set_2_str_2 ="Jan erzaehlt dir, dass er glaubt das der Kuechenchef ein Ninja sein so gut wie er mit dem Messer umgehen kann?";
 std::string p5_set_2_str_3 ="Ach komm der ist doch unmaeglich der Taeter...";
@@ -82,9 +80,9 @@ std::string p5_set_2_str_3 ="Ach komm der ist doch unmaeglich der Taeter...";
 // Optionale Variablen #BEFORE Spieler beim Sheriff war
 std::string p1_intro = "Du bist zum Pfarrer gegangen";
 std::string p1_set_1_options = "Du kannst ihn folgendes Fragen:\n1. Was ist hier passiert?\n2. Wo ist den der Sheriff?\n3. Gespraech verlassen";
-std::string p1_set_1_str_1 = "Es gab ueber nacht einen Mord. Sie sollten lieber mehr von Sheriff haeren";
-std::string p1_set_1_str_2 = "Ich wuerde mal den Tatort schaetzen mein Sohn.";
-std::string p1_set_1_str_3 = "Ich habe dir schon alles erzaehltwas ich weiß mein Kind.";
+std::string p1_set_1_str_1 = "Es gab ueber nacht einen Mord. Sie sollten lieber mehr von Sheriff hoeren";
+std::string p1_set_1_str_2 = "Ich wuerde mal am Tatort schaetzen, mein Sohn.";
+std::string p1_set_1_str_3 = "Ich habe dir schon alles erzaehlt was ich weiss, mein Kind.";
 
 std::string mensa_options_1 = "Was moechtest du tun? \n1. Etwas zu Essen holen \n2. Mit Herr Mueller sprechen\n3. Mensa verlassen";
 std::string p7_set_1_options = "Du bist zur Essensausgabe gegangen.\nDu hast folgende Optionen: \n1. Essen geben lassen \n2. Ihn nach dem Sheriff fragen\n3. Gespraech verlassen";
@@ -98,12 +96,12 @@ std::string p3_set_1_str_2 ="Der Mord verunsichert alle Leute. Der Taeter ist be
 std::string p3_set_1_str_3="Kann ich bitte nun in Ruhe essen?";
 
 
-//TODO: Herr Schmidt sitzt im Beichtstuhl und beichtet dir seine Tat!!! texte aendern!
+//TODO: Du setzt dich und sagst: Hallo <eingabe> [if eigabe == mein Kind ; er beichtet ? er merkt das du es bist
 //Optionen muessen geaendert werden - p2_set_1_str_1 muss ein Gestaendnis sein
-std::string p2_set_1_options ="Du hast dich zu Herr Schmidt gesetzt, dieser sitzt ein wenig nachdenklich vor seinem Essen.\nDu hast folgende Optionen:\n1. Ihn fragen was ihn bekuemmert. \n2. Ihn fragen wie das Dessert schmeckt. \n3. Gespraech verlassen.";
-std::string p2_set_1_str_1 ="Ich haette es nie fuer moeglich gehalten, dass in unserem kleinen Dorf mal jemand ermordet werden wuerde. Jetzt wird der Taeter gesucht.. sind wir sicher?.";
-std::string p2_set_1_str_2 ="Also ich finde es nicht sehr berauschend."; // Luege
-std::string p2_set_1_str_3 ="Lass mich bitte ein wenig in Ruhe essen.";
+std::string p2_set_1_options ="Du setzt dich und sagst nichts.\nDu hast folgende Optionen:\n1. Du schaust auf die Uhr. \n2. Spricht den Herrn auf in der Beichkabine an. \n3. Beichtstuhl verlassen.";
+std::string p2_set_1_str_1 ="Was habe ich getan... oh Herr werde ich jetzt in die Hölle kommen weil ich ihn ermordet habe?.";
+std::string p2_set_1_str_2 ="Oh sie sind das. Ich habe gerade keine zeit für Sie"; // Luege
+std::string p2_set_1_str_3 ="Bitte gehen sie jetzt.";
 
 std::string p6_set_1_options = "Du gehst auf den Sheriff zu, dieser erwartet dich schon. \nDu hast folgende Optionen\n1. Die Mission annehmen\n2. Ihn nach dem verstorbenen fragen \n3. Das Gespraech verlassen";
 std::string p6_set_1_str_1 ="Der Sheriff uebergibt dir einen Sheriffsstern und erteilt dir noch einmal offiziell den Auftrag mit allen im Dorf zu sprechen. Deine Aufgabe ist es nun mit allen Bewohnern des Dorfes zu sprechen und Indizien zu sammeln. Wenn du genug davon hast, sollst du wieder zurueck zum Sheriff kommen.";
@@ -117,11 +115,11 @@ std::string p4_set_1_str_3 ="Lass mich bitte jetzt in Ruhe meine Hausaufgaben ma
 
 std::string p4_set_3_str_1 = "Nochmal vielen Dank das du mir geholfen hast! Aber den Rest schaffe ich denke ich selber";
 std::string p4_set_4_str_1 = "Du solltest dich eher fragen wie du das Abitur geschafft hast, selbst ein Grundschueler konnte mir mehr helfen wie du";
-std::string p4_set_3_options ="Du setzt dich zu Paul an den Tisch, dieser macht gerade Mathe Hausaufgaben und flucht ein wenig darueber.\n Du hast folgende Moeglichkeiten: \n1. Bei den Hausaufgaben helfen\n2. Ihn fragen was er ueber Hr. Meier weiß\n3. Aufstehen";
+std::string p4_set_3_options ="Du setzt dich zu Paul an den Tisch, dieser macht gerade Mathe Hausaufgaben und flucht ein wenig darueber.\n Du hast folgende Moeglichkeiten: \n1. Bei den Hausaufgaben helfen\n2. Ihn fragen was er ueber Hr. Meier weiss\n3. Aufstehen";
 
 std::string p5_set_1_options ="Du Setzt dich zu Jan an den Tisch, dieser spielt gerade an einem Handheld\nDir bieten sich folgende Moeglichkeiten: \n1. Ihn fragen was er da gerade macht\n2.Ihn fragen warum hier ist \n3.Aufstehen";
 std::string p5_set_1_str_1 ="Jan erzaehlt dir, dass er gerade das neue Pokemon spielt. Nach einigen Details und Fachbegriffen steigst du jedoch vollkommen aus und Jan ersparrt dir weitere Details.";
-std::string p5_set_1_str_2 ="Jan erzaehlt dir, dass er glaubt das Herr Meier mit dem Sheriff im Klintsch lag und du genau deswegen die Ermittlungen uebernehmen sollst. Wer weiß, vielleicht hat der Sherriff ihn ja selbst umgebracht?";
+std::string p5_set_1_str_2 ="Jan erzaehlt dir, dass er glaubt das Herr Meier mit dem Sheriff im Klintsch lag und du genau deswegen die Ermittlungen uebernehmen sollst. Wer weiss, vielleicht hat der Sheriff ihn ja selbst umgebracht?";
 std::string p5_set_1_str_3 ="Ach komm, lass den armen Jungen doch einfach in Ruhe zocken.";
 
 
@@ -142,7 +140,7 @@ std::string not_useful ="Das hilft dir auch nicht weiter, du kehrst in die Raumu
 std::string note_options = "Du hast folgende Optionen: \n1. Mitnehmen \n2. Liegen lassen";
 std::string enter_solution = "Loesung eintippen";
 std::string leave_tatort = "Du verlaesst den Tatort";
-std::string thanks_for_homework = "Das sieht gut aus, ich danke dir fuer deine Hilfe. \nIch moechte dir dafuer diesen Schluessel geben, den ich heute morgen im Wald gefunden habe. Ich weiß zwar nicht zu welcher Tuer er passt, aber vielleicht findest du es ja heraus.";
+std::string thanks_for_homework = "Das sieht gut aus, ich danke dir fuer deine Hilfe. \nIch moechte dir dafuer diesen Schluessel geben, den ich heute morgen im Wald gefunden habe. Ich weiss zwar nicht zu welcher Tuer er passt, aber vielleicht findest du es ja heraus.";
 std::string wrong_solution = "Ich glaube nicht dass das stimmt, aber trotzdem nett das du es versucht hast";
 std::string easter_egg_str_1 = "Eine nackte Frau kommt auf dich zu und fragt dich woher ploetzlich das Heu kommt";
 std::string easter_egg_str_2 = "Du reibst dir verwundert die Augen und merkst, dass du das nur getraeumt hast";
