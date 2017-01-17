@@ -37,6 +37,7 @@ class person
         std::string GetDialogOptions();
         std::string GetAnswer(int answer_choose, bool temp = true);
         std::string GetFinalInformation();
+        int GetCounter();
         bool GetWerwolfStatus();
 };
 

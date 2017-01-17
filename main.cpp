@@ -471,6 +471,7 @@ void Play(struct data* game)
                         switch (GetUserInput(tempstring,3)) {
                         case 1:
                             print(game ->peoplelist[6].GetAnswer(1));
+
                             if(!game->inv.CheckIfElementIsInList("Teller mit Schnitzel und ein kleines Dessert")){
                                 food.name = "Teller mit Schnitzel und ein kleines Dessert";
                                 food.beweisstueck = 0;
@@ -478,8 +479,9 @@ void Play(struct data* game)
                                 game->inv.Add(food);
                             }
                             else{
-                                // des klappt nicht
-                                print(food_in_inventar);
+                                if(game->peoplelist[6].GetCounter() < 3){
+                                    print(food_in_inventar);
+                                }
                             }
                             break;
                         case 2:

@@ -51,16 +51,17 @@ std::string person::GetDialogOptions()
 
 std::string person::GetAnswer(int answer_choose, bool temp)
 {
+    if(temp)
+    {
+        ask_Counter++;
+    }
     if(ask_Counter >= 2 && temp)
     {
+
         return answer_random;
     }
     else
     {
-        if(temp)
-        {
-            ask_Counter++;
-        }
         switch(answer_choose)
         {
             case(1): return answer_neutral;
@@ -91,4 +92,7 @@ bool person::GetWerwolfStatus()
     {
         return false;
     }
+}
+int person::GetCounter(){
+    return ask_Counter;
 }
