@@ -55,7 +55,7 @@ std::string person::GetAnswer(int answer_choose, bool temp)
     {
         ask_Counter++;
     }
-    if(ask_Counter >= 2 && temp)
+    if(ask_Counter >= 3 && temp)
     {
 
         return answer_random;

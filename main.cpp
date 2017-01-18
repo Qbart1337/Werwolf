@@ -8,29 +8,6 @@
 #include <textstrings.cpp>
 #include <limits>
 
-/*
-bei Settern wenn möglich 'const &' von der Variable übergeben
-
-Wenn ich nur & von der Variable übergebe, kann ich sie auch ändern in der Methode -> siehe bsp
-
-Anforderungen:
--Bewegung durch Räume bzw. Szenen basierend auf Textein- und ausgabe - check
--Interaktion mit Spielwelt, inkl. Zustandsänderung /z.B. Schalter, Türe, LP - bin dabei
--Einfache Inventarverwaltung z.B. Gegenstand aufnehmen, später benutzen - passt denke ich wenn es funkt
--Teilprozesse z.B. Unterhaltung/Dialog, Kampf, schrittweises Rätsel etc. - ist in Planung
-
-
-TODO:
-Std::list -> Inventar // Inventar hat fest 3 Plätze  --- umgeplant
-Bewegung und Verzweigung der Räume --- In Progress
-Zustandsänderungen erhöhen ((Interatkion mit Inventar) --- In Progress
-Kommentieren wer was gemacht hat --- muss noch erledigt werden
-
-
-cleanConsole() um das ganze hübscher zu machen | Haben system("cls") dafuer eingebaut
-Leave Messages zu Räumen und teils auch Gesprächen
-*/
-
 // Caner Yavuz
 using namespace std;
 enum inventartyp{ food_1,beweisstueck,key};
@@ -75,7 +52,7 @@ public:
         }
     }
     int GetNumberOfListElement(std::string input_name){
-        for(int i=0;i<count;i++){
+        for(int i=0;i<=count;i++){
             if(count == 0){
                 return -1;
             }
@@ -84,8 +61,8 @@ public:
                     return i;
                 }
             }
-            return -1;
         }
+        return -1;
     }
 
 
@@ -93,7 +70,7 @@ public:
     {
         if(count >=10)
         {
-            print("Inventar voll! Dieses Element kann nicht aufgenommen werden");
+            printTextSmoothly("Inventar voll! Dieses Element kann nicht aufgenommen werden");
             //Inventar voll
         }
         else{
@@ -101,20 +78,19 @@ public:
             count++;
         }
     }
-    void Delete(int deletenumber){
-
-        if(count == deletenumber)
+    void Delete(int delete_number){
+        if(count-1 == delete_number)
         {
-            Liste[deletenumber] = t1;
+            Liste[delete_number] = t1;
             count --;
         }
         else{
-            for(deletenumber;deletenumber<count;deletenumber++){
-                inventarelement tmp = Liste[deletenumber];
-                Liste[deletenumber] = Liste[deletenumber+1];
-                Liste[deletenumber+1] = tmp;
+            for(delete_number;delete_number<=count;delete_number++){
+                inventarelement tmp = Liste[delete_number];
+                Liste[delete_number] = Liste[delete_number+1];
+                Liste[delete_number+1] = tmp;
             }
-            Liste[deletenumber] = t1;
+            Liste[delete_number+1] = t1;
             count --;
         }
     }
@@ -142,7 +118,6 @@ struct data
 
 void CreateGame(struct data *z)
 {
-    cout << initialize_person_start << endl;
     person person_one;
     person person_two;
     person person_three;
@@ -153,14 +128,11 @@ void CreateGame(struct data *z)
 
     person_one.SetName("Pfarrer");
     person_two.SetName("Herr Schmidt");
-    person_three.SetName("Herr Müller");
+    person_three.SetName("Herr Mueller");
     person_four.SetName("Paul");
     person_five.SetName("Jan");
     person_six.SetName("Sheriff");
-    person_seven.SetName("Küchenchef");
-
-    //inventar inv;
-    //z ->inventar = inv;
+    person_seven.SetName("Kuechenchef");
 
     z ->peoplelist[0] = person_one;
     z ->peoplelist[1] = person_two;
@@ -169,7 +141,6 @@ void CreateGame(struct data *z)
     z ->peoplelist[4] = person_five;
     z ->peoplelist[5] = person_six;
     z ->peoplelist[6] = person_seven;
-    cout << initialize_person_end << endl;
 
 }
 
@@ -181,7 +152,7 @@ void SetDialogText(int set, struct data* z)
         z ->peoplelist[0].SetDialog(p1_set_1_str_1, p1_set_1_str_2, p1_set_1_str_3);
         z ->peoplelist[1].SetDialogOptions(p2_set_1_options);
         z ->peoplelist[1].SetDialog(p2_set_1_str_1, p2_set_1_str_2, p2_set_1_str_3);
-        z ->peoplelist[2].SetWerwolf();
+        z ->peoplelist[1].SetWerwolf();
         z ->peoplelist[2].SetDialogOptions(p3_set_1_options);
         z ->peoplelist[2].SetDialog(p3_set_1_str_1, p3_set_1_str_2, p3_set_1_str_3);
         z ->peoplelist[3].SetDialogOptions(p4_set_1_options);
@@ -214,34 +185,35 @@ void SetDialogText(int set, struct data* z)
 }
 
 
-// @Alex_
-int GetUserInput(std::string options, int maxAllowedNumber, int minAllowedNumber=1){
+// @Alexander Gross
+int GetUserInput(std::string options, int max_allowed_number, int min_allowed_number=1){
     bool correct_input = false;
     int input;
 
     while (!correct_input) {
         printXEmptyLines(1);
-        print(options);
+        printTextSmoothly(options);
         cin >> input;
         while(cin.fail()){
-            cleanconsole();
+            cleanConsole();
             cin.clear();
             cin.ignore();
-            print("Falsche Eingabe, ENTER A NUMBER");
+
+            printTextSmoothly(error_message_not_a_number);
             printXEmptyLines(1);
-            print(options);
+            printTextSmoothly(options);
             cin >> input;
         }
-        if(input >= minAllowedNumber && input <= maxAllowedNumber){
+        if(input >= min_allowed_number && input <= max_allowed_number){
             correct_input = true;
         }
         else{
-            cleanconsole();
-            print("Bitte gebe eine gueltige Zahl ein. Ein gueltige Zahl ist ganzzahlig und liegt im Bereich ZWISCHEN " + std::to_string(minAllowedNumber-1) + " und " + std::to_string(maxAllowedNumber+1));
+            cleanConsole();
+            printTextSmoothly("Bitte gebe eine gueltige Zahl ein. Ein gueltige Zahl ist ganzzahlig und liegt im Bereich ZWISCHEN " + std::to_string(min_allowed_number-1) + " und " + std::to_string(max_allowed_number+1));
             printXEmptyLines(1);
         }
     }
-    cleanconsole();
+    cleanConsole();
     return input;
 }
 
@@ -250,22 +222,22 @@ void Play(struct data* game)
     int available_houses = 6;
     int set = 1; // TODO: später auf set = 1 setzen, zu Testzwecken schon Set = 2
     bool activatedgame = false;
-    bool knowlegdeOfHiddenRoom = false;
-    bool enableGericht = false;
-    bool takenChurchKey = false;
+    bool knowlegde_of_hiddenroom = false;
+    bool enable_court = false;
+    bool taken_church_key = false;
     bool church_back_room_door = false;
     bool church_notes_taken = false;
     bool hiddenroom_notes_taken = false;
-    bool helpwithhomework = false;
-    bool hiddenroomopen = false;
+    bool help_with_homework = false;
+    bool hiddenroom_open = false;
 
 
     // Einführung
+    printTextSmoothly(introduction);
+
     printXEmptyLines(2);
 
-    //Zu Testzwecken ausgeschaltet
-    //printTextSmoothly(introduction);
-    print(introduction);
+    printTextSmoothly(gamerules);
 
     printXEmptyLines(2);
 
@@ -278,29 +250,27 @@ void Play(struct data* game)
     while(!ready_for_final_question)
     {
         //Loop Variablen
-        bool stayinchurch = true;
-        bool stayinmensa = true;
-        bool stayintatort = true;
-        bool stayinaufenthaltsraum = true;
-        bool stayinscheune = true;
-        bool stayinfriedhof = true;
-        bool stayinchurchbackroom = true;
-        bool stayinhiddenroom = true;
-        bool talkWithP1 = true;
-        bool talkWithP2 = true;
-        bool talkWithP3 = true;
-        bool talkWithP4 = true;
-        bool talkWithP5 = true;
-        bool talkWithP6 = true;
-        bool talkWithP7 = true;
+        bool stay_in_church = true;
+        bool stay_in_mensa = true;
+        bool stay_in_crime_scene = true;
+        bool stay_in_common_room = true;
+        bool stay_in_barn = true;
+        bool stay_in_cemetery = true;
+        bool stay_in_churchbackroom = true;
+        bool stay_in_hiddenroom = true;
+        bool talk_with_p1 = true;
+        bool talk_with_p2 = true;
+        bool talk_with_p3 = true;
+        bool talk_with_p4 = true;
+        bool talk_with_p5 = true;
+        bool talk_with_p6 = true;
+        bool talk_with_p7 = true;
 
         //temporary string
         std::string tempstring;
 
-        //TODO: Auslagern
-        //TODO: Auslagern
         //falls das Bool "erlaubeGericht" freigeschaltet wurde, wird hier auch der Raum 7 "Gerichtsgebäude" angeboten, da man einen Schlüssel bekommt
-        if(!enableGericht){
+        if(!enable_court){
             tempstring = options;
         }
         else{
@@ -312,110 +282,112 @@ void Play(struct data* game)
         switch(GetUserInput(tempstring,available_houses)){
         case 1:
             //Kirche
-            while(stayinchurch){
-
-                print(church_intro);
+            printTextSmoothly(church_intro);
+            while(stay_in_church){
                 switch(GetUserInput(church_options,4)){
                 case 1:
                     //Mit P1 sprechen
-                    print(p1_intro);
-                    while(talkWithP1){
+                    printTextSmoothly(p1_intro);
+                    while(talk_with_p1){
                         switch(GetUserInput(game->peoplelist[0].GetDialogOptions(),3)){
                             case 1:
-                                print(game->peoplelist[0].GetAnswer(1));                                
+                                printTextSmoothly(game->peoplelist[0].GetAnswer(1));
                                 break;
                             case 2:
-                                print(game->peoplelist[0].GetAnswer(2));
+                                printTextSmoothly(game->peoplelist[0].GetAnswer(2));
                                 break;
                             case 3:
-                                talkWithP1 = false;
+                                talk_with_p1 = false;
                                 break;
                         }
                     }
-                    talkWithP1 = true;
+                    talk_with_p1 = true;
                     break;
                 case 2:
                     //Beichtstuhl
                     if(!activatedgame){
                         //Sollte man hier hingehen bevor man beim Sheriff war, so findet man den Täter dort und er liefert starke Indizien fuer seine Tat
-                        print(confessional_intro_pre);
+                        printTextSmoothly(confessional_intro_pre);
 
-                        while(talkWithP3){
+                        while(talk_with_p3){
                             switch(GetUserInput(game->peoplelist[1].GetDialogOptions(),3)){
-                            case 1:                                
-                                print(game->peoplelist[1].GetAnswer(1));
-                                if(game->inv.CheckIfElementIsInList("Gestaednis von Herr Schmidt")){
-                                    inventarelement talk_with_p3;
-                                    talk_with_p3.beweisstueck = 2;
-                                    talk_with_p3.typ = beweisstueck;
-                                    talk_with_p3.name = "Gestaednis von Herr Schmidt";
-
-                                }
+                            case 1:
+                                printTextSmoothly(game->peoplelist[1].GetAnswer(1));
+                                if(game->peoplelist[1].GetCounter() < 3 &&!game->inv.CheckIfElementIsInList("Gestaednis von Herr Schmidt")){
+                                    //Gestaednis dem Inventar hinzufuegen
+                                    inventarelement talked_with_p3;
+                                    talked_with_p3.beweisstueck = 2;
+                                    talked_with_p3.typ = beweisstueck;
+                                    talked_with_p3.name = "Gestaednis von Herr Schmidt";
+                                    game->inv.Add(talked_with_p3);
+                                    }
                                 break;
                             case 2:
-                                print(game->peoplelist[1].GetAnswer(2));
+                                printTextSmoothly(game->peoplelist[1].GetAnswer(2));
                                 break;
                             case 3:
-                                talkWithP3 = false;
+                                talk_with_p3 = false;
                                 break;
                             }
                         }
-                        talkWithP3 = true;
+                        talk_with_p3 = true;
                     }
-                    else{                        
-                        if(!takenChurchKey){
-                            print(confessional_intro);
-
+                    else{
+                        if(!taken_church_key){
+                            printTextSmoothly(confessional_intro);
+                            taken_church_key = true;
                             if(GetUserInput(confessional_options,1) == 1)
                             {
                                 if(!game->inv.CheckIfElementIsInList("Kirchenschluessel")){
+                                    //Kirchenschluessel dem Inventar hinzufuegen
                                     inventarelement church_key;
                                     church_key.name = "Kirchenschluessel";
                                     church_key.beweisstueck = 0;
                                     church_key.typ = key;
                                     game ->inv.Add(church_key);
+                                    printTextSmoothly(leave_confessional);
                                 }
                             }
                         }
                         else{
-                            print(confessional_intro_2);
+                            printTextSmoothly(confessional_intro_2);
                         }
                     }
                     break;
                 case 3:
                     //Zur Tür hinter dem Altar gehen
                     if(church_back_room_door == false){
-                        if(!game ->inv.CheckIfElementIsInList("Kirchenschluessel"))
+                        if(game ->inv.CheckIfElementIsInList("Kirchenschluessel"))
                         {
-                            std::string use_church_key = "Du verwendest den Schluessel den du im Beichtstuhl gefunden hast";
-                            print(use_church_key);
+                            //Kirchenschluessen aus dem Inventar entfernen
+                            printTextSmoothly(use_church_key);
                             game ->inv.Delete("Kirchenschluessel");
                             church_back_room_door = true;
                         }
-                        else{                            
-                            print(no_key);
+                        else{
+                            printTextSmoothly(no_key);
                         }
                     }
                     if(church_back_room_door)
                     {
-                        while(stayinchurchbackroom){
-                            print(church_back_room_intro);
+                        while(stay_in_churchbackroom){
+                            printTextSmoothly(church_back_room_intro);
                             if(!church_notes_taken){
                                 tempstring = church_back_room_options;
                             }
-                            else{                                
+                            else{
                                 tempstring = church_back_room_options_2;
                             }
                             switch(GetUserInput(tempstring,3)){
                             case 1:
                                 //Gebetsbuchtext
-                                print(church_back_room_prayer_book);
-                                print(not_useful);
+                                printTextSmoothly(church_back_room_prayer_book);
+                                printTextSmoothly(not_useful);
                                 break;
                             case 2:
                                 // Tagebuch
                                 if(!church_notes_taken){
-                                    print(church_back_room_notes);
+                                    printTextSmoothly(church_back_room_notes);
 
                                     if(GetUserInput(note_options,2) == 1){
                                         if(!game->inv.CheckIfElementIsInList("Tagebuch des Pfarrers")){
@@ -429,29 +401,29 @@ void Play(struct data* game)
                                     }
                                 }
                                 else{
-                                    stayinchurchbackroom = false;
+                                    stay_in_churchbackroom = false;
                                 }
 
                                 break;
                             case 3:
-                                stayinchurchbackroom = false;
+                                stay_in_churchbackroom = false;
                                 break;
                             }
                         }
-                        stayinchurchbackroom = true;
+                        stay_in_churchbackroom = true;
                     }
                     break;
                 case 4:
-                    stayinchurch = false;
+                    stay_in_church = false;
                     break;
                 }
             }
-            stayinchurch = true;
+            stay_in_church = true;
             break;
         case 2:
             //Mensa
-            print(mensa_intro);
-            while(stayinmensa){
+            printTextSmoothly(mensa_intro);
+            while(stay_in_mensa){
 
                 //Wenn das Spiel noch nicht aktiviert ist, befindet sich der Täter noch nicht in der Mensa, daher wird ein andere Optionen geladen..
                 if(!activatedgame){
@@ -464,15 +436,17 @@ void Play(struct data* game)
                 switch (GetUserInput(tempstring,4)) {
                 case 1:
                     //Mit P7 sprechen
-                    while(talkWithP7){
+                    printTextSmoothly(p7_intro);
+                    while(talk_with_p7){
                         tempstring = game ->peoplelist[6].GetDialogOptions();
 
-                        inventarelement food;
                         switch (GetUserInput(tempstring,3)) {
                         case 1:
-                            print(game ->peoplelist[6].GetAnswer(1));
+                            printTextSmoothly(game ->peoplelist[6].GetAnswer(1));
 
                             if(!game->inv.CheckIfElementIsInList("Teller mit Schnitzel und ein kleines Dessert")){
+                                //Essen dem Inventar hinzufuegen
+                                inventarelement food;
                                 food.name = "Teller mit Schnitzel und ein kleines Dessert";
                                 food.beweisstueck = 0;
                                 food.typ = food_1;
@@ -480,37 +454,38 @@ void Play(struct data* game)
                             }
                             else{
                                 if(game->peoplelist[6].GetCounter() < 3){
-                                    print(food_in_inventar);
+                                    printTextSmoothly(food_in_inventar);
                                 }
                             }
                             break;
                         case 2:
-                            print(game ->peoplelist[6].GetAnswer(2));
+                            printTextSmoothly(game ->peoplelist[6].GetAnswer(2));
                             break;
                         case 3:
-                            talkWithP7 = false;
+                            talk_with_p7 = false;
                             break;
                         }
                     }
-                    talkWithP7 = true;
+                    talk_with_p7 = true;
                     break;
                 case 2:
                     //Mit P3 Sprechen (Hr. Müller)
-                    while(talkWithP3){
+                    printTextSmoothly(p3_intro);
+                    while(talk_with_p3){
                         tempstring = game->peoplelist[2].GetDialogOptions();
                         switch (GetUserInput(tempstring,3)) {
                         case 1:
-                            print(game->peoplelist[2].GetAnswer(1));
+                            printTextSmoothly(game->peoplelist[2].GetAnswer(1));
                             break;
                         case 2:
-                            print(game->peoplelist[2].GetAnswer(2));
+                            printTextSmoothly(game->peoplelist[2].GetAnswer(2));
                             break;
                         case 3:
-                            talkWithP3 = false;
+                            talk_with_p3 = false;
                             break;
                         }
                     }
-                    talkWithP3 = true;
+                    talk_with_p3 = true;
                     break;
                 case 3:
                     //Wenn man bevor man mit dem Sheriff geredet hat,
@@ -518,49 +493,53 @@ void Play(struct data* game)
                     //Später sind es 3, da der Täter auch in der Mensa sitzt
                     if(!activatedgame)
                     {
-                        stayinmensa = false;
+                        stay_in_mensa = false;
                     }
                     else{
                         //Mit P2 Sprechen
-                        while(talkWithP2){
+                        printTextSmoothly(p2_intro);
+                        while(talk_with_p2){
                             tempstring = game->peoplelist[1].GetDialogOptions();
                             switch(GetUserInput(tempstring,3)){
                             case 1:
-                                print(game ->peoplelist[1].GetAnswer(1));
+                                printTextSmoothly(game ->peoplelist[1].GetAnswer(1));
                                 break;
                             case 2:
-                                print(game->peoplelist[1].GetAnswer(2));
-                                knowlegdeOfHiddenRoom = true;
+                                printTextSmoothly(game->peoplelist[1].GetAnswer(2));
+                                if(game->peoplelist[1].GetCounter() < 3){
+                                    knowlegde_of_hiddenroom = true;
+                                }
                                 break;
                             case 3:
-                                talkWithP2 = false;
+                                talk_with_p2 = false;
                                 break;
                             }
                         }
-                        talkWithP2 = true;
+                        talk_with_p2 = true;
                     }
                     break;
                 case 4:
-                    stayinmensa = false;
+                    stay_in_mensa = false;
                 }
             }
-            stayinmensa = true;
+            stay_in_mensa = true;
             break;
         case 3:
             //Tatort
-            while(stayintatort){
-                print(crime_scene_intro);
+            printTextSmoothly(crime_scene_intro);
+            while(stay_in_crime_scene){
                 switch(GetUserInput(crime_scene_options,3)){
                 case 1:
                     //Mit dem Sheriff (P6) sprechen
-                    while(talkWithP6){
+                    printTextSmoothly(p6_intro);
+                    while(talk_with_p6){
                         tempstring = game->peoplelist[5].GetDialogOptions();
 
                         switch(GetUserInput(tempstring,3)){
                         case 1:
                             if(!activatedgame){
                                 //Spiel starten und den Auftrag offiziell annehmen
-                                print(game->peoplelist[5].GetAnswer(1,false));
+                                printTextSmoothly(game->peoplelist[5].GetAnswer(1,false));
 
                                 //Texte werden neu gesetzt
                                 set = 2;
@@ -568,146 +547,145 @@ void Play(struct data* game)
                                 SetDialogText(set, game);
 
                                 printXEmptyLines(2);
-                                print("Die Leute erkennen dich nun als Ermittler und werden dir ggf. anderes erzaehlen wie zuvor.");
+                                printTextSmoothly(mission_accepted);
                                 printXEmptyLines(2);
 
                             }
                             else{
                                 //Spiel "beenden" und zur Anklage einer Person kommen
                                 //Der Ort "Gericht" wird dadurch freigeschaltet und man bekommt einen Schlüssel
-                                print(game->peoplelist[5].GetAnswer(1,false));
-                                enableGericht = true;
-                                inventarelement gerichtskey;
-                                gerichtskey.beweisstueck = 0;
-                                gerichtskey.name = "Schluessel zum Gericht";
-                                gerichtskey.typ = key;
-                                game->inv.Add(gerichtskey);
+                                printTextSmoothly(game->peoplelist[5].GetAnswer(1,false));
+                                enable_court = true;
+                                if(!game->inv.CheckIfElementIsInList("Schluessel zum Gericht")){
+                                    //Schluessel zum Gericht hinzufuegen
+                                    inventarelement court_key;
+                                    court_key.beweisstueck = 0;
+                                    court_key.name = "Schluessel zum Gericht";
+                                    court_key.typ = key;
+                                    game->inv.Add(court_key);
+                                }
                             }
                             break;
                         case 2:
-                            print(game->peoplelist[5].GetAnswer(2,false));
+                            printTextSmoothly(game->peoplelist[5].GetAnswer(2,false));
                             break;
                         case 3:
                             //Gespräch verlassen
-                            talkWithP6 = false;
+                            talk_with_p6 = false;
                         }
                     }
-                    talkWithP6 = 6;
+                    talk_with_p6 = 6;
                     break;
                 case 2:
                     //Leiche anschauen
-                    print(watch_stiff);
+                    printTextSmoothly(watch_stiff);
                     break;
                 case 3:
                     //Tatort verlassen
-                    stayintatort = false;
+                    stay_in_crime_scene = false;
 
                     break;
                 }
             }
-            stayintatort = true;
+            stay_in_crime_scene = true;
             break;
         case 4:
             //Aufenthaltsraum
-            print(common_room_intro);
-            while(stayinaufenthaltsraum){
+            printTextSmoothly(common_room_intro);
+            while(stay_in_common_room){
                 switch (GetUserInput(common_room_options,3)) {
                 case 1:
                     //Mit P4 sprechen
-                    while(talkWithP4){
+                    printTextSmoothly(p4_intro);
+                    while(talk_with_p4){
                         tempstring = game->peoplelist[3].GetDialogOptions();
                         switch(GetUserInput(tempstring,3)){
                         case 1:
                             //Bei den Mathehausaufgaben helfen
                             if(!activatedgame){
-                                print(game->peoplelist[3].GetAnswer(1));
+                                printTextSmoothly(game->peoplelist[3].GetAnswer(1));
                                 break;
                             }
 
-                            if(!helpwithhomework)
+                            if(!help_with_homework)
                             {
-                                //print(game->peoplelist[3].GetAnswer(1));
-
-                                //print(enter_solution);
-
                                 tempstring = game ->peoplelist[3].GetAnswer(1) + "\n" + enter_solution;
-                                helpwithhomework = true;
-                                //int lsg;
-                                //cin >> lsg;
-                                //TODO
+                                help_with_homework = true;
+
                                 if(GetUserInput(tempstring,999,-999) == -16){
-                                    print(thanks_for_homework);
+                                    printTextSmoothly(thanks_for_homework);
                                     if(!game->inv.CheckIfElementIsInList("Unbekannter Schluessel")){
-                                        inventarelement scheunenkey;
-                                        scheunenkey.beweisstueck = 0;
-                                        scheunenkey.name = "Unbekannter Schluessel";
-                                        scheunenkey.typ = key;
-                                        game->inv.Add(scheunenkey);
+                                        inventarelement barn_key;
+                                        barn_key.beweisstueck = 0;
+                                        barn_key.name = "Unbekannter Schluessel";
+                                        barn_key.typ = key;
+                                        game->inv.Add(barn_key);
                                         game ->peoplelist[3].SetDialogOptions(p4_set_3_options);
+
                                         //Nur String 1 aendert sich
                                         game ->peoplelist[3].SetDialog(p4_set_3_str_1,p4_set_2_str_2,p4_set_2_str_3);
 
                                     }
                                 }
                                 else{
-
-                                    print(wrong_solution);
+                                    printTextSmoothly(wrong_solution);
                                     game ->peoplelist[3].SetDialogOptions(p4_set_3_options);
+
                                     //Nur String 1 aendert sich
                                     game ->peoplelist[3].SetDialog(p4_set_4_str_1,p4_set_2_str_2,p4_set_2_str_3);
                                 }
                             }
                             else{
                                 //Rätsel nicht mehr verfügbar
-                                print(game->peoplelist[3].GetAnswer(1));
+                                printTextSmoothly(game->peoplelist[3].GetAnswer(1));
                             }
 
                             break;
                         case 2:
-                            print(game->peoplelist[3].GetAnswer(2));
+                            printTextSmoothly(game->peoplelist[3].GetAnswer(2));
                             break;
                         case 3:
                             //Gespräch beenden
-                            talkWithP4=false;
+                            talk_with_p4=false;
                             break;
                         }
                     }
-                    talkWithP4 = true;
+                    talk_with_p4 = true;
                     break;
                 case 2:
                     //Mit P5 sprechen
-                    while(talkWithP5){
+                    printTextSmoothly(p5_intro);
+                    while(talk_with_p5){
                         tempstring = game->peoplelist[4].GetDialogOptions();
 
                         switch(GetUserInput(tempstring,3)){
                         case 1:
-                            print(game->peoplelist[4].GetAnswer(1));
+                            printTextSmoothly(game->peoplelist[4].GetAnswer(1));
                             break;
                         case 2:
-                            print(game->peoplelist[4].GetAnswer(2));
+                            printTextSmoothly(game->peoplelist[4].GetAnswer(2));
                             break;
                         case 3:
                             //Gespräch beenden
-                            talkWithP5=false;
+                            talk_with_p5=false;
                             break;
                         }
                     }
-                    talkWithP5 = true;
+                    talk_with_p5 = true;
                 case 3:
                     //Raum verlassen
-                    stayinaufenthaltsraum = false;
+                    stay_in_common_room = false;
                     break;
                 }
             }
-            stayinaufenthaltsraum = true;
+            stay_in_common_room = true;
             break;
         case 5:
             //Scheune
 
-            print(barn_intro);
-            while(stayinscheune){
-                if(!knowlegdeOfHiddenRoom){
-
+            printTextSmoothly(barn_intro);
+            while(stay_in_barn){
+                if(!knowlegde_of_hiddenroom){
                     printTextSmoothly(easter_egg_str_1);
                     Sleep(5000);
                     printXEmptyLines(1);
@@ -718,18 +696,18 @@ void Play(struct data* game)
                 }
                 else{
 
-                    print(barn_hay_action);
+                    printTextSmoothly(barn_hay_action);
                     if(game->inv.CheckIfElementIsInList("Unbekannter Schluessel"))
                     {
-                        if(!hiddenroomopen){
+                        if(!hiddenroom_open){
                             game->inv.Delete("Unbekannter Schluessel");
-                            print(hiddenroom_door_opening);
-                            hiddenroomopen = true;
+                            printTextSmoothly(hiddenroom_door_opening);
+                            hiddenroom_open = true;
                         }
-                        print(hiddenroom_entry);
-                        while(stayinhiddenroom){
+                        printTextSmoothly(hiddenroom_entry);
+                        while(stay_in_hiddenroom){
                             if(!hiddenroom_notes_taken){
-                                print(hiddenroom_notes_intro);
+                                printTextSmoothly(hiddenroom_notes_intro);
                                 inventarelement hidden_room_notes;
                                 hidden_room_notes.beweisstueck = 2;
                                 hidden_room_notes.name = "Schuldscheine aus der Scheune";
@@ -738,87 +716,89 @@ void Play(struct data* game)
                                 hiddenroom_notes_taken = true;
                             }
                             else{
-                            print(hiddenroom_intro_2);
+                            printTextSmoothly(hiddenroom_intro_2);
                             }
-                            stayinhiddenroom = false;
+                            stay_in_hiddenroom = false;
                         }
                     }
                     else{
-
-                        print(no_key);
+                        printTextSmoothly(no_key);
                     }
                 }
-                tempstring = "Druecke 1 um die Scheune zu verlassen";
-                if(GetUserInput( tempstring,1) == 1){
-                    stayinscheune = false;
+
+                if(GetUserInput( barn_otpions,1) == 1){
+                    stay_in_barn = false;
                 }
             }
-            stayinscheune = true;
+            stay_in_barn = true;
             break;
 
         case 6:
             //Friedhof
-            while(stayinfriedhof){
-                std::string cemetery_intro = "An einigen Gräbern liegen Blumen, an manchen mehr an manchen weniger\nHier kannst du nichts machen\nDrücke die 1 um den Friedhof wieder zu verlassen";
-                if(GetUserInput(cemetery_intro,1) ==1){
-                    stayinfriedhof = false;
+            printTextSmoothly(cemetery_intro);
+            while(stay_in_cemetery){
+                if(GetUserInput(cemetery_options,1) ==1){
+                    stay_in_cemetery = false;
                 }
             }
-            stayinfriedhof = true;
+            stay_in_cemetery = true;
 
             break;
         case 7:
             //Gerichtsgebäude -> du willst das Rätsel lösen
-            if(game->inv.CheckIfElementIsInList("Schluessel zum Gericht")){                
-                print(open_gericht);
+
+            if(game->inv.CheckIfElementIsInList("Schluessel zum Gericht")){
+                printTextSmoothly(open_gericht);
                 game->inv.Delete("Schluessel zum Gericht");
-                print(final_intro);
+                printTextSmoothly(final_intro);
                 Sleep(2000);
                 ready_for_final_question = true;
             }
             else{
-                print("Du hast keinen Schluessel hierfuer");
+                printTextSmoothly("Du hast keinen Schluessel hierfuer");
             }
             break;
-
         }
-        cleanconsole();
+        cleanConsole();
     }
 }
 
 void Ask(struct data* game)
 {
-    int element_number;
-    std::string tempstring;
-
     bool lose = false;
-    print(final_intro_part_2);
+    int element_number;
+    std::string tempstring = "";
+
+    printTextSmoothly(final_intro_part_2);
     printXEmptyLines(1);
-    print(choose_person);
-    tempstring = "";
+    printTextSmoothly(choose_person);
+
+    //Personen auflisten
     for(int i=0;i<7;i++){
         tempstring += std::to_string(i) + ". " + game ->peoplelist[i].GetName() + "\n";
     }
+
+    //
     int personnumber = GetUserInput(tempstring,6,0);
-    cleanconsole();
+    cleanConsole();
 
     tempstring = "Ich klage hiermit " + game ->peoplelist[personnumber].GetName() + " an und habe dafuer folgende Beweise";
-    print(tempstring);
+    printTextSmoothly(tempstring);
     printXEmptyLines(1);
-    bool chooseinventar = true;
+    bool choose_inventar = true;
     int counter = 0;
-    bool notdone = true;
+    bool not_done = true;
 
-    while(notdone){
-        print(final_intro_part_3);
+    while(not_done){
+        printTextSmoothly(final_intro_part_3);
 
         switch(GetUserInput(choose_inventar_intro,2)){
         case 1:
-            chooseinventar = true;
-            while(chooseinventar){
+            choose_inventar = true;
+            while(choose_inventar){
                 if(game->inv.CheckIfEmpty()){
-                    print(empty_inventar);
-                    notdone = false;
+                    printTextSmoothly(empty_inventar);
+                    not_done = false;
                     break;
                 }
                 else{
@@ -827,12 +807,12 @@ void Ask(struct data* game)
 
                     element_number = GetUserInput(choose_proof,game->inv.count,0);
                     if(element_number == game->inv.count){
-                      chooseinventar = false;
+                      choose_inventar = false;
                       break;
                     };
                     int priority = game ->inv.GetPriorityOfListElement(element_number);
                     if( priority < 0){
-                        print(game->inv.Liste[element_number].name);
+                        printTextSmoothly(game->inv.Liste[element_number].name);
                         lose=true;
                     }
 
@@ -846,28 +826,25 @@ void Ask(struct data* game)
             }
             break;
         case 2:
-            notdone = false;
+            not_done = false;
             break;
         }
     }
 
     if(lose){
-        printSpecialText("Du hast verloren");
+        printSpecialText(lose_msg);
         printXEmptyLines(2);
-        print("Das Gericht ist umpört, dass du ohne Gruende in Privaträume des Pfarrers eingedrungen bist um an Beweise zu kommen. Dies entspricht nach Ansichten des Gerichts eines Amtsmissbrauchs. Du verlierst dadurch jegliche Glaubwuerdigkeit und wirst selbst verurteilt.");
+        printTextSmoothly(lose_declaration_1);
     }
     else if(game ->peoplelist[personnumber].GetWerwolfStatus() && counter >=2 && !lose){
-        printSpecialText("Herzlichen Glueckwunsch");
+        printSpecialText(win_msg);
         printXEmptyLines(2);
-        print("du hast den Täter anhand von aussagekrätigen");
-        print("Beweisen ueberfuehrt");
+        printTextSmoothly(win_explanation);
     }
     else{
-        printSpecialText("Du hast das Spiel verloren");
+        printSpecialText(lose_msg);
         printXEmptyLines(2);
-        print("du hast entweder die falsche Person angeklagt ");
-        print("oder zu wenig Beweise vorlegen können ");
-        print("um das Gericht zu ueberzeugen");
+        printTextSmoothly(lose_declaration_2);
     }
 }
 
@@ -880,9 +857,9 @@ int main()
     Play(data_ptr);
     Ask(data_ptr);
     printXEmptyLines(2);
-    print("Das Spiel wird sich in 60 Sekunden beenden"); // Da freut er sich :D #Stefan
+    printTextSmoothly("Das Spiel wird sich in 60 Sekunden beenden"); // Da freut er sich :D #Stefan //Nicht nur der Stefan #Alex
     Sleep(60000);
-    cleanconsole();
+    cleanConsole();
     printSpecialText("Das Spiel wurde erfolgreich beendet");
     Sleep(1000);
 
